@@ -1,0 +1,14 @@
+# OS / editor
+.DS_Store
+.claude/
+node_modules/
+*.log
+
+# Confidential — do not publish
+K&P_HoteldelCoronado_Strategy_R1_060926.pdf
+*.pdf
+BRIEF.md
+
+# Working files not part of the deployed site
+mocks/
+Domaine Text/

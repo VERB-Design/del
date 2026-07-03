@@ -1,0 +1,153 @@
+/* =============================================================
+   HOTEL DEL CORONADO — Shared Design Tokens & Web Fonts
+   "The Great American Escape"
+   Used by all 4 homepage mocks. Do not duplicate @font-face.
+   ============================================================= */
+
+/* ---------- FONTS ----------
+   PRIMARY  : Domaine Text  (display + body, the workhorse)
+   SECONDARY: Gill Sans (Adobe Typekit kit ras5jtc) — buttons, nav, eyebrows, UI
+   SPECIAL  : Bon Vivant   — sparse signature flourishes only
+   The Typekit <link> lives in each HTML <head>:
+   <link rel="stylesheet" href="https://use.typekit.net/ras5jtc.css">
+*/
+
+@font-face {
+  font-family: "Domaine Text";
+  src: url("../../fonts/DomaineText-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Domaine Text";
+  src: url("../../fonts/DomaineText-LightItalic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Domaine Text";
+  src: url("../../fonts/DomaineText-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Domaine Text";
+  src: url("../../fonts/DomaineText-RegularItalic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Bon Vivant";
+  src: url("../../fonts/BonVivant.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Authenia";
+  src: url("../../fonts/Authenia-Solid.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---- Type families ---- */
+  --font-primary: "Domaine Text", Georgia, "Times New Roman", serif;
+  /* Adobe Typekit Gill Sans (kit ras5jtc). Common family slug + safe fallbacks. */
+  --font-secondary: "gill-sans-nova", "gill-sans", "Gill Sans", "Gill Sans MT", "Futura", sans-serif;
+  --font-special: "Bon Vivant", "Domaine Text", serif;
+
+  /* ---- BRAND PALETTE — grounded in the property ----
+     Iconic red turrets · Victorian white woodwork · Pacific navy ·
+     coastal teal · warm sand · sunset gold. Red is HERITAGE ACCENT —
+     used sparingly, never as a flood. */
+  --del-red:        #9B2D26;  /* turret-roof brick red — signature accent */
+  --del-red-deep:   #7C231D;
+  --del-coral:      #D95A40;  /* CTA coral (Figma menu: Reservations button) */
+  --navy:           #1B3A4B;  /* Pacific-night navy — primary dark ground */
+  --navy-deep:      #122A37;
+  --teal:           #2C6E7F;  /* coastal water */
+  --gold:           #B9893E;  /* sunset gold — premium accent / hairlines */
+  --gold-soft:      #C9A368;
+
+  /* Neutrals — warm, sunlit, never clinical */
+  --ivory:          #FBF7EF;  /* primary light ground */
+  --cream:          #F4ECDD;  /* warmer card ground */
+  --sand:           #E3D4BB;  /* muted section ground */
+  --sand-deep:      #CDB997;
+  --ink:            #25201A;  /* warm near-black body text */
+  --ink-soft:       #4A4138;
+  --line:           rgba(37,32,26,.14); /* hairline rules */
+
+  /* Semantic */
+  --bg:             var(--ivory);
+  --bg-alt:         var(--cream);
+  --text:           var(--ink);
+  --text-muted:     var(--ink-soft);
+  --accent:         var(--del-red);
+  --accent-2:       var(--gold);
+
+  /* ---- Type scale (fluid, 1.25 major-third-ish) ---- */
+  --step--1: clamp(0.78rem, 0.74rem + 0.2vw, 0.88rem);
+  --step-0:  clamp(1.00rem, 0.95rem + 0.25vw, 1.13rem);
+  --step-1:  clamp(1.30rem, 1.15rem + 0.6vw, 1.6rem);
+  --step-2:  clamp(1.7rem, 1.4rem + 1.2vw, 2.4rem);
+  --step-3:  clamp(2.3rem, 1.8rem + 2.2vw, 3.6rem);
+  --step-4:  clamp(3.0rem, 2.1rem + 4vw, 5.6rem);
+  --step-5:  clamp(3.6rem, 2.2rem + 6.5vw, 8rem);
+
+  /* ---- Spacing scale ---- */
+  --sp-1: 0.5rem;  --sp-2: 1rem;   --sp-3: 1.5rem;  --sp-4: 2.5rem;
+  --sp-5: 4rem;    --sp-6: 6rem;   --sp-7: 9rem;
+
+  /* ---- Section-spacer scale (modules hug; spacers own the rhythm) ---- */
+  --space-s:  clamp(2rem, 4vw, 3rem);
+  --space-m:  clamp(3rem, 6vw, 5rem);
+  --space-l:  clamp(4.5rem, 9vw, 8rem);
+  --space-xl: clamp(6.5rem, 12vw, 11rem);
+
+  /* ---- Misc ---- */
+  --maxw: 1320px;
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --radius: 2px;          /* The Del is editorial — minimal rounding */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.6s;
+  --eyebrow-ls: 0.22em;   /* letter-spacing for Gill Sans eyebrows */
+}
+
+/* ---- Base resets shared across mocks ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  font-weight: 300;            /* Domaine Text Light is the workhorse weight */
+  font-size: var(--step-0);
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+
+/* Gill Sans utility — nav, buttons, eyebrows, UI labels */
+.ui, .eyebrow, .btn, nav, .nav, button, .label {
+  font-family: var(--font-secondary);
+}
+.eyebrow {
+  font-size: var(--step--1);
+  letter-spacing: var(--eyebrow-ls);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+/* Bon Vivant — signature flourish, sparse */
+.signature { font-family: var(--font-special); font-weight: 400; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}

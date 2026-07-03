@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel del Coronado — The Leading Light of California's Coast</title>
+  <meta name="description" content="An iconic beachfront destination just beyond San Diego on Coronado Island. Since 1888, The Del brings a refreshing sense of ease to its sweeping shoreline.">
+
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="stylesheet" href="https://use.typekit.net/ras5jtc.css">
+  <link rel="stylesheet" href="assets/css/tokens.css?v=3">
+  <link rel="stylesheet" href="assets/css/main.css?v=37">
+  <link rel="preload" as="image" href="assets/img/lobby.jpg" fetchpriority="high">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===================== MENU BAR (Figma 1806:7256) ===================== -->
+  <header class="menu-bar">
+    <div class="menu-bar__group">
+      <button class="menu-bar__item menu-toggle menu-bar__item--menu" aria-expanded="false" aria-label="Open menu">
+        <span class="bars" aria-hidden="true"></span>
+        <span class="ui-label">Menu</span>
+      </button>
+      <span class="menu-bar__divider" aria-hidden="true"></span>
+      <span class="menu-bar__item menu-bar__item--aux">
+        <span class="menu-bar__icon" aria-hidden="true"><img src="assets/img/menu/sun.svg" alt="" style="inset:0;width:100%;height:100%;"></span>
+        <span class="ui-label">76°F / 24°C</span>
+      </span>
+      <span class="menu-bar__divider" aria-hidden="true"></span>
+      <a class="menu-bar__item menu-bar__item--aux" href="#">
+        <span class="menu-bar__icon icon-cam" aria-hidden="true">
+          <img class="cam-1" src="assets/img/menu/cam-1.svg" alt="">
+          <img class="cam-2" src="assets/img/menu/cam-2.svg" alt="">
+          <img class="cam-3" src="assets/img/menu/cam-3.svg" alt="">
+        </span>
+        <span class="ui-label">Beach Cam</span>
+      </a>
+    </div>
+
+    <a class="menu-bar__logo" href="/" aria-label="Hotel del Coronado, home">
+      <img src="assets/img/menu/logo.svg" alt="Hotel del Coronado">
+    </a>
+
+    <div class="menu-bar__group">
+      <a class="menu-bar__item menu-bar__item--aux" href="tel:+18004683533">
+        <span class="menu-bar__icon" aria-hidden="true"><img src="assets/img/menu/speech.svg" alt="" style="inset:0;width:100%;height:100%;"></span>
+        <span class="ui-label">800-468-3533</span>
+      </a>
+      <span class="menu-bar__divider" aria-hidden="true"></span>
+      <a class="menu-bar__item menu-bar__item--aux" href="#">
+        <span class="menu-bar__icon icon-stars" aria-hidden="true">
+          <img class="star-1" src="assets/img/menu/star-1.svg" alt="">
+          <img class="star-2" src="assets/img/menu/star-2.svg" alt="">
+        </span>
+        <span class="ui-label">Concierge</span>
+      </a>
+      <a class="btn-reserve" href="#"><span class="label">Reservations</span></a>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN ===================== -->
+  <main id="main">
+
+    <!-- SHOWCASE — full-bleed hero video -->
+    <section class="showcase" aria-label="Hotel del Coronado">
+      <video class="showcase__video" autoplay muted loop playsinline preload="metadata">
+        <source src="assets/img/desktop_hero.mp4" type="video/mp4">
+      </video>
+      <h1 class="showcase__title">The <span class="great-box"><em class="great">Great</em></span> American Escape.</h1>
+    </section>
+
+    <div class="spacer spacer--l" aria-hidden="true"></div>
+
+    <!-- WELCOME — A California Classic -->
+    <section class="intro" aria-label="Welcome to The Del">
+      <div class="intro__inner">
+        <h2 class="intro__title" data-reveal>A California Classic</h2>
+        <p class="intro__lede" data-reveal>An iconic beachfront destination just beyond San Diego on Coronado Island, The Del brings a refreshing sense of ease to its sweeping shoreline with an unmistakable energy that can only be felt once you're here.</p>
+      </div>
+    </section>
+
+    <div class="spacer spacer--l" aria-hidden="true"></div>
+
+    <!-- CURTAIN STAGE: panel lifts to reveal neighborhoods pinned beneath -->
+    <div class="stage" data-stage>
+    <div class="stage__pin">
+
+    <!-- CURTAIN PANEL (lifts on scroll) -->
+    <section class="curtain" id="stay" data-curtain aria-label="A Grand Stay Awaits">
+      <div class="curtain__media">
+        <img src="assets/img/lobby.jpg"
+             alt="The lobby of Hotel del Coronado"
+             onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+      </div>
+      <div class="curtain__content">
+        <div class="curtain__head">
+          <h3 class="curtain__title">A Grand Stay Awaits</h3>
+          <p class="curtain__lede">Every room is shaped by the same sweeping shoreline — and the easy feeling that you've landed somewhere that already knows you.</p>
+        </div>
+        <a class="curtain__cta link-lined" href="#">Find Your Perfect Stay</a>
+      </div>
+    </section>
+
+    <!-- REVEAL: explore the neighborhood -->
+    <section class="reveal" aria-label="Explore the Neighborhood">
+      <div class="reveal__intro">
+        <h3 class="reveal__title" data-reveal>Or, Explore the Neighborhood</h3>
+        <p class="reveal__lede" data-reveal>Each stay offers its own distinct perspective; giving you the freedom to choose the setting, pace, and atmosphere that best suits your escape.</p>
+      </div>
+
+      <div class="neighborhoods">
+        <a class="nbh" href="#" data-reveal>
+          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
+              <source src="assets/img/the_victorian.mp4" type="video/mp4">
+            </video>
+          </span>
+          <div class="nbh__caption">
+            <h4 class="nbh__name">The Victorian</h4>
+            <span class="nbh__feel">Historic and Romantic</span>
+          </div>
+        </a>
+
+        <a class="nbh" href="#" data-reveal>
+          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
+              <source src="assets/img/cabanas.mp4" type="video/mp4">
+            </video>
+          </span>
+          <div class="nbh__caption">
+            <h4 class="nbh__name">The Cabanas</h4>
+            <span class="nbh__feel">Relaxed &amp; Residential</span>
+          </div>
+        </a>
+
+        <a class="nbh" href="#" data-reveal>
+          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
+              <source src="assets/img/views.mp4" type="video/mp4">
+            </video>
+          </span>
+          <div class="nbh__caption">
+            <h4 class="nbh__name">The Views</h4>
+            <span class="nbh__feel">Peaceful &amp; Restorative</span>
+          </div>
+        </a>
+
+        <a class="nbh" href="#" data-reveal>
+          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
+              <source src="assets/img/shore-house.mp4" type="video/mp4">
+            </video>
+          </span>
+          <div class="nbh__caption">
+            <h4 class="nbh__name">Shore House</h4>
+            <span class="nbh__feel">Vibrant &amp; Playful</span>
+          </div>
+        </a>
+
+        <a class="nbh" href="#" data-reveal>
+          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
+              <source src="assets/img/Beach-Village.mp4" type="video/mp4">
+            </video>
+          </span>
+          <div class="nbh__caption">
+            <h4 class="nbh__name">Beach Village</h4>
+            <span class="nbh__feel">Exclusive &amp; Residential</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    </div><!-- /.stage__pin -->
+    </div><!-- /.stage -->
+
+    <!-- SIGNATURE DEL EXPERIENCES — full-viewport scroll takeover (Figma 11:878) -->
+    <section class="hlock" data-hlock aria-label="Signature Del">
+      <div class="hlock__pin">
+        <div class="hlock__head">
+          <h3 class="intro__title" data-reveal>Signature Del</h3>
+          <p class="intro__lede" data-reveal>Surf the same waves generations have, drift between sand and saltwater pool, or simply follow the sun across the shore.</p>
+        </div>
+        <div class="hlock__track">
+
+          <a class="hcard" href="#">
+            <span class="hcard__media">
+              <img loading="lazy" src="assets/img/1.jpg"
+                   alt="Signature experiences at The Del"
+                   onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+            </span>
+            <h4 class="hcard__title">Endless Experiences</h4>
+          </a>
+
+          <a class="hcard" href="#">
+            <span class="hcard__media">
+              <img loading="lazy" src="assets/img/3.jpg"
+                   alt="Dining on the ocean at The Del"
+                   onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+            </span>
+            <h4 class="hcard__title">Dine on the Ocean</h4>
+          </a>
+
+          <a class="hcard" href="#">
+            <span class="hcard__media">
+              <img loading="lazy" src="assets/img/16.jpg"
+                   alt="Events at The Del"
+                   onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+            </span>
+            <h4 class="hcard__title">Calendar of Events</h4>
+          </a>
+
+          <a class="hcard" href="#">
+            <span class="hcard__media">
+              <img loading="lazy" src="assets/img/2.jpg"
+                   alt="Curated itineraries at The Del"
+                   onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+            </span>
+            <h4 class="hcard__title">Curated Itineraries</h4>
+          </a>
+
+          <a class="hcard" href="#">
+            <span class="hcard__media">
+              <img loading="lazy" src="assets/img/9.png"
+                   alt="Seasonal highlights at The Del"
+                   onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+            </span>
+            <h4 class="hcard__title">Seasonal Highlights</h4>
+          </a>
+
+          <a class="hcard" href="#">
+            <span class="hcard__media">
+              <img loading="lazy" src="assets/img/13.jpg"
+                   alt="A day at The Del"
+                   onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+            </span>
+            <h4 class="hcard__title">Just for the Day</h4>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="spacer spacer--l" aria-hidden="true"></div>
+
+    <!-- QUOTE — full-bleed statement -->
+    <section class="quote" aria-label="The story of The Del">
+      <div class="quote__media">
+        <img loading="lazy" src="assets/img/story.jpg"
+             alt="Hotel del Coronado — a crown jewel of the coast"
+             onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+      </div>
+      <div class="quote__inner">
+        <p class="quote__text">The Del is a crown jewel of the coast that continues to shape its culture as much as it reflects it.</p>
+        <a class="quote__link link-lined" href="#">Our Story</a>
+      </div>
+    </section>
+
+    <div class="spacer spacer--l" aria-hidden="true"></div>
+
+    <!-- EXCLUSIVE OFFERS — three-up (Figma 17:452) -->
+    <section aria-label="Exclusive Offers">
+      <div class="intro">
+        <div class="intro__inner">
+          <h3 class="intro__title" data-reveal>Exclusive Offers</h3>
+        </div>
+      </div>
+
+      <div class="spacer spacer--title" aria-hidden="true"></div>
+
+      <div class="offers">
+        <article class="offer" data-reveal>
+          <div class="offer__body">
+            <div class="offer__text">
+              <h4 class="offer__title">A Week in Paradise</h4>
+              <p class="offer__desc">20% off for stays 5 days or longer.</p>
+            </div>
+            <a class="offer__link link-lined" href="#">View Offer</a>
+          </div>
+          <div class="offer__media">
+            <img loading="lazy" src="assets/img/offer-1.jpg"
+                 alt="A week in paradise at The Del"
+                 onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+          </div>
+        </article>
+
+        <article class="offer" data-reveal>
+          <div class="offer__body">
+            <div class="offer__text">
+              <h4 class="offer__title">Breakfast by the Beach</h4>
+              <p class="offer__desc">Daily breakfast for two with every oceanfront stay.</p>
+            </div>
+            <a class="offer__link link-lined" href="#">View Offer</a>
+          </div>
+          <div class="offer__media">
+            <img loading="lazy" src="assets/img/offer-2.png"
+                 alt="Breakfast by the beach"
+                 onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+          </div>
+        </article>
+
+        <article class="offer" data-reveal>
+          <div class="offer__body">
+            <div class="offer__text">
+              <h4 class="offer__title">Plan Ahead &amp; Save</h4>
+              <p class="offer__desc">Book early and enjoy up to 25% off your visit.</p>
+            </div>
+            <a class="offer__link link-lined" href="#">View Offer</a>
+          </div>
+          <div class="offer__media">
+            <img loading="lazy" src="assets/img/offer-3.png"
+                 alt="Plan ahead and save"
+                 onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="spacer spacer--l" aria-hidden="true"></div>
+
+    <!-- SEASONAL HIGHLIGHTS — rail + carousel (Figma 3152:7352) -->
+    <section class="seasonal" aria-label="Seasonal Highlights">
+      <div class="seasonal__rail" data-reveal>
+        <div class="seasonal__head">
+          <h3 class="seasonal__title">Seasonal<br>Highlights</h3>
+          <p class="seasonal__lede">The shore changes with the calendar, and so does The Del — every season brings its own reason to return.</p>
+        </div>
+        <a class="seasonal__link link-lined" href="#">Explore All</a>
+        <div class="seasonal__nav">
+          <button class="seasonal__arrow" data-scarousel-prev aria-label="Previous highlights">
+            <svg width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true">
+              <path d="M21 5H1M1 5L5.5 1M1 5L5.5 9" stroke="currentColor" stroke-width="1.2"/>
+            </svg>
+          </button>
+          <button class="seasonal__arrow" data-scarousel-next aria-label="Next highlights">
+            <svg width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true">
+              <path d="M1 5H21M21 5L16.5 1M21 5L16.5 9" stroke="currentColor" stroke-width="1.2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="seasonal__track" data-scarousel>
+        <a class="scard" href="#">
+          <span class="scard__media">
+            <img loading="lazy" src="assets/img/7.jpg"
+                 alt="Marilyn Monroe at The Del"
+                 onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+          </span>
+          <h5 class="scard__title">Marilyn Monroe: The Defining Roles</h5>
+        </a>
+        <a class="scard" href="#">
+          <span class="scard__media">
+            <img loading="lazy" src="assets/img/6.png"
+                 alt="Movies on the beach at The Del"
+                 onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+          </span>
+          <h5 class="scard__title">Movies on the Beach</h5>
+        </a>
+        <a class="scard" href="#">
+          <span class="scard__media">
+            <img loading="lazy" src="assets/img/soccer.webp"
+                 alt="Summer of soccer at The Laundry"
+                 onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+          </span>
+          <h5 class="scard__title">Summer of Soccer at The Laundry</h5>
+        </a>
+        <a class="scard" href="#">
+          <span class="scard__media">
+            <img loading="lazy" src="assets/img/roast.avif"
+                 alt="The Roast at The Del"
+                 onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+          </span>
+          <h5 class="scard__title">Roast</h5>
+        </a>
+        <a class="scard" href="#">
+          <span class="scard__media">
+            <img loading="lazy" src="assets/img/17.jpg"
+                 alt="Del Beach"
+                 onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+          </span>
+          <h5 class="scard__title">Del Beach</h5>
+        </a>
+      </div>
+    </section>
+
+    <div class="spacer spacer--l" aria-hidden="true"></div>
+
+    <!-- STAY CONNECTED — email signup (Figma 4103:634) -->
+    <section class="stay-connected" aria-label="Stay Connected">
+      <div class="stay-connected__media">
+        <img loading="lazy" src="assets/img/stay-connected.jpg"
+             alt="Hotel del Coronado from the water at dusk"
+             onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
+      </div>
+      <div class="stay-connected__inner">
+        <div class="stay-connected__text">
+          <h3 class="stay-connected__title" data-reveal>Stay Connected</h3>
+          <p class="stay-connected__lede" data-reveal>The Del is always in season — be the first to hear about seasonal happenings, new experiences, and offers reserved for our list.</p>
+        </div>
+        <form class="sc-form" data-sc-form data-reveal novalidate>
+          <label for="sc-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Email address</label>
+          <input id="sc-email" type="email" name="email" placeholder="Your Email Address" autocomplete="email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <div class="spacer spacer--s" aria-hidden="true"></div>
+
+  </main>
+
+  <!-- FOOTER (Figma 12:1010) -->
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <div class="footer__brand-inner">
+          <a class="footer__logo" href="/" aria-label="Hotel del Coronado, home">
+            <img src="assets/img/footer/logo-dark.svg" alt="Hotel del Coronado">
+          </a>
+          <div class="footer__address">
+            <p>1500 Orange Ave.<br>Coronado, CA 92118</p>
+            <p>Front Desk: <a href="tel:+16194356611">+1 (619) 435-6611</a></p>
+            <p>Reservations: <a href="tel:+18004683533">(800) 468-3533</a></p>
+          </div>
+        </div>
+        <div class="footer__social">
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">Pinterest</a>
+        </div>
+      </div>
+      <nav class="footer__cols" aria-label="Footer">
+        <ul class="footer__col">
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press &amp; Media</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Real Estate</a></li>
+        </ul>
+        <ul class="footer__col">
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">FAQ&rsquo;s</a></li>
+          <li><a href="#">Reservations</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+        <ul class="footer__col">
+          <li><a href="#">Gift Cards</a></li>
+          <li><a href="#">Usage Agreement</a></li>
+          <li><a href="#">Data Request</a></li>
+        </ul>
+        <ul class="footer__col">
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Cookie Preferences</a></li>
+        </ul>
+      </nav>
+    </div>
+    <hr class="footer__rule">
+    <div class="footer__bottom">
+      <p class="footer__copyright">Copyright 2026 Hilton. All rights reserved.</p>
+      <div class="footer__partners">
+        <img src="assets/img/footer/partner-1.png" alt="Partner logo">
+        <img src="assets/img/footer/partner-2.png" alt="Partner logo">
+        <img src="assets/img/footer/partner-3.png" alt="Partner logo">
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js?v=18" defer></script>
+</body>
+</html>
