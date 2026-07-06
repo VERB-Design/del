@@ -132,6 +132,13 @@ body {
   color: var(--text);
   background: var(--bg);
 }
+/* sand grain over the ivory ground — fixed so it reads as the site's paper */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: url("../img/bg-tileable-v2.webp") repeat;
+  background-size: 600px 600px;
+  opacity: .9;
+}
 img { max-width: 100%; display: block; }
 a { color: inherit; }
 

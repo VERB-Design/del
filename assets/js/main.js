@@ -13,48 +13,91 @@
     window.addEventListener("scroll", onMenuScroll, { passive: true });
   }
 
-  /* ---- Overlay nav ---- */
-  var toggle = document.querySelector("[data-nav-toggle]");
-  var overlay = document.querySelector("[data-overlay-nav]");
-  var closeBtn = document.querySelector("[data-overlay-close]");
+  /* ---- Menu overlay (Figma 4106): rail + panels + drill-down ---- */
+  var mOverlay = document.querySelector("[data-menu]");
+  var mToggle = document.querySelector(".menu-toggle");
+  if (mOverlay && mToggle) {
+    var mClose = mOverlay.querySelector("[data-menu-close]");
+    var mRailItems = [].slice.call(mOverlay.querySelectorAll(".menu-rail__item[data-panel]"));
+    var mPanels = [].slice.call(mOverlay.querySelectorAll("[data-panel-view]"));
+    var mView = "default";
 
-  function focusables(el) {
-    return Array.prototype.slice.call(
-      el.querySelectorAll('a[href], button:not([disabled])')
-    );
-  }
-  function openNav() {
-    if (!overlay) return;
-    overlay.classList.add("is-open");
-    overlay.removeAttribute("aria-hidden");
-    document.body.classList.add("nav-open");
-    if (toggle) toggle.setAttribute("aria-expanded", "true");
-    var f = focusables(overlay);
-    if (f.length) f[0].focus();
-  }
-  function closeNav() {
-    if (!overlay) return;
-    overlay.classList.remove("is-open");
-    overlay.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("nav-open");
-    if (toggle) { toggle.setAttribute("aria-expanded", "false"); toggle.focus(); }
-  }
-  if (toggle) toggle.addEventListener("click", openNav);
-  if (closeBtn) closeBtn.addEventListener("click", closeNav);
-  if (overlay) {
-    overlay.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") { closeNav(); return; }
+    var mShow = function (name) {
+      mView = name;
+      mPanels.forEach(function (p) {
+        p.classList.toggle("is-active", p.getAttribute("data-panel-view") === name);
+      });
+      /* rail highlight: sub-panels highlight their parent */
+      var sub = mOverlay.querySelector('[data-panel-view="' + name + '"]');
+      var railName = (sub && sub.getAttribute("data-parent")) || name;
+      mRailItems.forEach(function (b) {
+        var on = b.getAttribute("data-panel") === railName;
+        b.classList.toggle("is-active", on);
+        b.setAttribute("aria-expanded", on ? "true" : "false");
+      });
+      mOverlay.classList.toggle("has-panel", name !== "default");
+    };
+
+    var mOpen = function () {
+      mOverlay.classList.add("is-open");
+      mOverlay.removeAttribute("aria-hidden");
+      document.body.classList.add("menu-open");
+      mToggle.setAttribute("aria-expanded", "true");
+      mShow("default");
+      if (mClose) mClose.focus();
+    };
+    var mCloseFn = function () {
+      mOverlay.classList.remove("is-open");
+      mOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("menu-open");
+      mToggle.setAttribute("aria-expanded", "false");
+      mToggle.focus();
+    };
+
+    mToggle.addEventListener("click", mOpen);
+    if (mClose) mClose.addEventListener("click", mCloseFn);
+
+    mRailItems.forEach(function (b) {
+      b.addEventListener("click", function () { mShow(b.getAttribute("data-panel")); });
+    });
+    /* drill-down cards + back links */
+    mOverlay.addEventListener("click", function (e) {
+      var drill = e.target.closest("[data-drill]");
+      if (drill) { e.preventDefault(); mShow(drill.getAttribute("data-drill")); return; }
+      var back = e.target.closest("[data-menu-back]");
+      if (back) {
+        var panel = back.closest("[data-panel-view]");
+        var parent = panel && panel.getAttribute("data-parent");
+        mShow(parent || "default");
+        return;
+      }
+      var closeLink = e.target.closest("[data-menu-close-link]");
+      if (closeLink) mCloseFn();
+    });
+
+    /* Esc + focus trap */
+    mOverlay.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { mCloseFn(); return; }
       if (e.key !== "Tab") return;
-      var f = focusables(overlay);
+      var f = [].slice.call(mOverlay.querySelectorAll(
+        'a[href], button:not([disabled])')).filter(function (el) {
+        return el.offsetParent !== null;
+      });
       if (!f.length) return;
       var first = f[0], last = f[f.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
-    /* close when an overlay link is followed (in-page anchors) */
-    overlay.addEventListener("click", function (e) {
-      var a = e.target.closest("a");
-      if (a) closeNav();
+
+    /* mobile: give top-level panels a back-to-menu control */
+    mPanels.forEach(function (p) {
+      var name = p.getAttribute("data-panel-view");
+      if (name === "default" || p.querySelector("[data-menu-back]")) return;
+      var b = document.createElement("button");
+      b.className = "menu-panel__back menu-panel__back--mobile";
+      b.setAttribute("data-menu-back", "");
+      b.textContent = "Menu";
+      p.insertBefore(b, p.firstChild);
     });
   }
 
@@ -89,20 +132,21 @@
        its bottom edge meets the reveal's top, then everything scrolls as one */
     var liftBudget = 0;
     var sizeStage = function () {
-      liftBudget = Math.min(reveal.offsetHeight, window.innerHeight);
-      stage.style.height = (window.innerHeight + liftBudget) + "px";
+      liftBudget = Math.min(reveal.offsetHeight, window.innerHeight * 0.9);
+      /* pin is 90svh stuck at 10svh: lift runs stick -> release exactly */
+      stage.style.height = (window.innerHeight * 0.9 + liftBudget) + "px";
     };
     var ticking = false;
     var applyCurtain = function () {
       var vh = window.innerHeight;
       var top = stage.getBoundingClientRect().top;
       /* 1:1 lift, capped at the budget */
-      var p = liftBudget > 0 ? Math.min(Math.max(-top / liftBudget, 0), 1) : 1;
+      var p = liftBudget > 0 ? Math.min(Math.max((vh * 0.1 - top) / liftBudget, 0), 1) : 1;
       var lift = p * liftBudget;
       curtain.style.transform = "translateY(" + (-lift) + "px)";
       /* parallax runs the full journey: panel entering → lift complete */
       if (media) {
-        var g = Math.min(Math.max((vh - top) / (vh + liftBudget), 0), 1);
+        var g = Math.min(Math.max((vh - top) / (vh * 0.9 + liftBudget), 0), 1);
         media.style.transform = "translateY(" + ((g * 2 - 1) * 0.07 * vh) + "px)";
       }
       curtain.style.pointerEvents = p >= 1 ? "none" : "";
@@ -285,7 +329,7 @@
   /* ---- Hover stroke: two 1px red lines draw from the top-left corner —
           one right-then-down, one down-then-right — meeting at bottom-right.
           Cards: on the media. Offers: on the full card. ---- */
-  var strokeHosts = document.querySelectorAll(".nbh__media, .hcard__media, .scard__media, .offer");
+  var strokeHosts = document.querySelectorAll(".nbh__media, .hcard__media, .scard__media, .offer, .menu-card__media");
   if (strokeHosts.length) {
     var SVGNS = "http://www.w3.org/2000/svg";
     var buildStroke = function (el) {

@@ -107,11 +107,11 @@ a:focus-visible, button:focus-visible, .btn:focus-visible {
 .menu-bar.is-condensed .menu-bar__icon img { filter: brightness(0); }
 .menu-bar.is-condensed .menu-bar__logo {
   top: 50%; transform: translate(-50%, -50%);
-  height: 40px; overflow: hidden;   /* crop to the crest */
+  height: 37px; overflow: hidden;   /* crop to the crest (y 0-36.9 of the artwork) */
 }
 .menu-bar__logo { overflow: hidden; } /* crop is animatable both ways */
 .menu-bar.is-condensed .menu-bar__logo img {
-  filter: none; height: 80px;       /* native red crest; wordmark cropped */
+  filter: none; height: 90px;       /* native red crest; wordmark cropped */
 }
 /* condensed-only: menu links turn red on hover (fast in, soft out) */
 .menu-bar.is-condensed a.menu-bar__item--aux:hover .ui-label,
@@ -166,7 +166,7 @@ a.menu-bar__item--aux:focus-visible .ui-label::after { transform: scaleX(1); }
 /* centered crest logo — hangs below the utility row */
 .menu-bar__logo {
   position: absolute; left: 50%; transform: translate(-50%, 0); top: 15px;
-  width: 151px; height: 80px; display: block;
+  width: 150px; height: 90px; display: block;
   transition: height .65s var(--ease), top .65s var(--ease), transform .65s var(--ease);
 }
 .menu-bar__logo img { width: 100%; height: 100%; display: block; }
@@ -194,7 +194,7 @@ a.menu-bar__item--aux:focus-visible .ui-label::after { transform: scaleX(1); }
   .menu-bar__item--menu { display: inline-flex; }
 }
 @media (max-width: 640px) {
-  .menu-bar__logo { width: 120px; height: 64px; }
+  .menu-bar__logo { width: 117px; height: 70px; }
 }
 
 /* =============================================================
@@ -282,7 +282,7 @@ body.nav-open { overflow: hidden; }
    INTRO  —  "A California Classic" welcome block under the hero
    Same editorial language as the reveal intro (Figma 20:551 type).
    ============================================================= */
-.intro { background: var(--bg); }
+.intro { }
 .intro__inner {
   max-width: 800px; margin-inline: auto; text-align: center;
   padding-inline: var(--gutter); /* hugs: vertical rhythm comes from spacers */
@@ -300,7 +300,7 @@ body.nav-open { overflow: hidden; }
 .curtain {
   position: relative;
   margin: 0 24px;
-  height: 100svh;
+  height: 90svh;
   border-radius: 12px;
   overflow: hidden;
   isolation: isolate;
@@ -334,12 +334,15 @@ body.nav-open { overflow: hidden; }
    The stage's extra height (100svh) is the scroll budget that drives the lift. */
 html.is-curtain .stage { position: relative; } /* height set by JS: 100svh + reveal height */
 html.is-curtain .stage__pin {
-  position: sticky; top: 0; height: 100svh;
+  /* pin matches the 90svh panel (stuck 10svh down) — no phantom band above,
+     so the page's spacer owns the gap before the stage */
+  position: sticky; top: 10svh; height: 90svh;
   display: flex; flex-direction: column; justify-content: flex-end;
-  /* reveal rides the bottom; the curtain tail covers the band above it */
 }
 html.is-curtain .curtain {
-  position: absolute; top: 0; left: 24px; right: 24px; margin: 0; height: 100svh; z-index: 5;
+  /* 90svh, anchored to the pin bottom: the bottom-aligned reveal beneath
+     stays fully covered until the lift uncovers it */
+  position: absolute; top: auto; bottom: 0; left: 24px; right: 24px; margin: 0; height: 90svh; z-index: 5;
   will-change: transform;
 }
 html.is-curtain .curtain__media img { will-change: transform; }
@@ -350,7 +353,7 @@ html.is-curtain .reveal__intro { padding-block: 0 64px; }
 /* =============================================================
    REVEAL  —  "Or, Explore the Neighborhood" + 5 cards
    ============================================================= */
-.reveal { position: relative; z-index: 4; background: var(--bg); padding-block: var(--space-l); }
+.reveal { position: relative; z-index: 4; padding-block: var(--space-l) calc(var(--space-l) / 2); }
 .reveal__intro {
   max-width: 800px; margin-inline: auto; text-align: center;
   padding-block: clamp(3.5rem, 7vw, 6rem) 64px;
@@ -453,7 +456,8 @@ html.is-hlock .hlock__track { overflow-x: visible; scroll-snap-type: none; will-
 .nbh:hover .draw-svg path, .nbh:focus-visible .draw-svg path,
 .hcard:hover .draw-svg path, .hcard:focus-visible .draw-svg path,
 .scard:hover .draw-svg path, .scard:focus-visible .draw-svg path,
-.offer:hover .draw-svg path { stroke-dashoffset: 0; }
+.offer:hover .draw-svg path,
+.menu-card:hover .draw-svg path, .menu-card:focus-visible .draw-svg path { stroke-dashoffset: 0; }
 .offer { position: relative; }
 
 /* card titles turn red when their card is hovered */
@@ -726,4 +730,176 @@ html.js-quote .quote.is-read .quote__inner { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] { opacity: 1; transform: none; transition: none; }
   .hero__scroll .line { animation: none; }
+}
+
+/* =============================================================
+   MENU OVERLAY  —  Figma 4106 series
+   Full takeover: top bar (X · stacked logo · Reservations),
+   340px rail + content panels. Menu ink is #242829 per design.
+   ============================================================= */
+.menu-overlay {
+  position: fixed; inset: 0; z-index: 200; background: #fff; color: #242829;
+  opacity: 0; visibility: hidden;
+  /* closed: swallow NO pointer events — the fixed default panel inside
+     otherwise blocks hovers/clicks across the right of the page */
+  pointer-events: none;
+  transition: opacity .45s var(--ease), visibility .45s;
+  overflow-y: auto; display: flex; flex-direction: column;
+}
+.menu-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+body.menu-open { overflow: hidden; }
+
+/* top bar */
+.menu-overlay__bar {
+  position: relative; flex-shrink: 0;
+  height: 112px; padding: 0 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.menu-overlay__close {
+  position: relative; width: 24px; height: 24px; margin-left: 4px;
+  background: none; border: 0; cursor: pointer; padding: 0;
+}
+.menu-overlay__close span {
+  position: absolute; left: -4px; top: 11px; width: 32px; height: 1px;
+  background: #242829; transition: background .3s var(--ease);
+}
+.menu-overlay__close span:first-child { transform: rotate(-45deg); }
+.menu-overlay__close span:last-child  { transform: rotate(45deg); }
+.menu-overlay__close:hover span, .menu-overlay__close:focus-visible span { background: var(--del-coral); }
+.menu-overlay__logo {
+  /* identical box + identical artwork as the header: closing is a pure crossfade */
+  position: absolute; left: 50%; transform: translateX(-50%); top: 15px;
+  width: 150px; height: 90px;
+}
+.menu-overlay__logo img { width: 100%; height: 100%; display: block; }
+
+/* body: rail + content */
+.menu-overlay__body {
+  flex: 1; display: grid;
+  /* viewport shares: 5% margin | 25% rail | 5% gap | 60% panel | 5% margin */
+  grid-template-columns: calc(25% * 100 / 90) 1fr;
+  column-gap: calc(5% * 100 / 90);
+  padding: 40px 5%;
+  min-height: 0;
+}
+.menu-overlay__rail { display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; }
+
+/* rail items — 62px pitch, ink at rest, coral active */
+.menu-rail { display: flex; flex-direction: column; }
+.menu-rail__item + .menu-rail__item { border-top: 1px solid rgba(36,40,41,.12); }
+.menu-rail__item {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 0 14px 0 0; height: 80px; width: 100%;
+  background: none; border: 0; cursor: pointer; text-align: left; text-decoration: none;
+  font-family: var(--font-primary); font-weight: 300;
+  font-size: clamp(calc(1.6rem - 6px), calc(1.3rem + 1vw - 6px), calc(2rem - 6px));
+  color: #242829; transition: color .3s var(--ease);
+}
+.menu-rail__item .m-arrow {
+  width: 20px; height: 8px; flex-shrink: 0; color: #242829; opacity: .2;
+  transition: color .3s var(--ease), opacity .3s var(--ease), transform .3s var(--ease);
+}
+.menu-rail__item:hover, .menu-rail__item.is-active { color: var(--del-coral); }
+.menu-rail__item:hover .m-arrow,
+.menu-rail__item.is-active .m-arrow { color: var(--del-coral); opacity: 1; transform: translateX(4px); }
+.menu-rail__item:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.menu-rail__aux { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+.menu-rail__aux a {
+  font-family: var(--font-secondary); font-weight: 500; font-size: 13px;
+  letter-spacing: .1em; text-transform: uppercase; color: #000;
+  text-decoration: none;
+  padding-block: 3px; /* tighter line offset than the global 5px */
+}
+.menu-rail__aux a:hover, .menu-rail__aux a:focus-visible { color: var(--del-coral); }
+
+/* content panels */
+.menu-overlay__content { position: relative; min-height: 60vh; }
+.menu-panel {
+  position: absolute; inset: 0; padding-top: 13px;
+  opacity: 0; visibility: hidden; transform: translateY(10px);
+  transition: opacity .4s var(--ease), transform .4s var(--ease), visibility .4s;
+}
+.menu-panel.is-active { opacity: 1; visibility: visible; transform: none; }
+.menu-panel--default {
+  position: fixed; top: 0; right: 0; bottom: 0; padding-top: 0;
+  left: 35%;
+  z-index: 2; /* covers the bar region per Figma 513 (X stays clear on the rail side) */
+}
+.menu-panel--default img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.menu-panel__head { display: flex; align-items: center; justify-content: space-between; }
+.menu-panel__heading {
+  display: inline-flex; align-items: center; gap: 24px;
+  font-family: var(--font-primary); font-weight: 300; font-size: 20px;
+  color: #242829; text-decoration: none;
+}
+.menu-panel__heading .m-arrow { width: 20px; height: 8px; color: #242829; opacity: .2; transition: opacity .3s var(--ease), transform .3s var(--ease); }
+.menu-panel__heading:hover .m-arrow { opacity: 1; transform: translateX(4px); }
+.menu-panel__back {
+  background: none; border: 0; cursor: pointer; padding: 0;
+  font-family: var(--font-secondary); font-size: 13px; color: #242829;
+}
+.menu-panel__back:hover { text-decoration: underline; text-underline-offset: 4px; }
+.menu-panel__back::before { content: "\2190\00a0"; color: var(--del-coral); }
+.menu-panel__rule { border: 0; border-top: 1px solid rgba(36,40,41,.18); margin: 16px 0 26px; }
+
+.menu-panel__grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 32px;
+}
+.menu-card { display: flex; flex-direction: column; gap: 0; text-decoration: none; color: #242829;
+  opacity: 0; transform: translateY(14px);
+  transition: opacity .55s var(--ease), transform .55s var(--ease);
+}
+.menu-panel.is-active .menu-card { opacity: 1; transform: none; }
+.menu-panel.is-active .menu-card:nth-child(1) { transition-delay: .08s; }
+.menu-panel.is-active .menu-card:nth-child(2) { transition-delay: .16s; }
+.menu-panel.is-active .menu-card:nth-child(3) { transition-delay: .24s; }
+.menu-panel.is-active .menu-card:nth-child(4) { transition-delay: .32s; }
+.menu-panel.is-active .menu-card:nth-child(5) { transition-delay: .40s; }
+.menu-panel.is-active .menu-card:nth-child(6) { transition-delay: .48s; }
+@media (prefers-reduced-motion: reduce) {
+  .menu-card { opacity: 1; transform: none; transition: none; }
+}
+.menu-card__media {
+  position: relative; width: 100%; aspect-ratio: 258 / 160;
+  border-radius: 12px; overflow: hidden; background: #e0e0e0; display: block;
+  isolation: isolate;
+}
+.menu-card__media img, .menu-card__media video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 1s var(--ease); /* site card zoom pattern */
+}
+.menu-card:hover .menu-card__media img, .menu-card:focus-visible .menu-card__media img,
+.menu-card:hover .menu-card__media video, .menu-card:focus-visible .menu-card__media video {
+  transform: scale(1.04);
+}
+.menu-card__title {
+  font-family: var(--font-primary); font-weight: 300; font-size: 21px;
+  line-height: 1.2; margin-top: 16px; transition: color .3s var(--ease);
+}
+.menu-card:hover .menu-card__title { color: var(--del-coral); }
+.menu-card__byline {
+  font-family: var(--font-secondary); font-size: 15px; letter-spacing: .02em;
+  color: #4a4138; margin-top: 8px;
+}
+.menu-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* mobile: rail stacks; picking an item swaps to panel with back */
+@media (max-width: 900px) {
+  .menu-overlay__bar { padding: 0 24px; height: 88px; }
+  .menu-overlay__logo { width: 100px; height: 60px; top: 14px; }
+  .menu-overlay__body { grid-template-columns: 1fr; padding: 16px 24px 40px; }
+  .menu-overlay__content { display: none; min-height: 0; }
+  .menu-overlay.has-panel .menu-overlay__content { display: block; }
+  .menu-overlay.has-panel .menu-overlay__rail { display: none; }
+  .menu-panel { position: relative; inset: auto; }
+  .menu-panel__grid { grid-template-columns: 1fr 1fr; gap: 28px 16px; }
+  .menu-panel__back--mobile { display: inline-block !important; margin-bottom: 12px; }
+}
+.menu-panel__back--mobile { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-overlay, .menu-panel { transition: none; transform: none; }
 }
