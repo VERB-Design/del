@@ -413,20 +413,20 @@
     };
     var QUIZ = [
       { q: "Who\u2019s coming along?", opts: [
-        { label: "Just the two of us", img: "assets/img/6.png", w: { victorian: 2, views: 1 } },
-        { label: "The whole family", img: "assets/img/13.jpg", w: { shore: 2, village: 1 } },
-        { label: "Friends & celebrations", img: "assets/img/9.png", w: { cabanas: 2, shore: 1 } },
-        { label: "Flying solo", img: "assets/img/17.jpg", w: { views: 2, victorian: 1 } } ] },
+        { label: "Just the two of us", img: "assets/img/6.webp", w: { victorian: 2, views: 1 } },
+        { label: "The whole family", img: "assets/img/13.webp", w: { shore: 2, village: 1 } },
+        { label: "Friends & celebrations", img: "assets/img/9.webp", w: { cabanas: 2, shore: 1 } },
+        { label: "Flying solo", img: "assets/img/17.webp", w: { views: 2, victorian: 1 } } ] },
       { q: "What\u2019s your pace?", opts: [
-        { label: "Slow mornings & spa days", img: "assets/img/12.jpg", w: { views: 2, victorian: 1 } },
-        { label: "Sun, surf & pool days", img: "assets/img/1.jpg", w: { cabanas: 2, shore: 1 } },
-        { label: "Private beach time", img: "assets/img/16.jpg", w: { village: 2, views: 1 } },
-        { label: "Out and about, always", img: "assets/img/2.jpg", w: { victorian: 2, cabanas: 1 } } ] },
+        { label: "Slow mornings & spa days", img: "assets/img/12.webp", w: { views: 2, victorian: 1 } },
+        { label: "Sun, surf & pool days", img: "assets/img/1.webp", w: { cabanas: 2, shore: 1 } },
+        { label: "Private beach time", img: "assets/img/16.webp", w: { village: 2, views: 1 } },
+        { label: "Out and about, always", img: "assets/img/2.webp", w: { victorian: 2, cabanas: 1 } } ] },
       { q: "Your perfect evening looks like\u2026", opts: [
-        { label: "Candlelit dinner for two", img: "assets/img/4.jpg", w: { victorian: 2, village: 1 } },
+        { label: "Candlelit dinner for two", img: "assets/img/4.webp", w: { victorian: 2, village: 1 } },
         { label: "S\u2019mores with the kids", img: "assets/img/roast.avif", w: { shore: 2, cabanas: 1 } },
-        { label: "Cocktails & live music", img: "assets/img/11.jpg", w: { cabanas: 2 } },
-        { label: "Quiet balcony, ocean air", img: "assets/img/15.jpg", w: { views: 2, village: 1 } } ] }
+        { label: "Cocktails & live music", img: "assets/img/11.webp", w: { cabanas: 2 } },
+        { label: "Quiet balcony, ocean air", img: "assets/img/15.webp", w: { views: 2, village: 1 } } ] }
     ];
     var quizStep = 0, quizPicks = [];
 
@@ -780,11 +780,11 @@
     var bkNbhToggle = bk.querySelector("[data-bk-nbh-toggle]");
     var bkNbhRow = bk.querySelector("[data-bk-nbh-row]");
     var BK_NBH = [
-      { name: "The Victorian", desc: "The original 1888 hotel, inviting its legacy & charm of accommodating.", img: "assets/img/16.jpg" },
-      { name: "The Views", desc: "Contemporary beachfront rooms & suites.", img: "assets/img/15.jpg" },
-      { name: "The Cabanas", desc: "Stylish poolside rooms with a laid-back feel.", img: "assets/img/9.png" },
-      { name: "Shore House", desc: "Beachfront Villas featuring up to two bedrooms & private dens.", img: "assets/img/13.jpg" },
-      { name: "Beach Village", desc: "Beachfront cottages & villas within a private enclave.", img: "assets/img/17.jpg" }
+      { name: "The Victorian", desc: "The original 1888 hotel, inviting its legacy & charm of accommodating.", img: "assets/img/16.webp" },
+      { name: "The Views", desc: "Contemporary beachfront rooms & suites.", img: "assets/img/15.webp" },
+      { name: "The Cabanas", desc: "Stylish poolside rooms with a laid-back feel.", img: "assets/img/9.webp" },
+      { name: "Shore House", desc: "Beachfront Villas featuring up to two bedrooms & private dens.", img: "assets/img/13.webp" },
+      { name: "Beach Village", desc: "Beachfront cottages & villas within a private enclave.", img: "assets/img/17.webp" }
     ];
     var BK_CTAS = { stay: "Check Availability", dine: "Book a Table", spa: "Find Your Treatment", activities: "Explore Our Activities" };
     var bkTab = "stay";

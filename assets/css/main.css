@@ -824,12 +824,13 @@ body.menu-open { overflow: hidden; }
 
 .menu-rail__aux { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
 .menu-rail__aux a {
+  /* plain red hyperlinks — no drawn-line treatment */
   font-family: var(--font-secondary); font-weight: 500; font-size: 13px;
-  letter-spacing: .1em; text-transform: uppercase; color: #000;
-  text-decoration: none;
-  padding-block: 3px; /* tighter line offset than the global 5px */
+  letter-spacing: .1em; text-transform: uppercase; color: var(--del-coral);
+  text-decoration: underline; text-underline-offset: 3px;
+  transition: color .3s var(--ease);
 }
-.menu-rail__aux a:hover, .menu-rail__aux a:focus-visible { color: var(--del-coral); }
+.menu-rail__aux a:hover, .menu-rail__aux a:focus-visible { color: #1B365D; }
 
 /* content panels */
 .menu-overlay__content { position: relative; min-height: 60vh; }

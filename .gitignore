@@ -12,3 +12,6 @@ BRIEF.md
 # Working files not part of the deployed site
 mocks/
 Domaine Text/
+
+# Raw source photography (not used by the site; keep out of the repo)
+assets/img/photos/
