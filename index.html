@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
   <link rel="stylesheet" href="https://use.typekit.net/ras5jtc.css">
   <link rel="stylesheet" href="assets/css/tokens.css?v=6">
-  <link rel="stylesheet" href="assets/css/main.css?v=59">
+  <link rel="stylesheet" href="assets/css/main.css?v=134">
   <link rel="preload" as="image" href="assets/img/lobby.jpg" fetchpriority="high">
 </head>
 <body>
@@ -31,11 +31,6 @@
       </span>
       <span class="menu-bar__divider" aria-hidden="true"></span>
       <a class="menu-bar__item menu-bar__item--aux" href="#">
-        <span class="menu-bar__icon icon-cam" aria-hidden="true">
-          <img class="cam-1" src="assets/img/menu/cam-1.svg" alt="">
-          <img class="cam-2" src="assets/img/menu/cam-2.svg" alt="">
-          <img class="cam-3" src="assets/img/menu/cam-3.svg" alt="">
-        </span>
         <span class="ui-label">Beach Cam</span>
       </a>
     </div>
@@ -46,17 +41,34 @@
 
     <div class="menu-bar__group">
       <a class="menu-bar__item menu-bar__item--aux" href="tel:+18004683533">
-        <span class="menu-bar__icon" aria-hidden="true"><img src="assets/img/menu/speech.svg" alt="" style="inset:0;width:100%;height:100%;"></span>
         <span class="ui-label">800-468-3533</span>
       </a>
       <span class="menu-bar__divider" aria-hidden="true"></span>
-      <a class="menu-bar__item menu-bar__item--aux" href="#">
+      <a class="menu-bar__item menu-bar__item--aux" href="#" data-concierge-open>
         <span class="menu-bar__icon icon-stars" aria-hidden="true">
-          <img class="star-1" src="assets/img/menu/star-1.svg" alt="">
-          <img class="star-2" src="assets/img/menu/star-2.svg" alt="">
+          <svg class="star-1" viewBox="0 0 14.7314 14.7311" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.76846 0.420025C6.96869 -0.149625 7.76879 -0.130768 7.96334 0.421429L7.97226 0.448602L9.45365 5.2774L14.2831 6.75904C14.8808 6.9424 14.8808 7.78846 14.2831 7.97183L9.45365 9.45338L7.97209 14.2828C7.78873 14.8805 6.94266 14.8805 6.7593 14.2828L5.27766 9.45338L0.448272 7.97183C-0.149421 7.78847 -0.149427 6.9424 0.448272 6.75904L5.27766 5.2774L6.7593 0.448024L6.76846 0.420025ZM6.25647 5.83581C6.19475 6.037 6.03726 6.19449 5.83607 6.25621L2.22022 7.36543L5.83607 8.47466C6.02469 8.53252 6.17486 8.67458 6.24375 8.85789L6.25647 8.89505L7.36569 12.5108L8.47492 8.89505L8.48764 8.85789C8.55653 8.67458 8.7067 8.53252 8.89532 8.47466L12.5111 7.36543L8.89532 6.25621C8.69094 6.19351 8.53549 6.03335 8.47475 5.8354C8.0344 4.39998 7.72617 3.39527 7.36561 2.21997L6.25647 5.83581Z" fill="currentColor"/></svg>
+          <svg class="star-2" viewBox="0 0 6.69668 6.6967" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.91027 0.308535C3.05501 -0.102846 3.64168 -0.102844 3.78642 0.308535L3.79302 0.32877L4.39752 2.29911L6.36795 2.90369C6.80626 3.03815 6.80626 3.65858 6.36795 3.79305L4.39752 4.39755L3.79302 6.36797C3.65856 6.80629 3.03813 6.80628 2.90366 6.36797L2.29908 4.39755L0.328737 3.79305C-0.10958 3.65858 -0.109578 3.03815 0.328737 2.90369L2.29908 2.29911L2.90366 0.32877L2.91027 0.308535ZM2.9808 2.67251C2.93554 2.82005 2.82002 2.93557 2.67248 2.98083L1.4743 3.34837L2.67248 3.71591C2.81079 3.75834 2.92094 3.86249 2.97147 3.99689L2.9808 4.02423L3.34834 5.22232L3.71588 4.02423L3.72521 3.99689C3.77574 3.86249 3.8859 3.75834 4.0242 3.71591L5.2223 3.34837L4.0242 2.98083C3.87667 2.93557 3.76114 2.82005 3.71588 2.67251L3.34834 1.47433L2.9808 2.67251Z" fill="currentColor"/></svg>
         </span>
         <span class="ui-label">Concierge</span>
       </a>
+      <span class="menu-bar__mobile-icons">
+        <a class="menu-bar__item menu-bar__item--ic" href="#" aria-label="Beach Cam">
+          <span class="menu-bar__icon icon-cam" aria-hidden="true">
+            <img class="cam-1" src="assets/img/menu/cam-1.svg" alt="">
+            <img class="cam-2" src="assets/img/menu/cam-2.svg" alt="">
+            <img class="cam-3" src="assets/img/menu/cam-3.svg" alt="">
+          </span>
+        </a>
+        <a class="menu-bar__item menu-bar__item--ic" href="tel:+18004683533" aria-label="Call 800-468-3533">
+          <span class="menu-bar__icon" aria-hidden="true"><svg style="inset:0;width:100%;height:100%;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+        <a class="menu-bar__item menu-bar__item--ic" href="#" aria-label="Concierge" data-concierge-open>
+          <span class="menu-bar__icon icon-stars" aria-hidden="true">
+            <svg class="star-1" viewBox="0 0 14.7314 14.7311" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.76846 0.420025C6.96869 -0.149625 7.76879 -0.130768 7.96334 0.421429L7.97226 0.448602L9.45365 5.2774L14.2831 6.75904C14.8808 6.9424 14.8808 7.78846 14.2831 7.97183L9.45365 9.45338L7.97209 14.2828C7.78873 14.8805 6.94266 14.8805 6.7593 14.2828L5.27766 9.45338L0.448272 7.97183C-0.149421 7.78847 -0.149427 6.9424 0.448272 6.75904L5.27766 5.2774L6.7593 0.448024L6.76846 0.420025ZM6.25647 5.83581C6.19475 6.037 6.03726 6.19449 5.83607 6.25621L2.22022 7.36543L5.83607 8.47466C6.02469 8.53252 6.17486 8.67458 6.24375 8.85789L6.25647 8.89505L7.36569 12.5108L8.47492 8.89505L8.48764 8.85789C8.55653 8.67458 8.7067 8.53252 8.89532 8.47466L12.5111 7.36543L8.89532 6.25621C8.69094 6.19351 8.53549 6.03335 8.47475 5.8354C8.0344 4.39998 7.72617 3.39527 7.36561 2.21997L6.25647 5.83581Z" fill="currentColor"/></svg>
+            <svg class="star-2" viewBox="0 0 6.69668 6.6967" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.91027 0.308535C3.05501 -0.102846 3.64168 -0.102844 3.78642 0.308535L3.79302 0.32877L4.39752 2.29911L6.36795 2.90369C6.80626 3.03815 6.80626 3.65858 6.36795 3.79305L4.39752 4.39755L3.79302 6.36797C3.65856 6.80629 3.03813 6.80628 2.90366 6.36797L2.29908 4.39755L0.328737 3.79305C-0.10958 3.65858 -0.109578 3.03815 0.328737 2.90369L2.29908 2.29911L2.90366 0.32877L2.91027 0.308535ZM2.9808 2.67251C2.93554 2.82005 2.82002 2.93557 2.67248 2.98083L1.4743 3.34837L2.67248 3.71591C2.81079 3.75834 2.92094 3.86249 2.97147 3.99689L2.9808 4.02423L3.34834 5.22232L3.71588 4.02423L3.72521 3.99689C3.77574 3.86249 3.8859 3.75834 4.0242 3.71591L5.2223 3.34837L4.0242 2.98083C3.87667 2.93557 3.76114 2.82005 3.71588 2.67251L3.34834 1.47433L2.9808 2.67251Z" fill="currentColor"/></svg>
+          </span>
+        </a>
+      </span>
       <a class="btn-reserve" href="#"><span class="label">Reservations</span></a>
     </div>
   </header>
@@ -92,11 +104,11 @@
         <div class="menu-panel menu-panel--default is-active" data-panel-view="default" aria-hidden="true">
           <img src="assets/img/story.jpg" alt="">
         </div>
-        <section class="menu-panel" data-panel-view="stay" aria-label="Your Stay at The Del"><div class="menu-panel__head"><a class="menu-panel__heading" href="#">Your Stay at The Del <svg class="m-arrow" viewBox="0 0 20.5 7.4" aria-hidden="true"><path d="M20.3536 4.03553C20.5488 3.84027 20.5488 3.52369 20.3536 3.32843L17.1716 0.146447C16.9763 -0.0488155 16.6597 -0.0488155 16.4645 0.146447C16.2692 0.341709 16.2692 0.658291 16.4645 0.853554L19.2929 3.68198L16.4645 6.51041C16.2692 6.70567 16.2692 7.02225 16.4645 7.21751C16.6597 7.41278 16.9763 7.41278 17.1716 7.21751L20.3536 4.03553ZM0 3.68198V4.18198H20V3.68198V3.18198H0V3.68198Z" fill="currentColor"/></svg></a></div><hr class="menu-panel__rule"><div class="menu-panel__grid"><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/lobby.jpg" alt=""></span><span class="menu-card__title">Find Your Perfect Stay</span><span class="menu-card__byline">Your Del discovery begins here.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/2.jpg" alt=""></span><span class="menu-card__title">Accommodations Overview</span><span class="menu-card__byline">Rooms, suites, villas &amp; cottages.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/15.jpg" alt=""></span><span class="menu-card__title">Resort Map</span><span class="menu-card__byline">Find your way around.</span></a><a class="menu-card" href="#" data-drill="neighborhood"><span class="menu-card__media"><img loading="lazy" src="assets/img/16.jpg" alt=""></span><span class="menu-card__title">The Del Neighborhood</span><span class="menu-card__byline">One destination, five experiences.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/14.jpg" alt=""></span><span class="menu-card__title">Resort Amenities</span><span class="menu-card__byline">Features &amp; services to make your stay.</span></a></div></section>
-        <section class="menu-panel" data-panel-view="experiences" aria-label="The Del Experiences"><div class="menu-panel__head"><a class="menu-panel__heading" href="#">The Del Experiences <svg class="m-arrow" viewBox="0 0 20.5 7.4" aria-hidden="true"><path d="M20.3536 4.03553C20.5488 3.84027 20.5488 3.52369 20.3536 3.32843L17.1716 0.146447C16.9763 -0.0488155 16.6597 -0.0488155 16.4645 0.146447C16.2692 0.341709 16.2692 0.658291 16.4645 0.853554L19.2929 3.68198L16.4645 6.51041C16.2692 6.70567 16.2692 7.02225 16.4645 7.21751C16.6597 7.41278 16.9763 7.41278 17.1716 7.21751L20.3536 4.03553ZM0 3.68198V4.18198H20V3.68198V3.18198H0V3.68198Z" fill="currentColor"/></svg></a></div><hr class="menu-panel__rule"><div class="menu-panel__grid"><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/1.jpg" alt=""></span><span class="menu-card__title">Plan Your Day</span><span class="menu-card__byline">Make every moment count.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/soccer.webp" alt=""></span><span class="menu-card__title">Calendar of Events</span><span class="menu-card__byline">Embrace the rhythm of the day.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/9.png" alt=""></span><span class="menu-card__title">Endless Experiences</span><span class="menu-card__byline">Days full of adventure and rest.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/3.jpg" alt=""></span><span class="menu-card__title">Curated Itineraries</span><span class="menu-card__byline">Southern California inspiration.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/13.jpg" alt=""></span><span class="menu-card__title">Just for the Day</span><span class="menu-card__byline">The Del for locals.</span></a></div></section>
+        <section class="menu-panel" data-panel-view="stay" aria-label="Your Stay at The Del"><div class="menu-panel__head"><a class="menu-panel__heading" href="#">Your Stay at The Del <svg class="m-arrow" viewBox="0 0 20.5 7.4" aria-hidden="true"><path d="M20.3536 4.03553C20.5488 3.84027 20.5488 3.52369 20.3536 3.32843L17.1716 0.146447C16.9763 -0.0488155 16.6597 -0.0488155 16.4645 0.146447C16.2692 0.341709 16.2692 0.658291 16.4645 0.853554L19.2929 3.68198L16.4645 6.51041C16.2692 6.70567 16.2692 7.02225 16.4645 7.21751C16.6597 7.41278 16.9763 7.41278 17.1716 7.21751L20.3536 4.03553ZM0 3.68198V4.18198H20V3.68198V3.18198H0V3.68198Z" fill="currentColor"/></svg></a></div><hr class="menu-panel__rule"><div class="menu-panel__grid"><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/lobby.jpg" alt=""></span><span class="menu-card__title">Find the Perfect Stay</span><span class="menu-card__byline">Your Del discovery begins here.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/2.jpg" alt=""></span><span class="menu-card__title">Our Accommodations</span><span class="menu-card__byline">Rooms, suites, villas &amp; cottages.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/17.jpg" alt=""></span><span class="menu-card__title">Compare Properties</span><span class="menu-card__byline">Five stays, side by side.</span></a><a class="menu-card" href="#" data-drill="neighborhood"><span class="menu-card__media"><img loading="lazy" src="assets/img/16.jpg" alt=""></span><span class="menu-card__title">The Neighborhoods <svg class="m-arrow" viewBox="0 0 20.5 7.4" aria-hidden="true"><path d="M20.3536 4.03553C20.5488 3.84027 20.5488 3.52369 20.3536 3.32843L17.1716 0.146447C16.9763 -0.0488155 16.6597 -0.0488155 16.4645 0.146447C16.2692 0.341709 16.2692 0.658291 16.4645 0.853554L19.2929 3.68198L16.4645 6.51041C16.2692 6.70567 16.2692 7.02225 16.4645 7.21751C16.6597 7.41278 16.9763 7.41278 17.1716 7.21751L20.3536 4.03553ZM0 3.68198V4.18198H20V3.68198V3.18198H0V3.68198Z" fill="currentColor"/></svg></span><span class="menu-card__byline">One destination, five experiences.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/14.jpg" alt=""></span><span class="menu-card__title">Amenities</span><span class="menu-card__byline">Features &amp; services to make your stay.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/15.jpg" alt=""></span><span class="menu-card__title">Resort Map</span><span class="menu-card__byline">Find your way around.</span></a></div></section>
+        <section class="menu-panel" data-panel-view="experiences" aria-label="The Del Experiences"><div class="menu-panel__head"><a class="menu-panel__heading" href="#">The Del Experiences <svg class="m-arrow" viewBox="0 0 20.5 7.4" aria-hidden="true"><path d="M20.3536 4.03553C20.5488 3.84027 20.5488 3.52369 20.3536 3.32843L17.1716 0.146447C16.9763 -0.0488155 16.6597 -0.0488155 16.4645 0.146447C16.2692 0.341709 16.2692 0.658291 16.4645 0.853554L19.2929 3.68198L16.4645 6.51041C16.2692 6.70567 16.2692 7.02225 16.4645 7.21751C16.6597 7.41278 16.9763 7.41278 17.1716 7.21751L20.3536 4.03553ZM0 3.68198V4.18198H20V3.68198V3.18198H0V3.68198Z" fill="currentColor"/></svg></a></div><hr class="menu-panel__rule"><div class="menu-panel__grid"><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/1.jpg" alt=""></span><span class="menu-card__title">Plan Your Day</span><span class="menu-card__byline">Make every moment count.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/soccer.webp" alt=""></span><span class="menu-card__title">What&rsquo;s Happening</span><span class="menu-card__byline">Embrace the rhythm of the day.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/9.png" alt=""></span><span class="menu-card__title">Endless Experiences</span><span class="menu-card__byline">Days full of adventure and rest.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/3.jpg" alt=""></span><span class="menu-card__title">Curated Itineraries</span><span class="menu-card__byline">Southern California inspiration.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/13.jpg" alt=""></span><span class="menu-card__title">Just for the Day</span><span class="menu-card__byline">The Del for locals.</span></a></div></section>
         <section class="menu-panel" data-panel-view="dine" aria-label="Taste Coastal California"><div class="menu-panel__head"><a class="menu-panel__heading" href="#">Taste Coastal California <svg class="m-arrow" viewBox="0 0 20.5 7.4" aria-hidden="true"><path d="M20.3536 4.03553C20.5488 3.84027 20.5488 3.52369 20.3536 3.32843L17.1716 0.146447C16.9763 -0.0488155 16.6597 -0.0488155 16.4645 0.146447C16.2692 0.341709 16.2692 0.658291 16.4645 0.853554L19.2929 3.68198L16.4645 6.51041C16.2692 6.70567 16.2692 7.02225 16.4645 7.21751C16.6597 7.41278 16.9763 7.41278 17.1716 7.21751L20.3536 4.03553ZM0 3.68198V4.18198H20V3.68198V3.18198H0V3.68198Z" fill="currentColor"/></svg></a></div><hr class="menu-panel__rule"><div class="menu-panel__grid"><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/4.jpg" alt=""></span><span class="menu-card__title">Find a Restaurant</span><span class="menu-card__byline">What are you in the mood for?</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/5.jpg" alt=""></span><span class="menu-card__title">Signature Dining</span><span class="menu-card__byline">Classic dishes, world-class cuisine.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/8.png" alt=""></span><span class="menu-card__title">Quick Bites &amp; Caf&eacute;s</span><span class="menu-card__byline">Small plates, laid-back vibes.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/11.jpg" alt=""></span><span class="menu-card__title">Bars &amp; Lounges</span><span class="menu-card__byline">Where evenings unwind.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/12.jpg" alt=""></span><span class="menu-card__title">Private Dining</span><span class="menu-card__byline">For intimate occasions.</span></a></div></section>
-        <section class="menu-panel" data-panel-view="gather" aria-label="Plan Your Event or Celebration"><div class="menu-panel__head"><a class="menu-panel__heading" href="#">Plan Your Event or Celebration <svg class="m-arrow" viewBox="0 0 20.5 7.4" aria-hidden="true"><path d="M20.3536 4.03553C20.5488 3.84027 20.5488 3.52369 20.3536 3.32843L17.1716 0.146447C16.9763 -0.0488155 16.6597 -0.0488155 16.4645 0.146447C16.2692 0.341709 16.2692 0.658291 16.4645 0.853554L19.2929 3.68198L16.4645 6.51041C16.2692 6.70567 16.2692 7.02225 16.4645 7.21751C16.6597 7.41278 16.9763 7.41278 17.1716 7.21751L20.3536 4.03553ZM0 3.68198V4.18198H20V3.68198V3.18198H0V3.68198Z" fill="currentColor"/></svg></a></div><hr class="menu-panel__rule"><div class="menu-panel__grid"><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/14.jpg" alt=""></span><span class="menu-card__title">Meetings &amp; Events</span><span class="menu-card__byline">Legendary beachfront location.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/6.png" alt=""></span><span class="menu-card__title">Weddings</span><span class="menu-card__byline">Over a century of love stories.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/offer-2.png" alt=""></span><span class="menu-card__title">Celebrations</span><span class="menu-card__byline">A memorable setting.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/12.jpg" alt=""></span><span class="menu-card__title">Private Dining</span><span class="menu-card__byline">For intimate occasions.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/15.jpg" alt=""></span><span class="menu-card__title">Event Venues</span><span class="menu-card__byline">Spaces for every occasion.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/10.png" alt=""></span><span class="menu-card__title">Make an Inquiry</span><span class="menu-card__byline">Let&rsquo;s start planning.</span></a></div></section>
-        <section class="menu-panel" data-panel-view="discover" aria-label="Discover The Del Coronado"><div class="menu-panel__head"><a class="menu-panel__heading" href="#">Discover The Del Coronado <svg class="m-arrow" viewBox="0 0 20.5 7.4" aria-hidden="true"><path d="M20.3536 4.03553C20.5488 3.84027 20.5488 3.52369 20.3536 3.32843L17.1716 0.146447C16.9763 -0.0488155 16.6597 -0.0488155 16.4645 0.146447C16.2692 0.341709 16.2692 0.658291 16.4645 0.853554L19.2929 3.68198L16.4645 6.51041C16.2692 6.70567 16.2692 7.02225 16.4645 7.21751C16.6597 7.41278 16.9763 7.41278 17.1716 7.21751L20.3536 4.03553ZM0 3.68198V4.18198H20V3.68198V3.18198H0V3.68198Z" fill="currentColor"/></svg></a></div><hr class="menu-panel__rule"><div class="menu-panel__grid"><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/wecreate-hotel-del-cover.jpg" alt=""></span><span class="menu-card__title">About The Del</span><span class="menu-card__byline">An American icon since 1888.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/7.jpg" alt=""></span><span class="menu-card__title">Del History</span><span class="menu-card__byline">A world of wonder worth sharing.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/17.jpg" alt=""></span><span class="menu-card__title">Guest Stories</span><span class="menu-card__byline">Told by those who return.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/10.png" alt=""></span><span class="menu-card__title">Membership</span><span class="menu-card__byline">Belonging, the Del way.</span></a></div></section>
+        <section class="menu-panel" data-panel-view="gather" aria-label="Plan Your Event or Celebration"><div class="menu-panel__head"><a class="menu-panel__heading" href="#">Plan Your Event or Celebration <svg class="m-arrow" viewBox="0 0 20.5 7.4" aria-hidden="true"><path d="M20.3536 4.03553C20.5488 3.84027 20.5488 3.52369 20.3536 3.32843L17.1716 0.146447C16.9763 -0.0488155 16.6597 -0.0488155 16.4645 0.146447C16.2692 0.341709 16.2692 0.658291 16.4645 0.853554L19.2929 3.68198L16.4645 6.51041C16.2692 6.70567 16.2692 7.02225 16.4645 7.21751C16.6597 7.41278 16.9763 7.41278 17.1716 7.21751L20.3536 4.03553ZM0 3.68198V4.18198H20V3.68198V3.18198H0V3.68198Z" fill="currentColor"/></svg></a></div><hr class="menu-panel__rule"><div class="menu-panel__grid"><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/14.jpg" alt=""></span><span class="menu-card__title">Meetings &amp; Events</span><span class="menu-card__byline">Legendary beachfront location.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/6.png" alt=""></span><span class="menu-card__title">Weddings</span><span class="menu-card__byline">Over a century of love stories.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/offer-2.png" alt=""></span><span class="menu-card__title">Celebrations</span><span class="menu-card__byline">A memorable setting.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/12.jpg" alt=""></span><span class="menu-card__title">Private Dining</span><span class="menu-card__byline">For intimate occasions.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/15.jpg" alt=""></span><span class="menu-card__title">Event Venues</span><span class="menu-card__byline">Spaces for every occasion.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/10.png" alt=""></span><span class="menu-card__title">Seasonal Gatherings</span><span class="menu-card__byline">Holidays, made at the shore.</span></a></div></section>
+        <section class="menu-panel" data-panel-view="discover" aria-label="Discover The Del Coronado"><div class="menu-panel__head"><a class="menu-panel__heading" href="#">Discover The Del Coronado <svg class="m-arrow" viewBox="0 0 20.5 7.4" aria-hidden="true"><path d="M20.3536 4.03553C20.5488 3.84027 20.5488 3.52369 20.3536 3.32843L17.1716 0.146447C16.9763 -0.0488155 16.6597 -0.0488155 16.4645 0.146447C16.2692 0.341709 16.2692 0.658291 16.4645 0.853554L19.2929 3.68198L16.4645 6.51041C16.2692 6.70567 16.2692 7.02225 16.4645 7.21751C16.6597 7.41278 16.9763 7.41278 17.1716 7.21751L20.3536 4.03553ZM0 3.68198V4.18198H20V3.68198V3.18198H0V3.68198Z" fill="currentColor"/></svg></a></div><hr class="menu-panel__rule"><div class="menu-panel__grid"><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/wecreate-hotel-del-cover.jpg" alt=""></span><span class="menu-card__title">Our Story</span><span class="menu-card__byline">An American icon since 1888.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/7.jpg" alt=""></span><span class="menu-card__title">Since 1888 &mdash; A Timeline</span><span class="menu-card__byline">140 years at the edge of the sea.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/17.jpg" alt=""></span><span class="menu-card__title">Stories &amp; Traditions</span><span class="menu-card__byline">Told by those who return.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/offer-1.jpg" alt=""></span><span class="menu-card__title">The Del Club</span><span class="menu-card__byline">The insider&rsquo;s Del.</span></a><nav class="menu-panel__links" aria-label="More to discover"><a href="#">The Neighborhoods</a><a href="#">Sustainability</a><a href="#">About Coronado</a><a href="#">Pets Welcome</a></nav></div></section>
         <section class="menu-panel" data-panel-view="join" aria-label="Membership Overview"><div class="menu-panel__head"><a class="menu-panel__heading" href="#">Membership Overview <svg class="m-arrow" viewBox="0 0 20.5 7.4" aria-hidden="true"><path d="M20.3536 4.03553C20.5488 3.84027 20.5488 3.52369 20.3536 3.32843L17.1716 0.146447C16.9763 -0.0488155 16.6597 -0.0488155 16.4645 0.146447C16.2692 0.341709 16.2692 0.658291 16.4645 0.853554L19.2929 3.68198L16.4645 6.51041C16.2692 6.70567 16.2692 7.02225 16.4645 7.21751C16.6597 7.41278 16.9763 7.41278 17.1716 7.21751L20.3536 4.03553ZM0 3.68198V4.18198H20V3.68198V3.18198H0V3.68198Z" fill="currentColor"/></svg></a></div><hr class="menu-panel__rule"><div class="menu-panel__grid"><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/offer-1.jpg" alt=""></span><span class="menu-card__title">The Del Club</span><span class="menu-card__byline">The insider&rsquo;s Del.</span></a><a class="menu-card" href="#"><span class="menu-card__media"><img loading="lazy" src="assets/img/roast.avif" alt=""></span><span class="menu-card__title">Resort Membership</span><span class="menu-card__byline">Every visit, elevated.</span></a></div></section>
         <section class="menu-panel" data-panel-view="neighborhood" data-parent="stay" aria-label="Explore the Neighborhood"><div class="menu-panel__head"><a class="menu-panel__heading" href="#">Explore the Neighborhood <svg class="m-arrow" viewBox="0 0 20.5 7.4" aria-hidden="true"><path d="M20.3536 4.03553C20.5488 3.84027 20.5488 3.52369 20.3536 3.32843L17.1716 0.146447C16.9763 -0.0488155 16.6597 -0.0488155 16.4645 0.146447C16.2692 0.341709 16.2692 0.658291 16.4645 0.853554L19.2929 3.68198L16.4645 6.51041C16.2692 6.70567 16.2692 7.02225 16.4645 7.21751C16.6597 7.41278 16.9763 7.41278 17.1716 7.21751L20.3536 4.03553ZM0 3.68198V4.18198H20V3.68198V3.18198H0V3.68198Z" fill="currentColor"/></svg></a><button class="menu-panel__back" data-menu-back>Back</button></div><hr class="menu-panel__rule"><div class="menu-panel__grid"><a class="menu-card" href="#"><span class="menu-card__media"><video muted playsinline preload="metadata" aria-hidden="true"><source src="assets/img/the_victorian.mp4" type="video/mp4"></video></span><span class="menu-card__title">The Victorian</span><span class="menu-card__byline">Historic &amp; Romantic</span></a><a class="menu-card" href="#"><span class="menu-card__media"><video muted playsinline preload="metadata" aria-hidden="true"><source src="assets/img/cabanas.mp4" type="video/mp4"></video></span><span class="menu-card__title">The Cabanas</span><span class="menu-card__byline">Relaxed &amp; Residential</span></a><a class="menu-card" href="#"><span class="menu-card__media"><video muted playsinline preload="metadata" aria-hidden="true"><source src="assets/img/views.mp4" type="video/mp4"></video></span><span class="menu-card__title">The Views</span><span class="menu-card__byline">Peaceful &amp; Restorative</span></a><a class="menu-card" href="#"><span class="menu-card__media"><video muted playsinline preload="metadata" aria-hidden="true"><source src="assets/img/shore-house.mp4" type="video/mp4"></video></span><span class="menu-card__title">Shore House</span><span class="menu-card__byline">Vibrant &amp; Playful</span></a><a class="menu-card" href="#"><span class="menu-card__media"><video muted playsinline preload="metadata" aria-hidden="true"><source src="assets/img/Beach-Village.mp4" type="video/mp4"></video></span><span class="menu-card__title">Beach Village</span><span class="menu-card__byline">Exclusive &amp; Residential</span></a></div></section>
       </div>
@@ -142,8 +154,16 @@
           <h3 class="curtain__title">A Grand Stay Awaits</h3>
           <p class="curtain__lede">Every room is shaped by the same sweeping shoreline — and the easy feeling that you've landed somewhere that already knows you.</p>
         </div>
-        <a class="curtain__cta link-lined" href="#">Find Your Perfect Stay</a>
+        <a class="curtain__cta link-lined" href="#" data-quiz-open>Find Your Perfect Stay</a>
       </div>
+
+      <!-- STAY FINDER — 3 questions -> one of the five neighborhoods -->
+      <aside class="stay-quiz" data-quiz hidden aria-label="Find your perfect stay">
+        <button class="stay-quiz__close" data-quiz-close aria-label="Close quiz">
+          <span aria-hidden="true"></span><span aria-hidden="true"></span>
+        </button>
+        <div class="stay-quiz__body" data-quiz-body></div>
+      </aside>
     </section>
 
     <!-- REVEAL: explore the neighborhood -->
@@ -283,7 +303,27 @@
       </div>
       <div class="quote__inner">
         <p class="quote__text">The Del is a crown jewel of the coast that continues to shape its culture as much as it reflects it.</p>
-        <a class="quote__link link-lined" href="#">Our Story</a>
+        <div class="quote__links">
+          <a class="quote__link link-lined" href="#">Our Story</a>
+          <button class="quote__link quote__watch link-lined" data-watch-video>
+            <svg class="play-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.6" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M10.1 7.6a1.05 1.05 0 0 1 1.66-.86l5.5 3.98a1.1 1.1 0 0 1 0 1.78l-5.5 3.98a1.05 1.05 0 0 1-1.66-.86z" fill="currentColor"/></svg>
+            Watch Video
+          </button>
+        </div>
+      </div>
+      <div class="quote__player" data-video-layer hidden>
+        <button class="quote__player-close" data-video-close aria-label="Close video">
+          <span aria-hidden="true"></span><span aria-hidden="true"></span>
+        </button>
+        <div class="quote__player-frame" data-video-frame></div>
+        <div class="quote__player-ui">
+          <button class="vp-play" data-vp-play aria-label="Pause">
+            <svg class="vp-ic-pause" viewBox="0 0 12 14" aria-hidden="true"><path d="M1 0h3v14H1zM8 0h3v14H8z" fill="currentColor"/></svg>
+            <svg class="vp-ic-play" viewBox="0 0 12 14" aria-hidden="true"><path d="M0 0l12 7L0 14Z" fill="currentColor"/></svg>
+          </button>
+          <input class="vp-scrub" data-vp-scrub type="range" min="0" max="100" step="0.1" value="0" aria-label="Seek">
+          <span class="vp-time" data-vp-time>0:00 / 0:00</span>
+        </div>
       </div>
     </section>
 
@@ -353,7 +393,7 @@
     <section class="seasonal" aria-label="Seasonal Highlights">
       <div class="seasonal__rail" data-reveal>
         <div class="seasonal__head">
-          <h3 class="seasonal__title">Seasonal<br>Highlights</h3>
+          <h3 class="seasonal__title">Seasonal<br> Highlights</h3>
           <p class="seasonal__lede">The shore changes with the calendar, and so does The Del — every season brings its own reason to return.</p>
         </div>
         <a class="seasonal__link link-lined" href="#">Explore All</a>
@@ -496,6 +536,112 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=21" defer></script>
+
+  <!-- ===================== BOOKING WIDGET (Figma HDC-Booking 5737:13183) ===================== -->
+  <div class="booking-backdrop" data-booking-backdrop hidden></div>
+  <aside class="booking" data-booking role="dialog" aria-modal="true" aria-label="Check availability" hidden>
+    <div class="booking__bar">
+      <p class="booking__auth"><a href="#">Join</a> <span>or</span> <a href="#">Sign in</a></p>
+      <button class="booking__close" data-booking-close aria-label="Close booking">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <div class="booking__view" data-bk-view="form">
+      <h4 class="booking__title">Check Availability</h4>
+      <div class="booking__tabs" role="tablist">
+        <button class="booking__tab is-active" data-bk-tab="stay" role="tab" aria-selected="true">Stay</button>
+        <button class="booking__tab" data-bk-tab="dine" role="tab" aria-selected="false">Dine</button>
+        <button class="booking__tab" data-bk-tab="spa" role="tab" aria-selected="false">Spa</button>
+        <button class="booking__tab" data-bk-tab="activities" role="tab" aria-selected="false">Activities</button>
+      </div>
+
+      <div class="booking__nbh" data-bk-nbh-row hidden>
+        <button class="booking__nbh-field" data-bk-nbh-toggle aria-expanded="false">
+          <span data-bk-nbh-label>Search all Neighborhoods</span>
+          <span class="booking__nbh-actions"><a class="booking__viewmap" data-bk-map-open href="#">View Map</a><span class="booking__chev" aria-hidden="true">&#9662;</span></span>
+        </button>
+        <div class="booking__nbh-list" data-bk-nbh-list hidden></div>
+      </div>
+
+      <div class="booking__cal" data-bk-cal></div>
+
+      <p class="booking__minstay" data-bk-minstay hidden>&#9432;&nbsp; Minimum 2 night stay</p>
+
+      <div class="booking__legs">
+        <span>Arrival: <b data-bk-arr>&mdash;</b></span>
+        <span>Departure: <b data-bk-dep>&mdash;</b></span>
+      </div>
+
+      <div class="booking__guests">
+        <p class="booking__guests-label">Guests</p>
+        <div class="booking__guest-row">
+          <div class="booking__guest"><span class="booking__guest-name">Adults <small>13 years +</small></span>
+            <span class="booking__stepper"><button data-bk-step="adults" data-dir="-1" aria-label="Fewer adults">&minus;</button><b data-bk-count="adults">1</b><button data-bk-step="adults" data-dir="1" aria-label="More adults">+</button></span>
+          </div>
+          <div class="booking__guest"><span class="booking__guest-name">Children <small>Aged 0&ndash;12</small></span>
+            <span class="booking__stepper"><button data-bk-step="children" data-dir="-1" aria-label="Fewer children">&minus;</button><b data-bk-count="children">0</b><button data-bk-step="children" data-dir="1" aria-label="More children">+</button></span>
+          </div>
+        </div>
+      </div>
+
+      <a class="booking__cta" data-bk-cta href="#">Check Availability</a>
+    </div>
+
+    <div class="booking__view" data-bk-view="map" hidden>
+      <div class="booking__map-head">
+        <h4 class="booking__title booking__title--left">Neighborhood Map</h4>
+        <div class="booking__map-actions">
+          <button data-bk-map-reset>Reset</button>
+          <button data-bk-map-close>Close</button>
+        </div>
+      </div>
+      <div class="booking__map-img">
+        <img src="assets/img/wecreate-hotel-del-cover.jpg" alt="Aerial map of the Hotel del Coronado neighborhoods">
+      </div>
+      <p class="booking__map-hint">Select a Neighborhood to View on Map</p>
+      <div class="booking__map-list" data-bk-map-list></div>
+    </div>
+  </aside>
+
+  <!-- ===================== AI CONCIERGE ===================== -->
+  <div class="concierge-backdrop" data-concierge-backdrop hidden></div>
+  <aside class="concierge" data-concierge role="dialog" aria-modal="true" aria-label="AI Concierge" hidden>
+    <button class="concierge__close" data-concierge-close aria-label="Close concierge">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </button>
+
+    <h4 class="concierge__title">Welcome. We are here to help plan your perfect Del experience.</h4>
+
+    <form class="concierge__search" data-concierge-form>
+      <svg class="concierge__ai" viewBox="0 0 14.7314 14.7311" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M6.76846 0.420025C6.96869 -0.149625 7.76879 -0.130768 7.96334 0.421429L7.97226 0.448602L9.45365 5.2774L14.2831 6.75904C14.8808 6.9424 14.8808 7.78846 14.2831 7.97183L9.45365 9.45338L7.97209 14.2828C7.78873 14.8805 6.94266 14.8805 6.7593 14.2828L5.27766 9.45338L0.448272 7.97183C-0.149421 7.78847 -0.149427 6.9424 0.448272 6.75904L5.27766 5.2774L6.7593 0.448024L6.76846 0.420025ZM6.25647 5.83581C6.19475 6.037 6.03726 6.19449 5.83607 6.25621L2.22022 7.36543L5.83607 8.47466C6.02469 8.53252 6.17486 8.67458 6.24375 8.85789L6.25647 8.89505L7.36569 12.5108L8.47492 8.89505L8.48764 8.85789C8.55653 8.67458 8.7067 8.53252 8.89532 8.47466L12.5111 7.36543L8.89532 6.25621C8.69094 6.19351 8.53549 6.03335 8.47475 5.8354C8.0344 4.39998 7.72617 3.39527 7.36561 2.21997L6.25647 5.83581Z" fill="currentColor"/></svg>
+      <input type="text" data-concierge-input placeholder="Ask us anything&hellip;" aria-label="Ask the concierge">
+      <button type="submit" aria-label="Ask">
+        <svg width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true">
+          <path d="M1 5H21M21 5L16.5 1M21 5L16.5 9" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+      </button>
+    </form>
+
+    <p class="concierge__label">Popular questions</p>
+    <div class="concierge__qs">
+      <button class="concierge__q" data-concierge-q>What time is check-in and check-out?</button>
+      <button class="concierge__q" data-concierge-q>Which neighborhood is right for my family?</button>
+      <button class="concierge__q" data-concierge-q>Where can I watch the sunset with a cocktail?</button>
+      <button class="concierge__q" data-concierge-q>Do you host beach bonfires and s&rsquo;mores?</button>
+      <button class="concierge__q" data-concierge-q>Is The Del pet friendly?</button>
+      <button class="concierge__q" data-concierge-q>What&rsquo;s included in the resort fee?</button>
+    </div>
+
+    <hr class="concierge__rule">
+
+    <div class="concierge__stay">
+      <h5 class="concierge__stay-title">Find Your Stay</h5>
+      <p class="concierge__stay-lede">Tell us how you like to unwind and we&rsquo;ll match you with one of five neighborhoods.</p>
+      <a class="concierge__cta" data-concierge-quiz href="#stay">Find Your Perfect Stay</a>
+    </div>
+  </aside>
+
+  <script src="assets/js/main.js?v=52" defer></script>
 </body>
 </html>
