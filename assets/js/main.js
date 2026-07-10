@@ -155,30 +155,36 @@
     /* the lift's travel = the reveal's natural height: the curtain stops when
        its bottom edge meets the reveal's top, then everything scrolls as one */
     var liftBudget = 0;
-    /* pin geometry: desktop = 90svh stuck at 10svh; ≤480 = full viewport */
-    var pinFrac = function () {
-      return window.matchMedia("(max-width: 480px)").matches
-        ? { top: 0, h: 1 } : { top: 0.1, h: 0.9 };
+    /* pin geometry (px): desktop = 90svh stuck at 10svh; ≤480 the panel
+       fills exactly between the fixed header (47) and the Reservations bar */
+    var pinGeom = function () {
+      var vh = window.innerHeight;
+      if (window.matchMedia("(max-width: 480px)").matches) {
+        var rbtn = document.querySelector(".menu-bar .btn-reserve");
+        var btnH = rbtn ? rbtn.offsetHeight : 52;
+        return { top: 47, h: vh - 47 - btnH };
+      }
+      return { top: vh * 0.1, h: vh * 0.9 };
     };
     var sizeStage = function () {
-      var f = pinFrac();
-      liftBudget = Math.min(reveal.offsetHeight, window.innerHeight * f.h);
+      var g = pinGeom();
+      liftBudget = Math.min(reveal.offsetHeight, g.h);
       /* lift runs stick -> release exactly */
-      stage.style.height = (window.innerHeight * f.h + liftBudget) + "px";
+      stage.style.height = (g.h + liftBudget) + "px";
     };
     var ticking = false;
     var applyCurtain = function () {
       var vh = window.innerHeight;
-      var f = pinFrac();
+      var g = pinGeom();
       var top = stage.getBoundingClientRect().top;
       /* 1:1 lift, capped at the budget */
-      var p = liftBudget > 0 ? Math.min(Math.max((vh * f.top - top) / liftBudget, 0), 1) : 1;
+      var p = liftBudget > 0 ? Math.min(Math.max((g.top - top) / liftBudget, 0), 1) : 1;
       var lift = p * liftBudget;
       curtain.style.transform = "translateY(" + (-lift) + "px)";
       /* parallax runs the full journey: panel entering → lift complete */
       if (media) {
-        var g = Math.min(Math.max((vh - top) / (vh * f.h + liftBudget), 0), 1);
-        media.style.transform = "translateY(" + ((g * 2 - 1) * 0.07 * vh) + "px)";
+        var gp = Math.min(Math.max((vh - top) / (g.h + liftBudget), 0), 1);
+        media.style.transform = "translateY(" + ((gp * 2 - 1) * 0.07 * vh) + "px)";
       }
       curtain.style.pointerEvents = p >= 1 ? "none" : "";
       ticking = false;
@@ -272,8 +278,8 @@
       var card = cards[0];
       var gap = parseFloat(getComputedStyle(track).columnGap) || 16;
       var step = card ? card.getBoundingClientRect().width + gap : track.clientWidth * 0.8;
-      norm(); /* start from the middle copy so the glide never meets an edge */
-      var target = Math.round((track.scrollLeft + dir * step) / step) * step;
+      norm(); align(); /* start aligned in the middle copy */
+      var target = track.scrollLeft + dir * step;
       if (prefersReduced) { track.scrollLeft = target; norm(); return; }
       if (anim) window.cancelAnimationFrame(anim);
       /* a rapid re-tap must also disarm the previous watchdog, or it fires
@@ -282,7 +288,7 @@
       track.style.scrollSnapType = "none";
       var from = track.scrollLeft, delta = target - from, t0 = null, DUR = 900;
       var done = false;
-      var settle = function () { track.style.scrollSnapType = ""; anim = null; norm(); };
+      var settle = function () { track.style.scrollSnapType = ""; anim = null; norm(); align(); };
       var ease = function (t) { return t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; };
       var frame = function (ts) {
         if (t0 === null) t0 = ts;
@@ -302,8 +308,22 @@
     };
     /* swipe/momentum (tablet widths) stays in the middle copy too */
     track.addEventListener("scroll", function () { if (!anim) norm(); }, { passive: true });
+    /* alignment by MEASUREMENT, not arithmetic: fractional card widths
+       drift a few px across wraps — snap the nearest card's left edge
+       exactly onto the track's inset, full card left, next peeking right */
+    var align = function () {
+      var pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+      var edge = track.getBoundingClientRect().left + pad;
+      var d = null;
+      for (var ci = 0; ci < cards.length; ci++) {
+        var off = cards[ci].getBoundingClientRect().left - edge;
+        if (d === null || Math.abs(off) < Math.abs(d)) d = off;
+      }
+      if (d) track.scrollLeft += d;
+    };
     track.scrollLeft = setW();
-    window.addEventListener("load", function () { track.scrollLeft = setW(); });
+    align();
+    window.addEventListener("load", function () { track.scrollLeft = setW(); align(); });
     foreverApis[def.sel] = { go: go };
   });
 
@@ -349,11 +369,23 @@
     };
     /* element-level smooth scrollBy is unreliable here; tween it ourselves */
     var sAnim = null, sWd = null;
+    /* snap the nearest card's left edge onto the track's inset (measured —
+       fractional widths drift a few px across wraps) */
+    var sAlign = function () {
+      var pad = parseFloat(getComputedStyle(sTrack).paddingLeft) || 0;
+      var edge = sTrack.getBoundingClientRect().left + pad;
+      var d = null;
+      for (var si = 0; si < sCards.length; si++) {
+        var off = sCards[si].getBoundingClientRect().left - edge;
+        if (d === null || Math.abs(off) < Math.abs(d)) d = off;
+      }
+      if (d) sTrack.scrollLeft += d;
+    };
     var sGo = function (dir) {
       var step = sStep();
-      /* aim for the next card boundary in the travel direction */
-      var target = Math.round((sTrack.scrollLeft + dir * step) / step) * step;
-      if (prefersReduced) { sTrack.scrollLeft = target; sNorm(); return; }
+      sNorm(); sAlign(); /* start aligned in the middle copy */
+      var target = sTrack.scrollLeft + dir * step;
+      if (prefersReduced) { sTrack.scrollLeft = target; sNorm(); sAlign(); return; }
       if (sAnim) window.cancelAnimationFrame(sAnim);
       /* disarm the previous tap's watchdog — a stale one firing mid-glide
          teleports the track to the old target (visible flick) */
@@ -363,7 +395,7 @@
       sTrack.style.scrollSnapType = "none";
       var from = sTrack.scrollLeft, delta = target - from, t0 = null, DUR = 900;
       var done = false;
-      var settle = function () { sTrack.style.scrollSnapType = ""; sNorm(); };
+      var settle = function () { sTrack.style.scrollSnapType = ""; sNorm(); sAlign(); };
       /* ease-in-out for a silky glide (matches the site's --ease feel) */
       var ease = function (t) { return t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; };
       var frame = function (ts) {
@@ -389,8 +421,10 @@
     sNext.addEventListener("click", function () { sGo(1); });
     /* keep touch/momentum scrolling in the middle copy too */
     sTrack.addEventListener("scroll", function () { if (!sAnim) sNorm(); }, { passive: true });
-    /* start on the middle copy */
+    /* start on the middle copy, aligned to a card edge */
     sTrack.scrollLeft = setW();
+    sAlign();
+    window.addEventListener("load", function () { sTrack.scrollLeft = setW(); sAlign(); });
   }
 
   /* ---- Stay Finder: 3 questions -> one of the five neighborhoods ---- */
@@ -402,13 +436,13 @@
     var NBH = {
       victorian: { name: "The Victorian", feel: "Historic & Romantic", video: "assets/img/the_victorian.mp4",
         why: "Red turrets, storied halls, and dinners that feel like occasions — the classic Del was made for you." },
-      cabanas: { name: "The Cabanas", feel: "Relaxed & Residential", video: "assets/img/cabanas.mp4",
+      cabanas: { name: "The Cabanas", feel: "Vibrant & Playful", video: "assets/img/cabanas.mp4",
         why: "Poolside energy, golden-hour cocktails, and the liveliest corner of the shore." },
-      shore: { name: "Shore House", feel: "Vibrant & Playful", video: "assets/img/shore-house.mp4",
+      shore: { name: "Shore House", feel: "Relaxed & Social", video: "assets/img/shore-house.mp4",
         why: "Space to spread out, sand at the doorstep, and room for everyone you love." },
       views: { name: "The Views", feel: "Peaceful & Restorative", video: "assets/img/views.mp4",
         why: "Quiet mornings and an endless horizon — the Del at its most restorative." },
-      village: { name: "Beach Village", feel: "Exclusive & Residential", video: "assets/img/Beach-Village.mp4",
+      village: { name: "Beach Village", feel: "Exclusive & Intimate", video: "assets/img/Beach-Village.mp4",
         why: "Your own stretch of shoreline — private, polished, unhurried." }
     };
     var QUIZ = [
@@ -512,7 +546,18 @@
       quizOpenBtn.focus();
     };
 
-    quizOpenBtn.addEventListener("click", quizOpen);
+    /* opening the quiz centers the panel: equal air between the condensed
+       nav and the panel, and the panel and the viewport bottom (same
+       landing as the concierge hand-off); phones sit flush under the header */
+    var quizAlignScroll = function () {
+      var st = document.querySelector("[data-stage]");
+      if (!st) return;
+      var vh = window.innerHeight;
+      var panelTop = window.matchMedia("(max-width: 480px)").matches
+        ? 47 : (55 / 2) + vh * 0.05; /* desktop condensed nav is 55px */
+      window.scrollTo({ top: st.getBoundingClientRect().top + window.scrollY - panelTop, behavior: "smooth" });
+    };
+    quizOpenBtn.addEventListener("click", function () { quizAlignScroll(); quizOpen(); });
     quizCloseBtn.addEventListener("click", quizClose);
     quizEl.addEventListener("keydown", function (e) { if (e.key === "Escape") quizClose(); });
     quizBody.addEventListener("click", function (e) {
@@ -759,10 +804,17 @@
         email.focus();
         return;
       }
+      var consent = document.querySelector(".sc-consent input");
+      if (consent && !consent.checked) {
+        consent.focus();
+        return;
+      }
       var done = document.createElement("p");
       done.className = "sc-success";
       done.textContent = "You're on the list — see you at the shore.";
       scForm.replaceWith(done);
+      var consentRow = document.querySelector(".sc-consent");
+      if (consentRow) consentRow.remove();
     });
   }
 
@@ -779,6 +831,15 @@
     var bkNbhList = bk.querySelector("[data-bk-nbh-list]");
     var bkNbhToggle = bk.querySelector("[data-bk-nbh-toggle]");
     var bkNbhRow = bk.querySelector("[data-bk-nbh-row]");
+    var bkRatesRow = bk.querySelector("[data-bk-rates-row]");
+    /* special-rates disclosure */
+    var bkRatesToggle = bk.querySelector("[data-bk-rates-toggle]");
+    var bkRatesPanel = bk.querySelector("[data-bk-rates-panel]");
+    bkRatesToggle.addEventListener("click", function () {
+      var open = bkRatesPanel.hidden;
+      bkRatesPanel.hidden = !open;
+      bkRatesToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
     var BK_NBH = [
       { name: "The Victorian", desc: "The original 1888 hotel, inviting its legacy & charm of accommodating.", img: "assets/img/16.webp" },
       { name: "The Views", desc: "Contemporary beachfront rooms & suites.", img: "assets/img/15.webp" },
@@ -883,6 +944,7 @@
           x.setAttribute("aria-selected", on ? "true" : "false");
         });
         bkNbhRow.style.display = bkTab === "stay" ? "" : "none";
+        bkRatesRow.style.display = bkTab === "stay" ? "" : "none";
         bkCta.textContent = BK_CTAS[bkTab];
         bkRenderCal();
       });
@@ -981,8 +1043,7 @@
     cg.querySelector("[data-concierge-quiz]").addEventListener("click", function (e) {
       e.preventDefault();
       cgClose();
-      var stage = document.querySelector("[data-stage]");
-      if (stage) window.scrollTo({ top: stage.getBoundingClientRect().top + window.scrollY, behavior: "smooth" });
+      if (typeof quizAlignScroll === "function") quizAlignScroll();
       window.setTimeout(function () {
         var qz = document.querySelector("[data-quiz-open]");
         if (qz) qz.click();
