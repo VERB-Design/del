@@ -957,13 +957,20 @@ body.menu-open { overflow: hidden; }
 }
 .menu-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
-/* Discover: 2x2 cards with the text links as a third column */
-[data-panel-view="discover"] .menu-panel__grid .menu-card:nth-child(odd)  { grid-column: 1; }
-[data-panel-view="discover"] .menu-panel__grid .menu-card:nth-child(even) { grid-column: 2; }
 .menu-panel__links {
   grid-column: 3; grid-row: 1 / span 2; display: flex; flex-direction: column;
   gap: 18px; align-items: flex-start; padding-top: 4px;
 }
+/* secondary tier: venue links in a wrapping row below the cards */
+.menu-panel__links--row {
+  flex-direction: row; flex-wrap: wrap; gap: 10px 26px; padding-top: 30px;
+}
+.menu-panel__links--row a { font-size: 17px; }
+
+/* experiences: 3 cards up top, 4 across the second row */
+[data-panel-view="experiences"] .menu-panel__grid { grid-template-columns: repeat(12, 1fr); }
+[data-panel-view="experiences"] .menu-card:nth-child(-n+3) { grid-column: span 4; }
+[data-panel-view="experiences"] .menu-card:nth-child(n+4) { grid-column: span 3; }
 .menu-panel__links a {
   font-family: var(--font-primary); font-weight: 300; font-size: 21px;
   line-height: 1.2; color: #242829; text-decoration: none;
