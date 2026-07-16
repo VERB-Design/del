@@ -876,7 +876,7 @@ body.menu-open { overflow: hidden; }
 .menu-rail__aux { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
 .menu-rail__aux a {
   /* plain red hyperlinks — no drawn-line treatment */
-  font-family: var(--font-secondary); font-weight: 500; font-size: 13px;
+  font-family: var(--font-secondary); font-weight: 500; font-size: clamp(11px, 0.9vw, 13px);
   letter-spacing: .1em; text-transform: uppercase; color: var(--del-coral);
   text-decoration: underline; text-underline-offset: 3px;
   transition: color .3s var(--ease);
@@ -902,14 +902,14 @@ body.menu-open { overflow: hidden; }
 .menu-panel__head { display: flex; align-items: center; justify-content: space-between; }
 .menu-panel__heading {
   display: inline-flex; align-items: center; gap: 24px;
-  font-family: var(--font-primary); font-weight: 300; font-size: 20px;
+  font-family: var(--font-primary); font-weight: 300; font-size: clamp(17px, 1.4vw, 20px);
   color: #242829; text-decoration: none;
 }
 .menu-panel__heading .m-arrow { width: 20px; height: 8px; color: #242829; opacity: .2; transition: opacity .3s var(--ease), transform .3s var(--ease); }
 .menu-panel__heading:hover .m-arrow { opacity: 1; transform: translateX(4px); }
 .menu-panel__back {
   background: none; border: 0; cursor: pointer; padding: 0;
-  font-family: var(--font-secondary); font-size: 13px; color: #242829;
+  font-family: var(--font-secondary); font-size: clamp(11px, 0.9vw, 13px); color: #242829;
 }
 .menu-panel__back:hover { text-decoration: underline; text-underline-offset: 4px; }
 .menu-panel__back::before { content: "\2190\00a0"; color: var(--del-coral); }
@@ -946,13 +946,13 @@ body.menu-open { overflow: hidden; }
   transform: scale(1.04);
 }
 .menu-card__title {
-  font-family: var(--font-primary); font-weight: 300; font-size: 21px;
+  font-family: var(--font-primary); font-weight: 300; font-size: clamp(17px, 1.46vw, 21px);
   line-height: 1.2; margin-top: 16px; transition: color .3s var(--ease);
 }
 .menu-card__title .m-arrow { display: none; } /* drill flag: mobile text-list only */
 .menu-card:hover .menu-card__title { color: var(--del-coral); }
 .menu-card__byline {
-  font-family: var(--font-secondary); font-size: 15px; letter-spacing: .02em;
+  font-family: var(--font-secondary); font-size: clamp(13px, 1.05vw, 15px); letter-spacing: .02em;
   color: #4a4138; margin-top: 8px;
 }
 .menu-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
@@ -967,12 +967,20 @@ body.menu-open { overflow: hidden; }
 }
 .menu-panel__links--row a { font-size: 17px; }
 
-/* experiences: 3 cards up top, 4 across the second row */
-[data-panel-view="experiences"] .menu-panel__grid { grid-template-columns: repeat(12, 1fr); }
-[data-panel-view="experiences"] .menu-card:nth-child(-n+3) { grid-column: span 4; }
-[data-panel-view="experiences"] .menu-card:nth-child(n+4) { grid-column: span 3; }
+/* mixed-density panels: experiences runs 4+4; quick bites runs 3+4.
+   Imagery keeps ONE height across both card widths (the 3-across height:
+   panel is 60vw, so a span-4 image is ((60vw − 64px)/3) / (258/160)) */
+[data-panel-view="experiences"] .menu-panel__grid,
+[data-panel-view="dine-quickbites"] .menu-panel__grid { grid-template-columns: repeat(12, 1fr); }
+[data-panel-view="experiences"] .menu-card { grid-column: span 3; }
+[data-panel-view="dine-quickbites"] .menu-card:nth-child(-n+3) { grid-column: span 4; }
+[data-panel-view="dine-quickbites"] .menu-card:nth-child(n+4) { grid-column: span 3; }
+[data-panel-view="experiences"] .menu-card__media,
+[data-panel-view="dine-quickbites"] .menu-card__media {
+  aspect-ratio: auto; height: calc(12.4vw - 13px);
+}
 .menu-panel__links a {
-  font-family: var(--font-primary); font-weight: 300; font-size: 21px;
+  font-family: var(--font-primary); font-weight: 300; font-size: clamp(17px, 1.46vw, 21px);
   line-height: 1.2; color: #242829; text-decoration: none;
   transition: color .3s var(--ease);
 }
@@ -980,7 +988,7 @@ body.menu-open { overflow: hidden; }
 
 /* panel heading CTA (e.g. Gather: Make an Inquiry) */
 .menu-panel__cta {
-  font-family: var(--font-secondary); font-weight: 600; font-size: 13px;
+  font-family: var(--font-secondary); font-weight: 600; font-size: clamp(11px, 0.9vw, 13px);
   letter-spacing: .1em; text-transform: uppercase;
 }
 
@@ -997,6 +1005,8 @@ body.menu-open { overflow: hidden; }
   .menu-panel__back--mobile {
     display: inline-block !important; margin-bottom: 20px; /* +8px from the title link */
   }
+  .menu-panel__back { font-size: clamp(11px, 3.1vw, 12px); }
+  .menu-panel__heading { font-size: clamp(18px, 5.1vw, 20px); }
   /* sub-panels (own Back in the head row): BACK stacks on top, so the
      heading gets the full line — "Explore the Neighborhood" stays one line */
   .menu-panel__head { flex-direction: column-reverse; align-items: flex-start; gap: 20px; }
@@ -1415,13 +1425,13 @@ body.booking-open { overflow: hidden; }
   .menu-card__media { display: none; }
   .menu-card { padding: 16px 0 13px; }
   .menu-card + .menu-card { border-top: 1px solid rgba(36,40,41,.12); }
-  .menu-card__title { margin-top: 0; font-size: 19px; }
+  .menu-card__title { margin-top: 0; font-size: clamp(17px, 4.9vw, 19px); }
   .menu-card__byline { margin-top: -2px; } /* title→description −6px */
   .menu-panel__links {
     padding: 18px 0 0; gap: 14px;
     border-top: 1px solid rgba(36,40,41,.12); margin-top: 8px;
   }
-  .menu-panel__links a { font-size: 16px; }
+  .menu-panel__links a { font-size: clamp(14px, 4.1vw, 16px); }
   .menu-rail__item { height: 64px; }
   .menu-rail__aux { margin-bottom: 24px; }
 }
