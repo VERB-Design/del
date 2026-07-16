@@ -129,8 +129,8 @@ a:focus-visible, button:focus-visible, .btn:focus-visible {
   .menu-bar.is-condensed { height: 55px; padding-top: 4px; padding-bottom: 6px; }
   .menu-bar.is-condensed .menu-bar__logo { top: 4px; transform: translateX(-50%); }
   .menu-bar.is-condensed .menu-bar__group { margin-top: 4px; }
-  /* the Menu toggle (a <button>) sits ~1px lower than the aux <a> labels */
-  .menu-toggle { transform: translateY(-1px); }
+  /* optical alignment of the Menu toggle against the aux <a> labels */
+  .menu-toggle { transform: translateY(1px); }
 }
 .menu-bar.is-condensed .menu-bar__logo img {
   filter: none;                     /* red crest at first-view scale; wordmark cropped */
@@ -149,7 +149,7 @@ a:focus-visible, button:focus-visible, .btn:focus-visible {
 }
 .menu-bar__group { display: flex; align-items: center; gap: 24px; height: 39px; }
 .menu-bar .ui-label {
-  font-family: var(--font-secondary); font-weight: 600; font-size: 13px;
+  font-family: var(--font-secondary); font-weight: 600; font-size: 14px;
   letter-spacing: .1em; text-transform: uppercase; color: #fff; white-space: nowrap;
   transition: color .65s var(--ease);
 }
@@ -220,7 +220,7 @@ a.menu-bar__item--aux:focus-visible .ui-label::after { transform: scaleX(1); }
   transform: translateY(-1px);
   border-radius: 5px; border: 0; cursor: pointer;
   background: var(--del-coral); color: #fff; text-decoration: none;
-  font-family: var(--font-secondary); font-weight: 600; font-size: 14px;
+  font-family: var(--font-secondary); font-weight: 600; font-size: 15px;
   letter-spacing: .1em; text-transform: uppercase; white-space: nowrap;
   transition: background var(--dur) var(--ease);
 }
@@ -239,9 +239,9 @@ a.menu-bar__item--aux:focus-visible .ui-label::after { transform: scaleX(1); }
   .menu-bar { padding-inline: 16px; }
   .menu-bar__logo { width: 121px; height: 72.6px; }
   .menu-bar.is-condensed .menu-bar__logo { width: 121px; height: 29.77px; }
-  .menu-bar .ui-label { font-size: 12px; }
+  .menu-bar .ui-label { font-size: 13px; }
   .btn-reserve { padding: 4px 14px 0; height: 34px; }
-  .btn-reserve .label { font-size: 11px; }
+  .btn-reserve .label { font-size: 12px; }
 }
 
 /* =============================================================
@@ -990,7 +990,10 @@ body.menu-open { overflow: hidden; }
 .menu-panel__cta {
   font-family: var(--font-secondary); font-weight: 600; font-size: clamp(11px, 0.9vw, 13px);
   letter-spacing: .1em; text-transform: uppercase;
+  color: var(--del-coral); text-decoration: underline; text-underline-offset: 3px;
+  transition: color .3s var(--ease); flex-shrink: 0;
 }
+.menu-panel__cta:hover, .menu-panel__cta:focus-visible { color: #1B365D; }
 
 /* mobile: rail stacks; picking an item swaps to panel with back */
 @media (max-width: 900px) {
@@ -1007,6 +1010,7 @@ body.menu-open { overflow: hidden; }
   }
   .menu-panel__back { font-size: clamp(11px, 3.1vw, 12px); }
   .menu-panel__heading { font-size: clamp(18px, 5.1vw, 20px); }
+  .menu-panel__cta { order: -1; }
   /* sub-panels (own Back in the head row): BACK stacks on top, so the
      heading gets the full line — "Explore the Neighborhood" stays one line */
   .menu-panel__head { flex-direction: column-reverse; align-items: flex-start; gap: 20px; }
@@ -1509,7 +1513,7 @@ body.booking-open { overflow: hidden; }
     border-radius: 0; transform: none;
   }
   .menu-bar .btn-reserve .label,
-  .menu-overlay .btn-reserve .label { font-size: 13px; }
+  .menu-overlay .btn-reserve .label { font-size: 14px; }
   body { padding-bottom: calc(52px + env(safe-area-inset-bottom)); }
   /* menu content scrolls clear of the fixed button */
   .menu-overlay__body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
