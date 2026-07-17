@@ -401,7 +401,11 @@ html.is-curtain .reveal__intro { padding-block: 0 64px; }
 /* =============================================================
    REVEAL  —  "Or, Explore the Neighborhood" + 5 cards
    ============================================================= */
-.reveal { position: relative; z-index: 4; padding-block: var(--space-l) calc(var(--space-l) / 2); }
+.reveal { position: relative; z-index: 4;
+  padding-block:
+    max(16px, calc(var(--space-l) - var(--reveal-tighten, 0px)))
+    max(12px, calc(var(--space-l) / 2 - var(--reveal-tighten, 0px)));
+}
 .reveal__intro {
   max-width: 800px; margin-inline: auto; text-align: center;
   padding-block: clamp(3.5rem, 7vw, 6rem) 64px;
@@ -416,7 +420,10 @@ html.is-curtain .reveal__intro { padding-block: 0 64px; }
 }
 .nbh { display: flex; flex-direction: column; text-decoration: none; color: var(--text); }
 .nbh__media {
-  position: relative; height: clamp(320px, 31vw, 445px); border-radius: 12px; overflow: hidden;
+  position: relative; border-radius: 12px; overflow: hidden;
+  /* --nbh-shrink: measured by the curtain JS so the whole reveal fits
+     inside the pin at ANY viewport (else its top peeks above the panel) */
+  height: max(160px, calc(clamp(320px, 31vw, 445px) - var(--nbh-shrink, 0px)));
   background: var(--sand); isolation: isolate;
 }
 .nbh__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
@@ -440,7 +447,7 @@ html.is-curtain .reveal__intro { padding-block: 0 64px; }
   }
   .neighborhoods::-webkit-scrollbar { display: none; }
   .nbh { flex: 0 0 min(45svh, 85vw); scroll-snap-align: start; } /* seasonal card width */
-  .nbh__media { height: 60svh; max-height: 460px; }
+  .nbh__media { height: max(160px, calc(min(60svh, 460px) - var(--nbh-shrink, 0px))); max-height: none; }
 }
 
 /* =============================================================
@@ -1462,7 +1469,7 @@ body.booking-open { overflow: hidden; }
   .stay-quiz__opt { width: clamp(130px, 42vw, 160px); }
 
   .neighborhoods { padding-inline: 12px; scroll-padding-inline: 12px; }
-  .nbh__media { height: 42svh; }
+  .nbh__media { height: max(160px, calc(42svh - var(--nbh-shrink, 0px))); }
 
   .quote__player-ui { width: calc(100vw - 48px); bottom: 22px; gap: 14px; }
   .quote__player-close, .stay-quiz__close { top: 16px; right: 16px; width: 28px; height: 28px; }

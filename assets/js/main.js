@@ -168,6 +168,27 @@
     };
     var sizeStage = function () {
       var g = pinGeom();
+      /* fit-by-measurement: at natural card size, if the reveal is taller
+         than the pin, shrink the card media by exactly the overflow so the
+         panel always covers it (any viewport, any breakpoint) */
+      var root = document.documentElement;
+      root.style.setProperty("--nbh-shrink", "0px");
+      root.style.setProperty("--reveal-tighten", "0px");
+      var over = reveal.offsetHeight - g.h;
+      if (over > 0) {
+        root.style.setProperty("--nbh-shrink", Math.ceil(over) + "px");
+        /* second pass: if the media floor bound, shave section padding too */
+        var residual = reveal.offsetHeight - g.h;
+        if (residual > 0) {
+          var tighten = Math.ceil(residual / 2);
+          root.style.setProperty("--reveal-tighten", tighten + "px");
+          /* third pass: whatever the padding floors couldn't absorb */
+          var residual2 = reveal.offsetHeight - g.h;
+          if (residual2 > 0) {
+            root.style.setProperty("--reveal-tighten", (tighten + Math.ceil(residual2)) + "px");
+          }
+        }
+      }
       liftBudget = Math.min(reveal.offsetHeight, g.h);
       /* lift runs stick -> release exactly */
       stage.style.height = (g.h + liftBudget) + "px";
