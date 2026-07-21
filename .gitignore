@@ -15,3 +15,6 @@ Domaine Text/
 
 # Raw source photography (not used by the site; keep out of the repo)
 assets/img/photos/
+
+# Source/original media (not used by the site)
+assets/img/_video-originals/

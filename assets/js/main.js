@@ -10,6 +10,34 @@
     if (a) e.preventDefault();
   });
 
+  /* ---- Preloader: hold the crest until webfonts + assets settle, then
+     RE-MEASURE all scroll choreography (it was sized against pre-font,
+     pre-image layout — the root cause of broken animations on slow hosts)
+     and fade the site in. Hard 4s cap so nothing holds the page hostage. ---- */
+  var pre = document.querySelector("[data-preloader]");
+  if (pre) {
+    document.body.classList.add("preloading");
+    var preDone = false;
+    var preFinish = function () {
+      if (preDone) return;
+      preDone = true;
+      /* every sizing routine listens on resize and/or load — refresh both */
+      window.dispatchEvent(new Event("resize"));
+      window.dispatchEvent(new Event("load"));
+      document.body.classList.remove("preloading");
+      pre.classList.add("is-done");
+      window.setTimeout(function () { pre.remove(); }, 700);
+    };
+    var preLoaded = new Promise(function (res) {
+      if (document.readyState === "complete") res();
+      else window.addEventListener("load", function () { res(); });
+    });
+    var preFonts = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    var preMin = new Promise(function (res) { window.setTimeout(res, 600); });
+    var preCap = new Promise(function (res) { window.setTimeout(res, 4000); });
+    Promise.race([Promise.all([preLoaded, preFonts, preMin]), preCap]).then(preFinish);
+  }
+
   /* ---- Breakpoint refresh: the JS-gated systems (hlock pin, forever-
      carousel clones, mobile arrows) are wired for the device class present
      at load. If a browser window is resized across a breakpoint, reload
@@ -205,7 +233,7 @@
       /* parallax runs the full journey: panel entering → lift complete */
       if (media) {
         var gp = Math.min(Math.max((vh - top) / (g.h + liftBudget), 0), 1);
-        media.style.transform = "translateY(" + ((gp * 2 - 1) * 0.07 * vh) + "px)";
+        media.style.transform = "translateY(" + ((gp * 2 - 1) * 0.105 * vh) + "px)";
       }
       curtain.style.pointerEvents = p >= 1 ? "none" : "";
       ticking = false;
@@ -714,7 +742,7 @@
         if (r.bottom > 0 && r.top < vh) {
           /* -1 → 1 as the section's centre crosses the viewport centre */
           var t = ((r.top + r.height / 2) - vh / 2) / (vh / 2 + r.height / 2);
-          qImg.style.transform = "translateY(" + (t * -6) + "%)";
+          qImg.style.transform = "translateY(" + (t * -9) + "%)";
         }
         qTicking = false;
       };
@@ -805,7 +833,7 @@
       var vh = window.innerHeight;
       if (r.bottom > 0 && r.top < vh) {
         var t = ((r.top + r.height / 2) - vh / 2) / (vh / 2 + r.height / 2);
-        scImg.style.transform = "translateY(" + (t * -5) + "%)";
+        scImg.style.transform = "translateY(" + (t * -7.5) + "%)";
       }
       scTicking = false;
     };
@@ -1127,6 +1155,50 @@
       track.scrollBy({ left: w, behavior: "smooth" });
       window.setTimeout(function () { track.style.scrollSnapType = ""; }, 700);
     });
+  });
+
+  /* ---- Autoplay video compliance: 32px play/pause on moving media ---- */
+  var makeVidToggle = function (host, getVideo) {
+    if (!host) return;
+    var b = document.createElement("button");
+    b.className = "vid-toggle";
+    b.setAttribute("aria-label", "Pause video");
+    b.innerHTML = '<svg class="vt-pause" viewBox="0 0 12 14" aria-hidden="true"><rect x="1" y="1" width="3.4" height="12" rx="0.8" fill="currentColor"/><rect x="7.6" y="1" width="3.4" height="12" rx="0.8" fill="currentColor"/></svg>' +
+      '<svg class="vt-play" viewBox="0 0 14 14" aria-hidden="true"><path d="M2.5 1.6a1 1 0 0 1 1.5-.87l9.2 5.4a1 1 0 0 1 0 1.74l-9.2 5.4a1 1 0 0 1-1.5-.87z" fill="currentColor"/></svg>';
+    var syncState = function (v) {
+      b.classList.toggle("is-paused", !v || v.paused);
+      b.setAttribute("aria-label", (!v || v.paused) ? "Play video" : "Pause video");
+    };
+    b.addEventListener("click", function () {
+      var v = getVideo();
+      if (!v) return;
+      if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      else v.pause();
+      window.setTimeout(function () { syncState(v); }, 50);
+    });
+    host.appendChild(b);
+    var v0 = getVideo();
+    if (v0) {
+      syncState(v0);
+      v0.addEventListener("play", function () { syncState(v0); });
+      v0.addEventListener("pause", function () { syncState(v0); });
+    }
+    return b;
+  };
+  makeVidToggle(document.querySelector(".showcase"), function () {
+    return document.querySelector(".showcase__video");
+  });
+  makeVidToggle(document.querySelector(".stay-quiz"), function () {
+    return document.querySelector(".stay-quiz__bgvideo video");
+  });
+  /* neighborhood cards (originals + forever clones): per-card control.
+     Cards are anchors — keep the click off the link and the tap-preview. */
+  [].forEach.call(document.querySelectorAll(".nbh"), function (card) {
+    var vid = card.querySelector(".nbh__video");
+    var media = card.querySelector(".nbh__media");
+    if (!vid || !media) return;
+    var b = makeVidToggle(media, function () { return vid; });
+    if (b) b.addEventListener("click", function (e) { e.preventDefault(); e.stopPropagation(); });
   });
 
   /* ---- Scroll reveal ---- */
