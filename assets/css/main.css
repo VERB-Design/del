@@ -806,11 +806,6 @@ html.js-quote .quote.is-read .quote__inner { opacity: 1; transform: none; }
    ============================================================= */
 [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
 [data-reveal].is-in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  [data-reveal] { opacity: 1; transform: none; transition: none; }
-  .hero__scroll .line { animation: none; }
-}
-
 /* =============================================================
    MENU OVERLAY  —  Figma 4106 series
    Full takeover: top bar (X · stacked logo · Reservations),
@@ -939,9 +934,6 @@ body.menu-open { overflow: hidden; }
 .menu-panel.is-active .menu-card:nth-child(4) { transition-delay: .32s; }
 .menu-panel.is-active .menu-card:nth-child(5) { transition-delay: .40s; }
 .menu-panel.is-active .menu-card:nth-child(6) { transition-delay: .48s; }
-@media (prefers-reduced-motion: reduce) {
-  .menu-card { opacity: 1; transform: none; transition: none; }
-}
 .menu-card__media {
   position: relative; width: 100%; aspect-ratio: 258 / 160;
   border-radius: 12px; overflow: hidden; background: #e0e0e0; display: block;
@@ -1039,10 +1031,6 @@ body.menu-open { overflow: hidden; }
 }
 .menu-panel__back--mobile { display: none; }
 @keyframes menu-fade { from { opacity: 0; } }
-
-@media (prefers-reduced-motion: reduce) {
-  .menu-overlay, .menu-panel { transition: none; transform: none; }
-}
 
 /* ---- Our Story: watch-video link + in-module player ---- */
 .quote__links { display: flex; align-items: center; justify-content: center; gap: clamp(1.5rem, 3vw, 2.5rem); }
