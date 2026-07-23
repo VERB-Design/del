@@ -155,7 +155,7 @@
 
   /* ---- Showcase title: drifts down at 1/4 scroll speed and fades ---- */
   var showTitle = document.querySelector(".showcase__title");
-  var prefersReducedST = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var prefersReducedST = false; /* full-fidelity prototype: OS reduce-motion is intentionally ignored */
   if (showTitle && !prefersReducedST) {
     showTitle.style.willChange = "transform, opacity";
     var stTicking = false;
@@ -175,7 +175,7 @@
   /* ---- Curtain reveal: panel lifts as the stage scrolls through ---- */
   var stage = document.querySelector("[data-stage]");
   var curtain = document.querySelector("[data-curtain]");
-  var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var prefersReduced = false; /* full-fidelity prototype: OS reduce-motion is intentionally ignored */
   if (stage && curtain && !prefersReduced) {
     var media = curtain.querySelector(".curtain__media img");
     var reveal = stage.querySelector(".reveal");
@@ -257,8 +257,11 @@
     /* pan runs 30% slower than scroll (scroll budget = dist / 0.7) and has
        10% dead zones at each end of the pin so the takeover eases in/out */
     var H_SPEED = 0.7, H_PAD = 0.1;
-    var hDist = 0, hBudget = 0;
+    var hDist = 0, hBudget = 0, hTop = 0;
     var hMeasure = function () {
+      /* pin sticks --space-xl down (lock fires when the spacer above meets
+         the menu), so the pan is anchored to that same offset */
+      hTop = parseFloat(window.getComputedStyle(hpin).top) || 0;
       /* pan distance from the last card's true right edge + a 4% end
          gutter mirroring the front (scrollWidth drops trailing padding) */
       var cards = htrack.children;
@@ -267,11 +270,11 @@
       var contentW = (last.right - trackLeft) + window.innerWidth * 0.04;
       hDist = Math.max(contentW - window.innerWidth, 0);
       hBudget = hDist / H_SPEED / (1 - 2 * H_PAD);
-      hlock.style.height = (window.innerHeight + hBudget) + "px";
+      hlock.style.height = (window.innerHeight + hBudget - hTop) + "px";
     };
     var hTicking = false;
     var hApply = function () {
-      var raw = hBudget > 0 ? Math.min(Math.max(-hlock.getBoundingClientRect().top / hBudget, 0), 1) : 0;
+      var raw = hBudget > 0 ? Math.min(Math.max((hTop - hlock.getBoundingClientRect().top) / hBudget, 0), 1) : 0;
       var p = Math.min(Math.max((raw - H_PAD) / (1 - 2 * H_PAD), 0), 1);
       htrack.style.transform = "translateX(" + (-p * hDist) + "px)";
       hTicking = false;
@@ -492,24 +495,24 @@
       views: { name: "The Views", feel: "Peaceful & Restorative", video: "assets/img/views.mp4",
         why: "Quiet mornings and an endless horizon — the Del at its most restorative." },
       village: { name: "Beach Village", feel: "Exclusive & Intimate", video: "assets/img/Beach-Village.mp4",
-        why: "Your own stretch of shoreline — private, polished, unhurried." }
+        why: "Set on the sand, privacy and personalized service reign here in your own private escape." }
     };
     var QUIZ = [
       { q: "Who\u2019s coming along?", opts: [
-        { label: "Just the two of us", img: "assets/img/6.webp", w: { victorian: 2, views: 1 } },
-        { label: "The whole family", img: "assets/img/13.webp", w: { shore: 2, village: 1 } },
-        { label: "Friends & celebrations", img: "assets/img/9.webp", w: { cabanas: 2, shore: 1 } },
-        { label: "Flying solo", img: "assets/img/17.webp", w: { views: 2, victorian: 1 } } ] },
-      { q: "What\u2019s your pace?", opts: [
-        { label: "Slow mornings & spa days", img: "assets/img/12.webp", w: { views: 2, victorian: 1 } },
+        { label: "Just the two of us", img: "assets/img/menu-photos/signature-dining.webp", w: { victorian: 2, views: 1 } },
+        { label: "The whole family", img: "assets/img/12.webp", w: { shore: 2, village: 1 } },
+        { label: "Friends and celebrations", img: "assets/img/9.webp", w: { cabanas: 2, shore: 1 } },
+        { label: "Flying solo", img: "assets/img/4.webp", w: { views: 2, victorian: 1 } } ] },
+      { q: "What\u2019s Your Pace?", opts: [
+        { label: "Slow mornings & spa days", img: "assets/img/3.webp", w: { views: 2, victorian: 1 } },
         { label: "Sun, surf & pool days", img: "assets/img/1.webp", w: { cabanas: 2, shore: 1 } },
-        { label: "Private beach time", img: "assets/img/16.webp", w: { village: 2, views: 1 } },
+        { label: "Private beach time", img: "assets/img/17.webp", w: { village: 2, views: 1 } },
         { label: "Out and about, always", img: "assets/img/2.webp", w: { victorian: 2, cabanas: 1 } } ] },
-      { q: "Your perfect evening looks like\u2026", opts: [
-        { label: "Candlelit dinner for two", img: "assets/img/4.webp", w: { victorian: 2, village: 1 } },
+      { q: "Your perfect evening looks like", opts: [
+        { label: "Candlelit dinner for two", img: "assets/img/menu-photos/serea.webp", w: { victorian: 2, village: 1 } },
         { label: "S\u2019mores with the kids", img: "assets/img/roast.avif", w: { shore: 2, cabanas: 1 } },
-        { label: "Cocktails & live music", img: "assets/img/11.webp", w: { cabanas: 2 } },
-        { label: "Quiet balcony, ocean air", img: "assets/img/15.webp", w: { views: 2, village: 1 } } ] }
+        { label: "Cocktails and live music", img: "assets/img/menu-photos/sun-deck.webp", w: { cabanas: 2 } },
+        { label: "Quiet balcony, ocean air", img: "assets/img/11.webp", w: { views: 2, village: 1 } } ] }
     ];
     var quizStep = 0, quizPicks = [];
 
@@ -535,8 +538,8 @@
     var renderStep = function () {
       clearQuizBg();
       var step = QUIZ[quizStep];
-      var html = '<p class="stay-quiz__eyebrow">Find your perfect stay \u2014 ' + (quizStep + 1) + ' of ' + QUIZ.length + '</p>' +
-        '<h4 class="stay-quiz__q">' + esc(step.q) + '</h4>' +
+      var html = '<p class="stay-quiz__eyebrow">Find Your Perfect Stay \u2014 ' + (quizStep + 1) + ' of ' + QUIZ.length + '</p>' +
+        '<h3 class="stay-quiz__q">' + esc(step.q) + '</h3>' +
         '<div class="stay-quiz__opts">' +
         step.opts.map(function (o, i) {
           return '<button class="stay-quiz__opt" data-opt="' + i + '">' +
@@ -559,8 +562,8 @@
       order.forEach(function (k) { if ((scores[k] || 0) > (scores[best] || 0)) best = k; });
       var n = NBH[best];
       quizBody.innerHTML =
-        '<p class="stay-quiz__result-eyebrow">Your Del match</p>' +
-        '<h4 class="stay-quiz__name">' + n.name + '</h4>' +
+        '<p class="stay-quiz__result-eyebrow">Your Del Match</p>' +
+        '<h3 class="stay-quiz__name">' + n.name + '</h3>' +
         '<p class="stay-quiz__feel">' + n.feel + '</p>' +
         '<p class="stay-quiz__why">' + n.why + '</p>' +
         '<div class="stay-quiz__actions">' +
@@ -896,7 +899,7 @@
       { name: "Shore House", desc: "Beachfront Villas featuring up to two bedrooms & private dens.", img: "assets/img/13.webp" },
       { name: "Beach Village", desc: "Beachfront cottages & villas within a private enclave.", img: "assets/img/17.webp" }
     ];
-    var BK_CTAS = { stay: "Check Availability", dine: "Book a Table", spa: "Find Your Treatment", activities: "Explore Our Activities" };
+    var BK_CTAS = { stay: "Check Availability", dine: "Book a Table", spa: "Find Your Treatment", activities: "Explore Our Experiences" };
     var bkTab = "stay";
     var bkMonth = new Date(2025, 8, 1);       /* September 2025, per the design */
     var bkArr = null, bkDep = null;

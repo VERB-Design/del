@@ -105,11 +105,12 @@
   --sp-1: 0.5rem;  --sp-2: 1rem;   --sp-3: 1.5rem;  --sp-4: 2.5rem;
   --sp-5: 4rem;    --sp-6: 6rem;   --sp-7: 9rem;
 
-  /* ---- Section-spacer scale (modules hug; spacers own the rhythm) ---- */
-  --space-s:  clamp(2rem, 4vw, 3rem);
-  --space-m:  clamp(3rem, 6vw, 5rem);
-  --space-l:  clamp(4.5rem, 9vw, 8rem);
-  --space-xl: clamp(6.5rem, 12vw, 11rem);
+  /* ---- Section-spacer scale (modules hug; spacers own the rhythm)
+         mobile 375 → desktop 1440: s 24→48 · m 32→56 · l 48→88 · xl 64→120 ---- */
+  --space-s:  clamp(1.5rem, 0.972rem + 2.254vw, 3rem);
+  --space-m:  clamp(2rem, 1.472rem + 2.254vw, 3.5rem);
+  --space-l:  clamp(3rem, 2.12rem + 3.756vw, 5.5rem);
+  --space-xl: clamp(4rem, 2.768rem + 5.258vw, 7.5rem);
 
   /* ---- Misc ---- */
   --maxw: 1320px;
