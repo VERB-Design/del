@@ -1,0 +1,1769 @@
+/* =============================================================
+   HOTEL DEL CORONADO — Site styles (built from scratch)
+   Depends on tokens.css for fonts, palette, scale, resets.
+   ============================================================= */
+
+/* ---------- Layout primitives ---------- */
+.container { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.container--wide { max-width: 1560px; }
+.section { padding-block: clamp(4rem, 9vw, 9rem); }
+
+/* Spacers — modules hug their content; these own ALL inter-section rhythm */
+.spacer { display: block; }
+.spacer--s  { height: var(--space-s); }
+.spacer--m  { height: var(--space-m); }
+.spacer--l  { height: var(--space-l); }
+.spacer--xl { height: var(--space-xl); }
+.spacer--title { height: 64px; }  /* title → card-set gap */
+.stack > * + * { margin-top: var(--sp-3); }
+.measure { max-width: 60ch; }
+.center { text-align: center; }
+
+.eyebrow {
+  font-family: var(--font-secondary);
+  font-size: var(--step--1);
+  letter-spacing: var(--eyebrow-ls);
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--gold);
+  display: inline-block;
+}
+.signature { font-family: var(--font-special); font-weight: 400; line-height: 1.1; }
+
+h1, h2, h3, h4, h5 { font-family: var(--font-primary); font-weight: 300; line-height: 1.05; margin: 0; }
+/* Heading scale: h2 = first-section title · h3 = all other section titles
+   · h4 = card titles */
+h2 { font-size: clamp(2.25rem, 1.9rem + 1.2vw, 3rem); }     /* → 48px */
+h3 { font-size: clamp(1.9rem, 1.6rem + 1vw, 2.5rem); }      /* → 40px */
+h4 { font-size: clamp(1.4rem, 1.2rem + 0.7vw, 2rem); line-height: 1.2; } /* → 32px */
+h5 { font-size: clamp(1.3rem, 1.15rem + 0.5vw, 1.6875rem); line-height: 1.2; } /* → 27px */
+.h-hero { font-size: var(--step-5); letter-spacing: -0.01em; }
+.h-1 { font-size: var(--step-4); }
+.h-2 { font-size: var(--step-3); }
+.h-3 { font-size: var(--step-2); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  --btn-fg: var(--ivory);
+  --btn-bg: var(--del-red);
+  display: inline-flex; align-items: center; gap: .6em;
+  font-family: var(--font-secondary); font-size: var(--step--1);
+  letter-spacing: .14em; text-transform: uppercase; font-weight: 600;
+  color: var(--btn-fg); background: var(--btn-bg);
+  padding: .95em 1.7em; border: 1px solid var(--btn-bg); border-radius: var(--radius);
+  text-decoration: none; cursor: pointer;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease),
+              border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:not(.btn--ghost):not(.btn--solid-dark):hover { background: #1B365D; border-color: #1B365D; }
+.btn--ghost { --btn-fg: var(--ivory); --btn-bg: transparent; border-color: rgba(251,247,239,.55); }
+.btn--ghost:hover { border-color: var(--ivory); background: rgba(251,247,239,.08); }
+.btn--solid-dark { --btn-fg: var(--ivory); --btn-bg: var(--navy); }
+.link-arrow {
+  font-family: var(--font-secondary); font-size: var(--step--1); letter-spacing: .14em;
+  text-transform: uppercase; font-weight: 600; color: var(--gold); text-decoration: none;
+  display: inline-flex; align-items: center; gap: .5em;
+}
+.link-arrow::after { content: "\2192"; transition: transform var(--dur) var(--ease); }
+.link-arrow:hover::after { transform: translateX(5px); }
+
+a:focus-visible, button:focus-visible, .btn:focus-visible {
+  outline: 2px solid var(--gold); outline-offset: 3px;
+}
+
+/* ---------- Skip link ---------- */
+.skip-link {
+  position: absolute; left: 1rem; top: -100px; z-index: 200;
+  background: var(--navy); color: var(--ivory); padding: .7em 1.2em; border-radius: var(--radius);
+  font-family: var(--font-secondary); font-size: var(--step--1); letter-spacing: .1em; text-transform: uppercase;
+  transition: top .2s ease;
+}
+.skip-link:focus { top: 1rem; }
+
+/* =============================================================
+   MENU BAR  —  Figma 1806:7256. 95px bar over the hero video.
+   White Gill Sans SemiBold 11px labels, thin dividers, centered
+   crest logo (hangs to 95px), coral Reservations button.
+   ============================================================= */
+.menu-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 95px; padding: 15px 60px 0;
+  display: flex; align-items: center; justify-content: space-between;
+  color: #fff;
+  transition: background .65s var(--ease), height .65s var(--ease), padding .65s var(--ease);
+}
+/* logo: all white over the hero */
+.menu-bar__logo img { filter: brightness(0) invert(1); transition: filter .65s var(--ease); }
+
+/* ---- condensed state (scrolled): white bar, 16px padding, red crest only ---- */
+.menu-bar.is-condensed {
+  /* condense vertically only — inline padding stays with the base rule
+     so link/icon positions never shift */
+  background: #fff; height: 47px; padding-top: 4px; padding-bottom: 4px;
+}
+.menu-bar.is-condensed .ui-label { color: var(--ink); }
+.menu-bar.is-condensed .menu-bar__divider { background: rgba(37,32,26,.5); }
+.menu-bar.is-condensed .menu-toggle .bars::before,
+.menu-bar.is-condensed .menu-toggle .bars::after { background: var(--ink); }
+.menu-bar.is-condensed .menu-bar__icon img { filter: brightness(0); }
+.menu-bar.is-condensed .menu-bar__icon svg { color: var(--ink); }
+.menu-bar.is-condensed .menu-bar__logo {
+  top: 50%; transform: translate(-50%, -50%);
+  /* artwork keeps its first-view size — only the crop changes, so the
+     crest never shifts scale when the fixed nav appears.
+     crest = y 0–36.9 of the 90-tall artwork (41%): 108.9 × .41 = 44.65 */
+  width: 181.5px; height: 44.65px; overflow: hidden;
+}
+.menu-bar__logo { overflow: hidden; } /* crop is animatable both ways */
+
+/* desktop: air around the crest in the fixed nav (4 top / 6 bottom), and
+   first-view nav items ride the crest's vertical center (crest = top 41%
+   of the 108.9px artwork at top 11px → center y 33.3) */
+@media (min-width: 641px) {
+  .menu-bar { align-items: flex-start; }
+  .menu-bar__group {
+    height: 44.65px; margin-top: -4px; /* group spans 11–55.65: crest center */
+    transition: margin-top .65s var(--ease);
+  }
+  .menu-bar.is-condensed { height: 55px; padding-top: 4px; padding-bottom: 6px; }
+  .menu-bar.is-condensed .menu-bar__logo { top: 4px; transform: translateX(-50%); }
+  .menu-bar.is-condensed .menu-bar__group { margin-top: 4px; }
+  /* optical corrections (Troy-tuned): Menu up 1, Reservations label up 2 */
+  .menu-toggle { transform: translateY(-1px); }
+  .menu-bar .btn-reserve .label { transform: translateY(-3px); } /* base is -1 */
+}
+.menu-bar.is-condensed .menu-bar__logo img {
+  filter: none;                     /* red crest at first-view scale; wordmark cropped */
+}
+/* condensed-only: menu links turn red on hover (fast in, soft out) */
+.menu-bar.is-condensed a.menu-bar__item--aux:hover .ui-label,
+.menu-bar.is-condensed a.menu-bar__item--aux:focus-visible .ui-label,
+.menu-bar.is-condensed a.menu-bar__item--aux:hover .menu-bar__icon svg,
+.menu-bar.is-condensed a.menu-bar__item--aux:focus-visible .menu-bar__icon svg,
+.menu-bar.is-condensed .menu-toggle:hover .ui-label {
+  color: var(--del-coral); opacity: 1; transition: color .25s var(--ease);
+}
+.menu-bar.is-condensed .menu-toggle:hover .bars::before,
+.menu-bar.is-condensed .menu-toggle:hover .bars::after {
+  background: var(--del-coral); transition: background .25s var(--ease);
+}
+.menu-bar__group { display: flex; align-items: center; gap: 24px; height: 39px; }
+.menu-bar .ui-label {
+  font-family: var(--font-secondary); font-weight: 600; font-size: 14px;
+  letter-spacing: .1em; text-transform: uppercase; color: #fff; white-space: nowrap;
+  transition: color .65s var(--ease);
+}
+.menu-bar a { text-decoration: none; }
+.menu-toggle:hover .ui-label { opacity: .75; }
+/* aux links (beach cam, phone, concierge): no colour change —
+   an underline draws in from the right on hover */
+.menu-bar__item--aux .ui-label { position: relative; }
+.menu-bar__item--aux .ui-label::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 1px; height: 1px;
+  background: currentColor; transform: scaleX(0); transform-origin: right;
+  transition: transform .45s var(--ease);
+}
+a.menu-bar__item--aux:hover .ui-label::after,
+a.menu-bar__item--aux:focus-visible .ui-label::after { transform: scaleX(1); }
+.menu-bar__item { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; padding: 0; cursor: pointer; }
+.menu-bar__divider { width: 1px; height: 10px; background: rgba(255, 255, 255, .5); flex-shrink: 0;
+  transform: translateY(-1px); /* sit on the caps' optical center */
+  transition: background .65s var(--ease); }
+.menu-bar__icon { position: relative; width: 16px; height: 16px; flex-shrink: 0; }
+.menu-bar__icon img { position: absolute; display: block; transition: filter .65s var(--ease); }
+/* inline icons ride currentColor so they follow the label */
+.menu-bar__icon svg { position: absolute; display: block; color: #fff; transition: color .65s var(--ease); }
+
+/* hamburger — two 16px hairlines, 7px apart */
+.menu-toggle { gap: 16px; }
+.menu-toggle .bars { display: inline-block; width: 16px; height: 8px; position: relative; }
+.menu-toggle .bars::before, .menu-toggle .bars::after {
+  content: ""; position: absolute; left: 0; width: 16px; height: 1px; background: #fff;
+  transition: transform var(--dur) var(--ease), background .65s var(--ease);
+}
+.menu-toggle .bars::before { top: 0; }
+.menu-toggle .bars::after { top: 7px; }
+
+/* icon-only quick links — revealed on phones (≤480) */
+.menu-bar__mobile-icons { display: none; }
+
+/* composite icons (positioned per Figma insets) */
+.icon-cam .cam-1 { inset: 6.25% 12.5%; width: 75%; height: 87.5%; }
+.icon-cam .cam-2 { top: 28.13%; left: 34.38%; width: 31.24%; height: 31.24%; }
+.icon-cam .cam-3 { top: 25%; left: 62.5%; width: 6.25%; height: 6.25%; }
+.icon-stars .star-1 { top: 7.93%; left: 0; width: 92.07%; height: 92.07%; }
+.icon-stars .star-2 { top: 0; left: 58.15%; width: 41.85%; height: 41.85%; }
+/* concierge sparkle: the two stars twinkle in counterpoint */
+@keyframes star-twinkle {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(.55); opacity: .5; }
+}
+.icon-stars .star-1 {
+  transform-origin: 50% 50%;
+  animation: star-twinkle 2.8s ease-in-out infinite;
+}
+.icon-stars .star-2 {
+  transform-origin: 50% 50%;
+  animation: star-twinkle 2.8s ease-in-out 1.4s infinite;
+}
+
+/* centered crest logo — hangs below the utility row */
+.menu-bar__logo {
+  position: absolute; left: 50%; transform: translate(-50%, 0); top: 11px; /* tightened 4px */
+  width: 181.5px; height: 108.9px; display: block;
+  transition: width .65s var(--ease), height .65s var(--ease), top .65s var(--ease), transform .65s var(--ease);
+}
+.menu-bar__logo img { width: 100%; height: auto; display: block; }
+
+/* reservations CTA */
+.btn-reserve {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 39px; padding: 4px 24px 0;
+  transform: translateY(-1px);
+  border-radius: 5px; border: 0; cursor: pointer;
+  background: var(--del-coral); color: #fff; text-decoration: none;
+  font-family: var(--font-secondary); font-weight: 600; font-size: 15px;
+  letter-spacing: .1em; text-transform: uppercase; white-space: nowrap;
+  transition: background var(--dur) var(--ease);
+}
+.btn-reserve:hover { background: #1B365D; }
+/* optically align the label with the other menu labels (asymmetric padding
+   pushes the flex-centered text 1px low relative to the 39px row center) */
+.btn-reserve .label { transform: translateY(-1px); }
+
+/* responsive: collapse utilities, keep MENU · logo · RESERVATIONS */
+@media (max-width: 1180px) {
+  .menu-bar { padding-inline: clamp(20px, 4vw, 40px); }
+  .menu-bar__item--aux, .menu-bar__divider { display: none; }
+  .menu-bar__item--menu { display: inline-flex; }
+}
+@media (max-width: 640px) {
+  .menu-bar { padding-inline: 16px; }
+  .menu-bar__logo { width: 121px; height: 72.6px; }
+  .menu-bar.is-condensed .menu-bar__logo { width: 121px; height: 29.77px; }
+  .menu-bar .ui-label { font-size: 13px; }
+  .btn-reserve { padding: 4px 14px 0; height: 34px; }
+  .btn-reserve .label { font-size: 12px; }
+}
+
+/* =============================================================
+   OVERLAY NAV (mobile + tablet; secondary on desktop)
+   ============================================================= */
+.overlay-nav {
+  position: fixed; inset: 0; z-index: 150; background: var(--navy-deep); color: var(--ivory);
+  display: grid; grid-template-rows: auto 1fr auto; padding: var(--gutter);
+  opacity: 0; visibility: hidden; transform: translateY(-12px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility var(--dur);
+}
+.overlay-nav.is-open { opacity: 1; visibility: visible; transform: none; }
+.overlay-nav .overlay-top { display: flex; justify-content: space-between; align-items: center; }
+.overlay-close { background: none; border: 0; color: inherit; cursor: pointer; font-family: var(--font-secondary); font-size: var(--step--1); letter-spacing: .14em; text-transform: uppercase; }
+.overlay-links { display: flex; flex-direction: column; justify-content: center; gap: clamp(.4rem,1.4vw,1rem); }
+.overlay-links a {
+  font-family: var(--font-primary); font-size: clamp(2rem, 7vw, 3.4rem); text-decoration: none; color: inherit;
+  width: max-content; opacity: .92; transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.overlay-links a:hover { color: var(--gold-soft); transform: translateX(8px); }
+.overlay-aux { display: flex; flex-wrap: wrap; gap: var(--sp-3); font-family: var(--font-secondary); font-size: var(--step--1); letter-spacing: .14em; text-transform: uppercase; }
+.overlay-aux a { color: inherit; text-decoration: none; opacity: .8; }
+.overlay-aux a:hover { opacity: 1; color: var(--gold-soft); }
+body.nav-open { overflow: hidden; }
+
+/* =============================================================
+   HERO
+   ============================================================= */
+.hero { position: relative; min-height: 100svh; display: grid; align-items: end; color: var(--ivory); isolation: isolate; }
+.hero__media { position: absolute; inset: 0; z-index: -2; overflow: hidden; background: var(--navy-deep); }
+.hero__media img { width: 100%; height: 100%; object-fit: cover; }
+.hero__media.img-fallback { background: linear-gradient(150deg, var(--navy-deep), var(--teal) 60%, var(--gold) 130%); }
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top, rgba(18,42,55,.78) 0%, rgba(18,42,55,.30) 42%, rgba(18,42,55,.12) 70%, rgba(18,42,55,.35) 100%);
+}
+.hero__inner { padding-bottom: clamp(4rem, 9vh, 8rem); padding-top: 9rem; }
+.hero__eyebrow { color: var(--gold-soft); margin-bottom: var(--sp-2); }
+.hero h1 { max-width: 16ch; }
+.hero__lede { max-width: 46ch; margin-top: var(--sp-3); font-size: var(--step-1); line-height: 1.5; color: rgba(251,247,239,.9); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
+.hero__scroll {
+  position: absolute; left: 50%; bottom: 1.5rem; transform: translateX(-50%); z-index: 1;
+  font-family: var(--font-secondary); font-size: .65rem; letter-spacing: .3em; text-transform: uppercase; color: var(--ivory);
+  display: flex; flex-direction: column; align-items: center; gap: .6rem; opacity: .85;
+}
+.hero__scroll .line { width: 1px; height: 46px; background: linear-gradient(var(--gold-soft), transparent); animation: scrollPulse 2.4s var(--ease) infinite; }
+@keyframes scrollPulse { 0%,100% { transform: scaleY(.4); opacity:.4; transform-origin: top; } 50% { transform: scaleY(1); opacity:1; transform-origin: top; } }
+
+/* =============================================================
+   SHOWCASE  —  full-bleed hero video, 100% × 110vh
+   Gradient overlay: #000 @ 40% → #000 @ 0%, spanning 15% of the
+   container from the top (for nav legibility).
+   ============================================================= */
+.showcase { position: relative; width: 100%; height: 110vh; overflow: hidden; background: var(--navy-deep); }
+.showcase__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.showcase::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0,0,0,.4) 0%, rgba(0,0,0,0) 15%);
+}
+.showcase__title {
+  position: absolute; left: 0; right: 0; bottom: 20vh; z-index: 1;
+  display: block;
+  padding-inline: var(--gutter); text-align: center;
+  font-family: var(--font-primary); font-weight: 300;
+  font-size: clamp(2.16rem, 1.44rem + 3.6vw, 4.5rem); /* full lockup -10% */
+  letter-spacing: -0.02em; line-height: 1.05; color: #fff; margin: 0;
+  text-shadow: 0 2px 28px rgba(0,0,0,.25);
+}
+/* container reserves clean inline space; the script inside moves only
+   via transform, so surrounding text alignment can never shift */
+.great-box {
+  display: inline-block; position: relative;
+  margin-inline: .05em .16em;
+}
+.great-box .great {
+  display: inline-block;
+  font-family: "Authenia", var(--font-special);
+  font-style: normal; font-weight: 400;
+  font-size: 1.7em; line-height: 1;
+  transform: rotate(-9deg) translate(-1px, 8px);
+}
+
+/* =============================================================
+   INTRO  —  "A California Classic" welcome block under the hero
+   Same editorial language as the reveal intro (Figma 20:551 type).
+   ============================================================= */
+.intro { }
+.intro__inner {
+  max-width: 800px; margin-inline: auto; text-align: center;
+  padding-inline: var(--gutter); /* hugs: vertical rhythm comes from spacers */
+  display: flex; flex-direction: column; gap: 1.625em; align-items: center;
+}
+.intro__title { letter-spacing: -0.02em; line-height: 1.1; color: var(--text); }
+.intro__lede { font-size: clamp(1rem, 0.95rem + 0.35vw, 1.125rem); line-height: 1.45; letter-spacing: -0.02em; color: var(--text); max-width: 800px; margin: 0; }
+
+/* =============================================================
+   CURTAIN  —  full-screen panel that lifts on scroll (Figma 20:551)
+   Panel: 24px margin, 12px radius, full viewport. Translates up with
+   scroll to reveal the neighborhood content beneath it.
+   Default (no-JS / reduced-motion): normal document flow.
+   ============================================================= */
+.curtain {
+  position: relative;
+  margin: 0 24px;
+  height: 90svh;
+  border-radius: 12px;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--ivory);
+  display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
+}
+.curtain__media { position: absolute; inset: 0; z-index: -2; background: var(--navy-deep); }
+.curtain__media img { width: 100%; height: 124%; position: relative; top: -12%; object-fit: cover; will-change: transform; }
+.curtain__media.img-fallback { background: linear-gradient(150deg, var(--navy-deep), var(--teal) 60%, var(--gold) 130%); }
+.curtain::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top, rgba(0,0,0,.74) 0%, rgba(0,0,0,.28) 38%, rgba(0,0,0,.05) 62%);
+}
+.curtain__content {
+  padding: clamp(2rem, 5vw, 100px);
+  padding-bottom: 100px;
+  max-width: calc(599px + 2 * clamp(2rem, 5vw, 100px));
+  display: flex; flex-direction: column; gap: calc(1.625em - 12px);
+  align-items: center; text-align: center;
+}
+.curtain__head { display: flex; flex-direction: column; gap: calc(1.625em - 24px); }
+.curtain__title { letter-spacing: -0.02em; line-height: 1.08; max-width: 16ch; }
+.curtain__lede { font-size: clamp(1rem, 0.95rem + 0.35vw, 1.125rem); line-height: 1.45; letter-spacing: -0.02em; max-width: 38ch; color: rgba(251,247,239,.92); }
+.curtain__cta {
+  font-family: var(--font-secondary); font-weight: 600; font-size: .8125rem;
+  letter-spacing: .1em; text-transform: uppercase;
+}
+
+/* JS-enabled lift */
+/* Curtain lift: the stage pins one viewport while the panel — the ONLY thing
+   that moves — translates up off the stationary neighborhoods beneath it.
+   The stage's extra height (100svh) is the scroll budget that drives the lift. */
+html.is-curtain .stage { position: relative; } /* height set by JS: 100svh + reveal height */
+html.is-curtain .stage__pin {
+  /* pin matches the 90svh panel (stuck 10svh down) — no phantom band above,
+     so the page's spacer owns the gap before the stage */
+  position: sticky; top: 10svh; height: 90svh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+html.is-curtain .curtain {
+  /* 90svh, anchored to the pin bottom: the bottom-aligned reveal beneath
+     stays fully covered until the lift uncovers it */
+  position: absolute; top: auto; bottom: 0; left: 24px; right: 24px; margin: 0; height: 90svh; z-index: 5;
+  will-change: transform;
+}
+html.is-curtain .curtain__media img { will-change: transform; }
+
+html.is-curtain .reveal__intro { padding-block: 0 64px; }
+
+
+/* =============================================================
+   REVEAL  —  "Or, Explore the Neighborhood" + 5 cards
+   ============================================================= */
+.reveal { position: relative; z-index: 4;
+  padding-block:
+    max(16px, calc(var(--space-l) - var(--reveal-tighten, 0px)))
+    max(12px, calc(var(--space-l) / 2 - var(--reveal-tighten, 0px)));
+}
+.reveal__intro {
+  max-width: 800px; margin-inline: auto; text-align: center;
+  padding-block: clamp(3.5rem, 7vw, 6rem) 64px;
+  display: flex; flex-direction: column; gap: 1.625em; align-items: center;
+}
+.reveal__title { letter-spacing: -0.02em; line-height: 1.1; color: var(--text); }
+.reveal__lede { font-size: clamp(1rem, 0.95rem + 0.35vw, 1.125rem); line-height: 1.45; letter-spacing: -0.02em; color: var(--text); max-width: 800px; margin: 0; }
+
+.neighborhoods {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+  margin: 0 24px;
+}
+.nbh { display: flex; flex-direction: column; text-decoration: none; color: var(--text); }
+.nbh__media {
+  position: relative; border-radius: 12px; overflow: hidden;
+  /* --nbh-shrink: measured by the curtain JS so the whole reveal fits
+     inside the pin at ANY viewport (else its top peeks above the panel) */
+  height: max(160px, calc(clamp(320px, 31vw, 445px) - var(--nbh-shrink, 0px)));
+  background: var(--sand); isolation: isolate;
+}
+.nbh__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+/* card video: paused first frame at rest; plays on hover/tap */
+.nbh__video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  pointer-events: none;
+}
+.nbh__media.img-fallback { background: linear-gradient(150deg, var(--navy), var(--teal) 70%, var(--gold) 130%); }
+.nbh:hover .nbh__media img, .nbh:focus-visible .nbh__media img { transform: scale(1.04); }
+.nbh__caption { padding-top: clamp(1rem, 1.5vw, 1.5rem); display: flex; flex-direction: column; gap: clamp(0px, 1.5vw, 1rem); }
+.nbh__name { letter-spacing: -0.02em; line-height: 1.1; }
+.nbh__feel { font-size: 1rem; line-height: 1.45; letter-spacing: -0.02em; color: var(--text-muted); }
+
+/* Tablet / mobile: horizontal scroll-snap carousel */
+@media (max-width: 900px) {
+  .neighborhoods {
+    display: flex; gap: 16px; margin: 0; padding-inline: 24px; scroll-padding-inline: 24px; /* seasonal gutter */
+    overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .neighborhoods::-webkit-scrollbar { display: none; }
+  .nbh { flex: 0 0 min(45svh, 85vw); scroll-snap-align: start; } /* seasonal card width */
+  .nbh__media { height: max(160px, calc(min(60svh, 460px) - var(--nbh-shrink, 0px))); max-height: none; }
+}
+
+/* =============================================================
+   HLOCK  —  horizontal lock (Figma 11:878)
+   Six 600px cards pan horizontally while the section is pinned.
+   Vertical scroll drives the pan. No-JS / reduced-motion fallback:
+   native horizontal scroll-snap.
+   ============================================================= */
+/* square size: driven by vh (max 70vh), guarded so head + card + title
+   always fit the 100svh takeover, and by width on small screens */
+.hlock { position: relative; --hcard-size: min(60svh, calc(100svh - 21rem), 82vw); }
+.hlock__pin { display: flex; flex-direction: column; justify-content: center; gap: 64px; }
+.hlock__head {
+  max-width: 800px; margin-inline: auto; text-align: center;
+  padding-inline: var(--gutter);
+  display: flex; flex-direction: column; gap: 1.625em; align-items: center;
+  flex-shrink: 0;
+}
+.hlock__track {
+  display: flex; gap: 24px; padding-inline: 4%;
+}
+/* square cards sized from viewport height, capped at 70vh */
+.hcard { display: flex; flex-direction: column; gap: clamp(16px, 2.2vh, 32px); flex-shrink: 0; width: var(--hcard-size); }
+.hcard__media {
+  position: relative; width: 100%; aspect-ratio: 1; border-radius: 11px; overflow: hidden;
+  background: var(--sand); isolation: isolate;
+}
+.hcard__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+.hcard__media.img-fallback { background: linear-gradient(150deg, var(--navy), var(--teal) 70%, var(--gold) 130%); }
+.hcard:hover .hcard__media img, .hcard:focus-visible .hcard__media img { transform: scale(1.04); }
+.hcard__title {
+  letter-spacing: -0.02em; color: var(--text);
+}
+a.hcard { text-decoration: none; color: inherit; }
+
+/* fallback: native horizontal scroll on the track (no-JS or reduced-motion) */
+.hlock__track { overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.hlock__track::-webkit-scrollbar { display: none; }
+.hcard { scroll-snap-align: start; }
+
+/* JS-enabled pinned pan */
+html.is-hlock .hlock__pin {
+  position: sticky; top: 0; height: 100svh; overflow: clip;
+}
+html.is-hlock .hlock__track { overflow-x: visible; scroll-snap-type: none; will-change: transform; }
+
+/* =============================================================
+   HOVER STROKE  —  1px red frame draws from top-left in two lines
+   (right-then-down + down-then-right), meeting bottom-right. 700ms.
+   ============================================================= */
+.draw-svg {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  overflow: visible;
+}
+.draw-svg path {
+  fill: none; stroke: var(--del-coral); stroke-width: 1;
+  stroke-dasharray: 1; stroke-dashoffset: 1;
+  transition: stroke-dashoffset .7s linear;
+}
+.nbh:hover .draw-svg path, .nbh:focus-visible .draw-svg path,
+.hcard:hover .draw-svg path, .hcard:focus-visible .draw-svg path,
+.scard:hover .draw-svg path, .scard:focus-visible .draw-svg path,
+.offer:hover .draw-svg path,
+.menu-card:hover .draw-svg path, .menu-card:focus-visible .draw-svg path { stroke-dashoffset: 0; }
+.offer { position: relative; }
+
+/* card titles turn red when their card is hovered */
+.nbh__name, .hcard__title, .scard__title, .offer__title { transition: color var(--dur) var(--ease); }
+.nbh:hover .nbh__name, .nbh:focus-visible .nbh__name,
+.hcard:hover .hcard__title, .hcard:focus-visible .hcard__title,
+.scard:hover .scard__title, .scard:focus-visible .scard__title,
+.offer:hover .offer__title { color: var(--del-coral); }
+
+/* =============================================================
+   LINK TREATMENT  —  underlined; on hover the underline exits left
+   while a top line draws in from the right.
+   ============================================================= */
+.link-lined {
+  position: relative; display: inline-block; padding-block: 5px;
+  text-decoration: none;
+  color: var(--del-coral); /* CTA links are Del red everywhere except menu/footer */
+  transition: color var(--dur) var(--ease);
+}
+.link-lined:hover, .link-lined:focus-visible { color: #1B365D; } /* CTA rule: lined links hover blue */
+/* exception: links over imagery are ALWAYS white — the drawing lines are
+   the only hover signal (this sits after .link-lined so it wins the cascade) */
+.quote__link, .curtain__cta,
+.quote__link:hover, .quote__link:focus-visible,
+.curtain__cta:hover, .curtain__cta:focus-visible { color: #fff; }
+.link-lined::after,
+.link-lined::before {
+  content: ""; position: absolute; left: 0; right: 0; height: 1px;
+  background: currentColor;
+  transition: transform .55s var(--ease);
+}
+.link-lined::after  { bottom: 0; transform: scaleX(1); transform-origin: left; }   /* underline */
+.link-lined::before { top: 0;    transform: scaleX(0); transform-origin: right; }  /* top line */
+.link-lined:hover::after,  .link-lined:focus-visible::after  { transform: scaleX(0); }
+.link-lined:hover::before, .link-lined:focus-visible::before { transform: scaleX(1); transition-delay: .12s; }
+
+/* =============================================================
+   QUOTE  —  full-bleed 110vh statement with centered copy
+   ============================================================= */
+.quote {
+  position: relative; width: 100%; height: calc(100vh - 55px); /* viewport minus condensed nav */
+  display: flex; align-items: center; justify-content: center;
+  isolation: isolate; color: var(--ivory); overflow: hidden;
+}
+.quote__media { position: absolute; inset: 0; z-index: -2; background: var(--navy-deep); overflow: hidden; }
+.quote__media img {
+  width: 100%; height: 126%; object-fit: cover; position: relative; top: -13%;
+  will-change: transform; /* parallax headroom */
+}
+.quote__media.img-fallback { background: linear-gradient(160deg, var(--navy-deep), var(--teal) 65%, var(--gold) 140%); }
+.quote::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: rgba(27, 54, 93, .3); /* resting: 30% blue */
+  transition: background 1s var(--ease);
+}
+.quote.is-read::after { background: rgba(0, 0, 0, .55); } /* dimmed for reading */
+/* text fades up once the image is in frame (JS-gated so no-JS stays visible) */
+html.js-quote .quote__inner { opacity: 0; transform: translateY(28px);
+  transition: opacity 1s var(--ease), transform 1s var(--ease); }
+html.js-quote .quote.is-read .quote__inner { opacity: 1; transform: none; }
+.quote__inner {
+  max-width: 800px; padding-inline: var(--gutter); text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: clamp(2rem, 4vw, 3rem);
+}
+.quote__text {
+  font-family: var(--font-primary); font-weight: 300;
+  font-size: clamp(1.6rem, 1.1rem + 2.2vw, 2.75rem);
+  line-height: 1.25; letter-spacing: -0.02em; margin: 0;
+}
+.quote__link {
+  font-family: var(--font-secondary); font-weight: 600; font-size: 13px;
+  letter-spacing: .1em; text-transform: uppercase; color: #fff;
+}
+
+/* =============================================================
+   OFFERS  —  three-up cards (Figma 17:452)
+   White card, 12px radius: text block (40px pad) over 320px image.
+   ============================================================= */
+.offers {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  width: min(1440px, 100% - 48px); margin-inline: auto;
+}
+@media (max-width: 1080px) { .offers { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 720px)  { .offers { grid-template-columns: 1fr; } }
+.offer {
+  background: #fff; border-radius: 12px; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.offer__body {
+  padding: clamp(28px, 3vw, 40px);
+  display: flex; flex-direction: column; gap: clamp(12px, 2.2vw, 20px);
+  align-items: flex-start; flex: 1;
+}
+.offer__text { display: flex; flex-direction: column; gap: clamp(8px, 1.8vw, 16px); }
+.offer__title {
+  letter-spacing: -0.02em; color: var(--text);
+}
+.offer__desc {
+  font-family: var(--font-primary); font-weight: 300;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  line-height: 1.45; letter-spacing: -0.02em; color: var(--text); margin: 0;
+}
+.offer__link {
+  font-family: var(--font-secondary); font-weight: 600; font-size: 13px;
+  letter-spacing: .1em; text-transform: uppercase;
+  margin-top: auto; /* pins the link to the bottom of the body across cards */
+}
+.offer__media { position: relative; height: 320px; background: var(--sand); flex-shrink: 0; }
+.offer__media img { width: 100%; height: 100%; object-fit: cover; }
+.offer__media.img-fallback { background: linear-gradient(150deg, var(--navy), var(--teal) 70%, var(--gold) 130%); }
+
+/* =============================================================
+   STAY CONNECTED  —  full-bleed email signup (Figma 4103:634)
+   ============================================================= */
+.stay-connected {
+  position: relative; width: 100%; isolation: isolate;
+  padding: 100px 24px clamp(200px, 26vw, 417px);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  color: #fff; overflow: hidden;
+}
+.stay-connected__media { position: absolute; inset: 0; z-index: -2; background: var(--navy-deep); }
+.stay-connected__media img { width: 100%; height: 122%; position: relative; top: -11%; object-fit: cover; object-position: center 35%; will-change: transform; }
+.stay-connected__media.img-fallback { background: linear-gradient(160deg, var(--navy-deep), var(--teal) 65%, var(--gold) 140%); }
+.stay-connected::after { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(0,0,0,.1); }
+.stay-connected__inner {
+  max-width: 620px; display: flex; flex-direction: column; align-items: center; gap: 47px;
+}
+.stay-connected__text { max-width: 532px; display: flex; flex-direction: column; gap: 1.625em; }
+.stay-connected__title { color: #fff; letter-spacing: -0.02em; line-height: 1.1; }
+.stay-connected__lede {
+  font-family: var(--font-primary); font-weight: 300;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem); line-height: 1.45;
+  letter-spacing: -0.02em; margin: 0;
+}
+/* Figma 4104:477 — 60px row, 12px outer corners, 478px input */
+.sc-form { display: flex; width: min(589px, 100%); }
+.sc-form input {
+  flex: 1; min-width: 0; height: 60px; padding: 0 16px 0 30px;
+  border: 0; border-radius: 12px 0 0 12px; background: #fff; color: #000;
+  font-family: var(--font-primary); font-weight: 300; font-size: 14px; letter-spacing: -0.02em;
+}
+.sc-form input::placeholder { color: #000; opacity: .8; }
+.sc-form input:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+.sc-form button {
+  height: 60px; padding: 0 24px; border: 0; border-radius: 0 12px 12px 0;
+  background: var(--del-coral); color: #fff; cursor: pointer;
+  font-family: var(--font-secondary); font-weight: 600; font-size: 13px;
+  letter-spacing: .1em; text-transform: uppercase; white-space: nowrap;
+  transition: background var(--dur) var(--ease);
+}
+.sc-form button:hover { background: #1B365D; }
+/* consent line below the newsletter field */
+.sc-consent {
+  /* the section's 47px flex gap applies above this row: pull back to 20px */
+  display: flex; align-items: center; gap: 9px; margin-top: -27px;
+  font-family: var(--font-secondary); font-size: 12px; letter-spacing: .02em;
+  color: rgba(255, 255, 255, .9); cursor: pointer;
+}
+.sc-consent input {
+  appearance: none; -webkit-appearance: none;
+  width: 15px; height: 15px; margin: 0; flex-shrink: 0; cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, .65); border-radius: 3px; background: transparent;
+  display: inline-grid; place-content: center;
+  transition: background .25s var(--ease), border-color .25s var(--ease);
+}
+.sc-consent input:checked { background: var(--del-coral); border-color: var(--del-coral); }
+.sc-consent input:checked::before {
+  content: ""; width: 8px; height: 4px;
+  border-left: 1.5px solid #fff; border-bottom: 1.5px solid #fff;
+  transform: rotate(-45deg) translateY(-1px);
+}
+.sc-consent a { color: inherit; text-decoration: underline; text-underline-offset: 3px; transition: color .3s var(--ease); }
+.sc-consent a:hover { color: var(--del-coral); }
+.sc-success {
+  font-family: var(--font-secondary); font-weight: 600; font-size: 13px;
+  letter-spacing: .1em; text-transform: uppercase;
+}
+
+/* =============================================================
+   SEASONAL HIGHLIGHTS  —  left rail + horizontal carousel
+   (Figma 3152:7352) 600px images, 12px radius, 16px gaps.
+   ============================================================= */
+.seasonal { display: flex; gap: clamp(2.5rem, 6vw, 8rem); padding-left: clamp(24px, 8.4vw, 121px); }
+.seasonal__rail {
+  flex: 0 0 240px; display: flex; flex-direction: column; gap: clamp(2rem, 3.2vw, 47px);
+  align-items: flex-start;
+}
+.seasonal__head { display: flex; flex-direction: column; gap: 1.625em; }
+.seasonal__title {
+  line-height: 1.1; letter-spacing: -0.02em;
+  color: var(--text); margin: 0;
+}
+.seasonal__lede {
+  font-family: var(--font-primary); font-weight: 300;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem); line-height: 1.45; letter-spacing: -0.02em;
+  color: var(--text); margin: 0; max-width: 240px;
+}
+.seasonal__link {
+  font-family: var(--font-secondary); font-weight: 600; font-size: 13px;
+  letter-spacing: .1em; text-transform: uppercase; white-space: nowrap;
+}
+.seasonal__track {
+  flex: 1; min-width: 0;
+  display: flex; gap: 16px; padding-right: 24px;
+  overflow-x: auto; overflow-y: hidden; /* horizontal only — no vertical pan */
+  scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.seasonal__track::-webkit-scrollbar { display: none; }
+/* square cards — 45vh media, width follows for a true square */
+.scard { flex: 0 0 min(45svh, 85vw); display: flex; flex-direction: column; gap: clamp(20px, 2.2vw, 32px); scroll-snap-align: start; text-decoration: none; color: inherit; }
+.scard__media {
+  position: relative; width: 100%; aspect-ratio: 1;
+  border-radius: 12px; overflow: hidden; background: var(--sand); isolation: isolate;
+}
+.scard__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+.scard__media.img-fallback { background: linear-gradient(150deg, var(--navy), var(--teal) 70%, var(--gold) 130%); }
+.scard:hover .scard__media img, .scard:focus-visible .scard__media img { transform: scale(1.04); }
+.scard__title {
+  letter-spacing: -0.02em; color: var(--text);
+}
+/* carousel arrows — hairline circles, editorial */
+.seasonal__nav { display: flex; gap: 12px; }
+.seasonal__arrow {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1px solid var(--del-coral); background: transparent; color: var(--del-coral);
+  display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.seasonal__arrow svg { display: block; }
+.seasonal__arrow:hover:not(:disabled) { background: var(--del-coral); border-color: var(--del-coral); color: #fff; }
+.seasonal__arrow:disabled { opacity: .3; cursor: default; }
+.seasonal__arrow:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+@media (max-width: 860px) {
+  .seasonal { flex-direction: column; padding-left: 24px; }
+  .seasonal__rail { flex-basis: auto; }
+}
+
+/* =============================================================
+   FOOTER  —  light ground (Figma 12:1010)
+   ============================================================= */
+.footer {
+  padding: 0 clamp(24px, 8.4vw, 120px);
+  display: flex; flex-direction: column; gap: 25px;
+  color: var(--text);
+}
+.footer__top { display: flex; justify-content: space-between; gap: clamp(2.5rem, 6vw, 6rem); flex-wrap: wrap; }
+.footer__brand { display: flex; flex-direction: column; gap: clamp(2rem, 3vw, 42px); width: 257px; }
+.footer__brand-inner { display: flex; flex-direction: column; gap: clamp(1.75rem, 2.8vw, 40px); }
+.footer__logo { width: 240px; height: 53px; display: block; }
+.footer__logo img { width: 100%; height: 100%; display: block; }
+.footer__address {
+  display: flex; flex-direction: column; gap: 20px;
+  font-family: var(--font-primary); font-weight: 300; font-size: 14px;
+  letter-spacing: -0.02em; line-height: normal;
+}
+.footer__address p { margin: 0; }
+.footer__address a { text-decoration: none; color: inherit; }
+.footer__address a:hover { text-decoration: underline; }
+.footer__social { display: flex; gap: 24px; align-items: center; }
+.footer__social a {
+  font-family: var(--font-secondary); font-weight: 500; font-size: 11px;
+  letter-spacing: .15em; text-transform: uppercase; color: inherit; text-decoration: none;
+}
+.footer__social a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.footer__cols {
+  display: flex; gap: clamp(2.5rem, 5.3vw, 77px); padding-top: 93px; flex-wrap: wrap;
+}
+.footer__col { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; min-width: 88px; }
+.footer__col a {
+  font-family: var(--font-primary); font-weight: 300; font-size: 14px;
+  letter-spacing: -0.02em; color: inherit; text-decoration: none; white-space: nowrap;
+}
+.footer__col a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.footer__rule { border: 0; border-top: 1px solid var(--text); opacity: .2; margin: 15px 0 0; width: 100%; }
+.footer__bottom { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding-bottom: 25px; }
+.footer__copyright {
+  font-family: var(--font-secondary); font-weight: 500; font-size: 10px;
+  letter-spacing: .15em; text-transform: uppercase; margin: 0;
+}
+.footer__partners { display: flex; gap: 32px; align-items: center; }
+.footer__partners img { display: block; height: 35px; width: auto; object-fit: contain; }
+@media (max-width: 900px) {
+  .footer__cols { padding-top: 0; }
+}
+
+/* =============================================================
+   Scroll reveal
+   ============================================================= */
+[data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+[data-reveal].is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .hero__scroll .line { animation: none; }
+}
+
+/* =============================================================
+   MENU OVERLAY  —  Figma 4106 series
+   Full takeover: top bar (X · stacked logo · Reservations),
+   340px rail + content panels. Menu ink is #242829 per design.
+   ============================================================= */
+.menu-overlay {
+  position: fixed; inset: 0; z-index: 200; background: #fff; color: #242829;
+  opacity: 0; visibility: hidden;
+  /* closed: swallow NO pointer events — the fixed default panel inside
+     otherwise blocks hovers/clicks across the right of the page */
+  pointer-events: none;
+  transition: opacity .45s var(--ease), visibility .45s;
+  overflow-y: auto; display: flex; flex-direction: column;
+}
+.menu-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+body.menu-open { overflow: hidden; }
+
+/* top bar */
+.menu-overlay__bar {
+  position: relative; flex-shrink: 0;
+  height: 112px; padding: 0 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.menu-overlay__close {
+  position: relative; width: 24px; height: 24px; margin-left: 4px;
+  background: none; border: 0; cursor: pointer; padding: 0;
+}
+.menu-overlay__close span {
+  position: absolute; left: -4px; top: 11px; width: 32px; height: 1px;
+  background: #242829; transition: background .3s var(--ease);
+}
+.menu-overlay__close span:first-child { transform: rotate(-45deg); }
+.menu-overlay__close span:last-child  { transform: rotate(45deg); }
+.menu-overlay__close:hover span, .menu-overlay__close:focus-visible span { background: var(--del-coral); }
+.menu-overlay__logo {
+  /* identical box + identical artwork as the header: closing is a pure crossfade */
+  position: absolute; left: 50%; transform: translateX(-50%); top: 11px;
+  width: 181.5px; height: 108.9px;
+}
+.menu-overlay__logo img { width: 100%; height: 100%; display: block; }
+
+/* body: rail + content */
+.menu-overlay__body {
+  flex: 1; display: grid;
+  /* viewport shares: 5% margin | 25% rail | 5% gap | 60% panel | 5% margin */
+  grid-template-columns: calc(25% * 100 / 90) 1fr;
+  column-gap: calc(5% * 100 / 90);
+  padding: 40px 5%;
+  min-height: 0;
+}
+.menu-overlay__rail { display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; }
+
+/* rail items — 62px pitch, ink at rest, coral active */
+.menu-rail { display: flex; flex-direction: column; }
+.menu-rail__item + .menu-rail__item { border-top: 1px solid rgba(36,40,41,.12); }
+.menu-rail__item {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 0 14px 0 0; height: 80px; width: 100%;
+  background: none; border: 0; cursor: pointer; text-align: left; text-decoration: none;
+  font-family: var(--font-primary); font-weight: 300;
+  font-size: clamp(calc(1.6rem - 6px), calc(1.3rem + 1vw - 6px), calc(2rem - 6px));
+  color: #242829; transition: color .3s var(--ease);
+}
+.menu-rail__item .m-arrow {
+  width: 20px; height: 8px; flex-shrink: 0; color: #242829; opacity: .2;
+  transition: color .3s var(--ease), opacity .3s var(--ease), transform .3s var(--ease);
+}
+.menu-rail__item:hover, .menu-rail__item.is-active { color: var(--del-coral); }
+.menu-rail__item:hover .m-arrow,
+.menu-rail__item.is-active .m-arrow { color: var(--del-coral); opacity: 1; transform: translateX(4px); }
+.menu-rail__item:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.menu-rail__aux { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+.menu-rail__aux a {
+  /* plain red hyperlinks — no drawn-line treatment */
+  font-family: var(--font-secondary); font-weight: 500; font-size: clamp(11px, 0.9vw, 13px);
+  letter-spacing: .1em; text-transform: uppercase; color: var(--del-coral);
+  text-decoration: underline; text-underline-offset: 3px;
+  transition: color .3s var(--ease);
+}
+.menu-rail__aux a:hover, .menu-rail__aux a:focus-visible { color: #1B365D; }
+
+/* content panels */
+.menu-overlay__content { position: relative; min-height: 60vh; }
+.menu-panel {
+  position: absolute; inset: 0; padding-top: 13px;
+  opacity: 0; visibility: hidden; transform: translateY(10px);
+  transition: opacity .4s var(--ease), transform .4s var(--ease), visibility .4s;
+}
+.menu-panel.is-active { opacity: 1; visibility: visible; transform: none; }
+.menu-panel--default {
+  position: fixed; top: 0; right: 0; bottom: 0; padding-top: 0;
+  left: 35%;
+  z-index: 2; /* covers the bar region per Figma 513 (X stays clear on the rail side) */
+}
+.menu-panel--default img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.menu-panel__head { display: flex; align-items: center; justify-content: space-between; }
+.menu-panel__heading {
+  display: inline-flex; align-items: center; gap: 24px;
+  font-family: var(--font-primary); font-weight: 300; font-size: clamp(17px, 1.4vw, 20px);
+  color: #242829; text-decoration: none;
+}
+.menu-panel__heading .m-arrow { width: 20px; height: 8px; color: #242829; opacity: .2; transition: opacity .3s var(--ease), transform .3s var(--ease); }
+.menu-panel__heading:hover .m-arrow { opacity: 1; transform: translateX(4px); }
+.menu-panel__back {
+  background: none; border: 0; cursor: pointer; padding: 0;
+  font-family: var(--font-secondary); font-size: clamp(11px, 0.9vw, 13px); color: #242829;
+}
+.menu-panel__back:hover { text-decoration: underline; text-underline-offset: 4px; }
+.menu-panel__back::before { content: "\2190\00a0"; color: var(--del-coral); }
+.menu-panel__rule { border: 0; border-top: 1px solid rgba(36,40,41,.18); margin: 16px 0 26px; }
+
+.menu-panel__grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 32px;
+}
+.menu-card { display: flex; flex-direction: column; gap: 0; text-decoration: none; color: #242829;
+  opacity: 0; transform: translateY(14px);
+  transition: opacity .55s var(--ease), transform .55s var(--ease);
+}
+.menu-panel.is-active .menu-card { opacity: 1; transform: none; }
+.menu-panel.is-active .menu-card:nth-child(1) { transition-delay: .08s; }
+.menu-panel.is-active .menu-card:nth-child(2) { transition-delay: .16s; }
+.menu-panel.is-active .menu-card:nth-child(3) { transition-delay: .24s; }
+.menu-panel.is-active .menu-card:nth-child(4) { transition-delay: .32s; }
+.menu-panel.is-active .menu-card:nth-child(5) { transition-delay: .40s; }
+.menu-panel.is-active .menu-card:nth-child(6) { transition-delay: .48s; }
+@media (prefers-reduced-motion: reduce) {
+  .menu-card { opacity: 1; transform: none; transition: none; }
+}
+.menu-card__media {
+  position: relative; width: 100%; aspect-ratio: 258 / 160;
+  border-radius: 12px; overflow: hidden; background: #e0e0e0; display: block;
+  isolation: isolate;
+}
+.menu-card__media img, .menu-card__media video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 1s var(--ease); /* site card zoom pattern */
+}
+.menu-card:hover .menu-card__media img, .menu-card:focus-visible .menu-card__media img,
+.menu-card:hover .menu-card__media video, .menu-card:focus-visible .menu-card__media video {
+  transform: scale(1.04);
+}
+.menu-card__title {
+  font-family: var(--font-primary); font-weight: 300; font-size: clamp(17px, 1.46vw, 21px);
+  line-height: 1.2; margin-top: 16px; transition: color .3s var(--ease);
+}
+.menu-card__title .m-arrow { display: none; } /* drill flag: mobile text-list only */
+.menu-card:hover .menu-card__title { color: var(--del-coral); }
+.menu-card__byline {
+  font-family: var(--font-secondary); font-size: clamp(13px, 1.05vw, 15px); letter-spacing: .02em;
+  color: #4a4138; margin-top: 8px;
+}
+.menu-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.menu-panel__links {
+  grid-column: 3; grid-row: 1 / span 2; display: flex; flex-direction: column;
+  gap: 18px; align-items: flex-start; padding-top: 4px;
+}
+/* secondary tier: venue links in a wrapping row below the cards */
+.menu-panel__links--row {
+  flex-direction: row; flex-wrap: wrap; gap: 10px 26px; padding-top: 30px;
+}
+.menu-panel__links--row a { font-size: 17px; }
+
+/* mixed-density panels: experiences runs 4+4; quick bites runs 3+4.
+   Imagery keeps ONE height across both card widths (the 3-across height:
+   panel is 60vw, so a span-4 image is ((60vw − 64px)/3) / (258/160)) */
+[data-panel-view="experiences"] .menu-panel__grid,
+[data-panel-view="dine-quickbites"] .menu-panel__grid { grid-template-columns: repeat(12, 1fr); }
+[data-panel-view="experiences"] .menu-card { grid-column: span 3; }
+[data-panel-view="dine-quickbites"] .menu-card:nth-child(-n+3) { grid-column: span 4; }
+[data-panel-view="dine-quickbites"] .menu-card:nth-child(n+4) { grid-column: span 3; }
+[data-panel-view="experiences"] .menu-card__media,
+[data-panel-view="dine-quickbites"] .menu-card__media {
+  aspect-ratio: auto; height: calc(12.4vw - 13px);
+}
+.menu-panel__links a {
+  font-family: var(--font-primary); font-weight: 300; font-size: clamp(17px, 1.46vw, 21px);
+  line-height: 1.2; color: #242829; text-decoration: none;
+  transition: color .3s var(--ease);
+}
+.menu-panel__links a:hover, .menu-panel__links a:focus-visible { color: var(--del-coral); }
+
+/* panel heading CTA (e.g. Gather: Make an Inquiry) */
+.menu-panel__cta {
+  font-family: var(--font-secondary); font-weight: 600; font-size: clamp(11px, 0.9vw, 13px);
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--del-coral); text-decoration: underline; text-underline-offset: 3px;
+  transition: color .3s var(--ease); flex-shrink: 0;
+}
+.menu-panel__cta:hover, .menu-panel__cta:focus-visible { color: #1B365D; }
+
+/* mobile: rail stacks; picking an item swaps to panel with back */
+@media (max-width: 900px) {
+  .menu-overlay__bar { padding: 0 24px; height: 88px; }
+  .menu-overlay__logo { width: 121px; height: 72.6px; top: 11px; } /* match the phone header logo */
+  .menu-overlay__body { grid-template-columns: 1fr; padding: 16px 24px 40px; }
+  .menu-overlay__content { display: none; min-height: 0; }
+  .menu-overlay.has-panel .menu-overlay__content { display: block; }
+  .menu-overlay.has-panel .menu-overlay__rail { display: none; }
+  .menu-panel { position: relative; inset: auto; }
+  .menu-panel__grid { grid-template-columns: 1fr 1fr; gap: 28px 16px; }
+  .menu-panel__back--mobile {
+    display: inline-block !important; margin-bottom: 20px; /* +8px from the title link */
+  }
+  .menu-panel__back { font-size: clamp(11px, 3.1vw, 12px); }
+  .menu-panel__heading { font-size: clamp(18px, 5.1vw, 20px); }
+  .menu-panel__cta { order: -1; }
+  /* sub-panels (own Back in the head row): BACK stacks on top, so the
+     heading gets the full line — "Explore the Neighborhood" stays one line */
+  .menu-panel__head { flex-direction: column-reverse; align-items: flex-start; gap: 20px; }
+  .menu-panel__back {
+    text-transform: uppercase; letter-spacing: .08em; font-size: 12px;
+  }
+  /* second-level links: text left, arrow flush right (Back keeps its ←) */
+  .menu-panel__heading { white-space: nowrap; display: flex; align-items: center; justify-content: space-between; width: 100%; }
+  .menu-card[data-drill] .menu-card__title { display: flex; align-items: center; justify-content: space-between; }
+  .menu-panel__rule { margin: 16px 0 14px; } /* after-title spacing −12px */
+  /* drill cards flag their sub-menu with the rail arrow */
+  .menu-card[data-drill] .menu-card__title .m-arrow {
+    display: inline-block; width: 20px; height: 8px; margin-left: 10px;
+    color: #242829; opacity: .25;
+  }
+}
+.menu-panel__back--mobile { display: none; }
+@keyframes menu-fade { from { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-overlay, .menu-panel { transition: none; transform: none; }
+}
+
+/* ---- Our Story: watch-video link + in-module player ---- */
+.quote__links { display: flex; align-items: center; justify-content: center; gap: clamp(1.5rem, 3vw, 2.5rem); }
+.quote__watch { background: none; border: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; }
+.quote__watch .play-ic { width: 18px; height: 18px; display: block; }
+.quote__player {
+  /* true overlay of the story image panel — the page keeps scrolling */
+  position: absolute; inset: 0; z-index: 2;
+  background: rgba(0, 0, 0, .92);
+  opacity: 0; visibility: hidden; transition: opacity .5s var(--ease), visibility .5s;
+}
+.quote.is-video .quote__player { opacity: 1; visibility: visible; }
+/* full-bleed: the video covers the panel edge to edge (crop as needed) */
+.quote__player-frame { position: absolute; inset: 0; overflow: hidden; }
+.quote__player-frame video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.quote__player-close {
+  position: absolute; top: 28px; right: 32px; width: 32px; height: 32px;
+  background: rgba(0, 0, 0, .5); border: 1px solid #fff; border-radius: 50%;
+  cursor: pointer; padding: 0;
+  transition: background .3s var(--ease), border-color .3s var(--ease);
+}
+.quote__player-close span {
+  position: absolute; left: calc(50% - 6px); top: calc(50% - 0.75px);
+  width: 12px; height: 1.5px; background: #fff;
+}
+.quote__player-close span:first-child { transform: rotate(-45deg); }
+.quote__player-close span:last-child  { transform: rotate(45deg); }
+.quote__player-close:hover { background: var(--del-coral); border-color: var(--del-coral); }
+
+/* ---- custom video controls (YouTube chrome hidden via controls=0) ---- */
+.quote__player-close { z-index: 3; } /* above the full-frame iframe */
+.quote__player-ui {
+  position: absolute; left: 50%; transform: translateX(-50%); bottom: 36px; z-index: 2;
+  display: flex; align-items: center; gap: 18px;
+  width: min(720px, 80vw); color: #fff;
+}
+.vp-play {
+  background: none; border: 0; cursor: pointer; color: #fff;
+  width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: color .3s var(--ease);
+}
+.vp-play:hover { color: var(--del-coral); }
+.vp-play svg { width: 12px; height: 14px; display: block; }
+.vp-play .vp-ic-play { display: none; }
+.vp-play.is-paused .vp-ic-play { display: block; }
+.vp-play.is-paused .vp-ic-pause { display: none; }
+.vp-scrub {
+  flex: 1; height: 2px; appearance: none; -webkit-appearance: none;
+  background: rgba(255,255,255,.3); border-radius: 1px; cursor: pointer;
+  accent-color: var(--del-coral);
+}
+.vp-scrub::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--del-coral); border: 0;
+}
+.vp-scrub::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--del-coral); border: 0; }
+.vp-time {
+  font-family: var(--font-secondary); font-weight: 500; font-size: 12px;
+  letter-spacing: .08em; white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+
+/* all interaction runs through our own controls */
+.quote__player-frame video { pointer-events: none; }
+
+/* =============================================================
+   STAY FINDER  —  embedded in the Grand Stay frame:
+   copy fades, image dims, question + image-choices center up.
+   ============================================================= */
+.curtain__content { transition: opacity .45s var(--ease); }
+.curtain__media img { transition: filter .8s var(--ease); }
+.curtain.quiz-open .curtain__media img { filter: blur(5px); } /* image recedes behind the quiz */
+.curtain.quiz-open .curtain__content { opacity: 0; pointer-events: none; }
+.stay-quiz {
+  position: absolute; inset: 0; z-index: 6;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: clamp(2rem, 4vw, 4rem);
+  background: rgba(0, 0, 0, .55); /* the darker dim */
+  opacity: 0; visibility: hidden;
+  transition: opacity .5s var(--ease), visibility .5s;
+}
+.curtain.quiz-open .stay-quiz { opacity: 1; visibility: visible; }
+.stay-quiz__close {
+  /* same treatment as the video player close: white X, white ring, 50% black */
+  position: absolute; top: 24px; right: 28px; width: 32px; height: 32px; z-index: 3;
+  background: rgba(0, 0, 0, .5); border: 1px solid #fff; border-radius: 50%;
+  cursor: pointer; padding: 0;
+  transition: background .3s var(--ease), border-color .3s var(--ease);
+}
+.stay-quiz__close span {
+  position: absolute; left: calc(50% - 6px); top: calc(50% - 0.75px);
+  width: 12px; height: 1.5px; background: #fff;
+}
+.stay-quiz__close span:first-child { transform: rotate(-45deg); }
+.stay-quiz__close span:last-child  { transform: rotate(45deg); }
+.stay-quiz__close:hover { background: var(--del-coral); border-color: var(--del-coral); }
+.stay-quiz__body { position: relative; z-index: 2; width: 100%; max-width: 1100px;
+  display: flex; flex-direction: column; align-items: center;
+  transition: opacity .95s var(--ease), transform .95s var(--ease), filter .95s var(--ease);
+}
+/* step change: drift up + soften, re-enter from below */
+.stay-quiz__body.sq-anim-out { opacity: 0; transform: translateY(-14px); filter: blur(5px);
+  transition-duration: .45s, .45s, .45s; }
+.stay-quiz__body.sq-anim-prep { opacity: 0; transform: translateY(18px); filter: blur(5px); transition: none; }
+
+.stay-quiz__eyebrow, .stay-quiz__result-eyebrow {
+  font-family: var(--font-secondary); font-weight: 600; font-size: 12px;
+  letter-spacing: .14em; text-transform: uppercase; color: #fff;
+  margin: 0 0 1.25rem;
+}
+.stay-quiz__q {
+  font-family: var(--font-primary); font-weight: 300;
+  font-size: clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem); line-height: 1.1;
+  color: #fff; margin: 0 0 clamp(1.75rem, 3vw, 2.75rem);
+}
+.stay-quiz__opts {
+  display: flex; justify-content: center; gap: clamp(12px, 1.6vw, 24px); flex-wrap: wrap;
+  align-items: flex-start; /* rows pin to the top even when labels wrap */
+}
+.stay-quiz__opt {
+  width: clamp(150px, 16vw, 220px);
+  background: none; border: 0; padding: 0; cursor: pointer; text-align: center;
+}
+.stay-quiz__opt-media {
+  display: block; width: 100%; aspect-ratio: 3 / 2;
+  border-radius: 12px; overflow: hidden; background: var(--sand);
+  border: 1px solid transparent;
+  transition: border-color .3s var(--ease);
+}
+.stay-quiz__opt-media img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 1s var(--ease);
+}
+.stay-quiz__opt:hover .stay-quiz__opt-media, .stay-quiz__opt:focus-visible .stay-quiz__opt-media { border-color: var(--del-coral); }
+.stay-quiz__opt:hover .stay-quiz__opt-media img { transform: scale(1.04); }
+.stay-quiz__opt-label {
+  display: block; margin-top: 12px;
+  font-family: var(--font-secondary); font-weight: 500; font-size: 13px;
+  letter-spacing: .08em; text-transform: uppercase; color: #fff;
+  transition: color .3s var(--ease);
+}
+.stay-quiz__opt:hover .stay-quiz__opt-label { color: var(--del-coral); }
+.stay-quiz__back {
+  margin-top: clamp(1.5rem, 2.5vw, 2.5rem);
+  background: none; border: 0; cursor: pointer; padding: 0;
+  font-family: var(--font-secondary); font-size: 12px; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(255,255,255,.7);
+}
+.stay-quiz__back:hover { color: var(--del-coral); }
+.stay-quiz__back::before { content: "\2190\00a0"; }
+
+/* result: the frame becomes the matched neighborhood */
+.stay-quiz__bgvideo {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden;
+  opacity: 0; transition: opacity .9s var(--ease);   /* fade back to the image */
+}
+.stay-quiz__bgvideo.is-on { opacity: 1; transition-duration: 1.2s; } /* slow bloom in */
+.stay-quiz__bgvideo video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.stay-quiz__bgvideo::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.45); }
+.stay-quiz__name {
+  font-family: var(--font-primary); font-weight: 300;
+  font-size: clamp(2.25rem, 1.9rem + 1.6vw, 3.25rem); color: #fff; margin: 0 0 .5rem;
+}
+.stay-quiz__feel {
+  font-family: var(--font-secondary); font-weight: 500; font-size: 12px;
+  letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.75); margin: 0 0 1.25rem;
+}
+.stay-quiz__why {
+  font-family: var(--font-primary); font-weight: 300; font-size: clamp(1rem, .95rem + .3vw, 1.2rem);
+  line-height: 1.5; color: #fff; max-width: 44ch; margin: 0 auto 2rem;
+}
+.stay-quiz__actions { display: flex; align-items: center; justify-content: center; gap: 2rem; }
+.stay-quiz__explore {
+  font-family: var(--font-secondary); font-weight: 600; font-size: 13px;
+  letter-spacing: .1em; text-transform: uppercase; color: #fff;
+}
+.stay-quiz__explore:hover, .stay-quiz__explore:focus-visible { color: #fff; } /* over imagery: white */
+.stay-quiz__retake {
+  background: none; border: 0; cursor: pointer; padding: 0;
+  font-family: var(--font-secondary); font-size: 12px; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(255,255,255,.7);
+}
+.stay-quiz__retake:hover { color: var(--del-coral); }
+
+/* =============================================================
+   BOOKING WIDGET  —  Check Availability drawer (HDC-Booking)
+   ============================================================= */
+.booking-backdrop {
+  position: fixed; inset: 0; z-index: 240; background: rgba(18, 42, 55, .4);
+  opacity: 0; transition: opacity .4s var(--ease);
+}
+.booking-backdrop.is-on { opacity: 1; }
+.booking {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 250;
+  width: min(400px, 100vw); background: #FAF8F6; color: #242829;
+  box-shadow: -18px 0 50px rgba(18, 42, 55, .18);
+  transform: translateX(100%); transition: transform .55s var(--ease);
+  overflow-y: auto; padding: 0 22px 28px;
+}
+.booking.is-open { transform: none; }
+.booking__bar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: #FAF8F6; margin: 0 -22px; padding: 16px 24px 12px;
+}
+.booking__auth { margin: 0; font-family: var(--font-secondary); font-weight: 600;
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.booking__auth a { color: var(--del-coral); text-decoration: underline; text-underline-offset: 3px; }
+.booking__auth a:hover { color: #1B365D; }
+.booking__auth span { color: #242829; text-transform: none; letter-spacing: 0; }
+.booking__close { position: relative; width: 20px; height: 20px; background: none; border: 0; cursor: pointer; padding: 0; }
+.booking__close span { position: absolute; left: -3px; top: 9px; width: 26px; height: 1px;
+  background: #242829; transition: background .3s var(--ease); }
+.booking__close span:first-child { transform: rotate(-45deg); }
+.booking__close span:last-child  { transform: rotate(45deg); }
+.booking__close:hover span { background: var(--del-coral); }
+
+.booking__title { text-align: center; font-size: 20px; margin: 0 -22px 0; padding: 24px 22px 14px; background: #fff; }
+.booking__title--left { background: none; margin: 0; padding: 0; }
+.booking__title--left { text-align: left; margin: 0; }
+.booking__tabs { display: flex; justify-content: center; gap: 14px;
+  background: #fff; margin: 0 -22px 22px; padding: 0 22px; } /* gap below = side gutter */
+.booking__tab {
+  background: none; border: 0; cursor: pointer; padding: 13px 14px 12px;
+  font-family: var(--font-primary); font-weight: 400; font-size: 15px;
+  color: var(--del-coral);
+  border-radius: 6px 6px 0 0;
+  transition: color .3s var(--ease), background .3s var(--ease);
+}
+.booking__tab.is-active { color: #242829; background: #FAF8F6; } /* connects to the body below */
+
+/* neighborhood selector */
+.booking__nbh { margin-bottom: 14px; }
+.booking__nbh-field {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: #fff; border: 1px solid #F2F2F2; border-radius: 6px;
+  padding: 16px 14px; cursor: pointer;
+  font-family: var(--font-primary); font-weight: 300; font-size: 15px; color: #242829; text-align: left;
+}
+.booking__nbh-actions { display: inline-flex; align-items: center; gap: 12px; }
+.booking__viewmap {
+  font-family: var(--font-secondary); font-weight: 600; font-size: 10px;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--del-coral); text-decoration: none;
+}
+.booking__viewmap:hover { color: #1B365D; }
+.booking__chev { color: #242829; font-size: 11px; }
+.booking__nbh-list { background: #fff; border: 1px solid #F2F2F2; border-top: 0; border-radius: 0 0 6px 6px; padding: 0 12px; }
+.booking__nbh-item {
+  width: 100%; display: flex; gap: 12px; align-items: center; text-align: left;
+  background: none; border: 0; cursor: pointer; padding: 10px 2px;
+}
+.booking__nbh-item:hover .booking__nbh-name { color: var(--del-coral); }
+.booking__nbh-thumb { width: 44px; height: 34px; border-radius: 6px; object-fit: cover; flex-shrink: 0; }
+.booking__nbh-name { display: block; font-family: var(--font-primary); font-weight: 300; font-size: 15px;
+  color: #242829; transition: color .3s var(--ease); }
+.booking__nbh-desc { display: block; font-family: var(--font-secondary); font-size: 11px; color: #4a4138; }
+
+/* calendar */
+.booking__cal-head { display: flex; align-items: center; justify-content: space-between; margin: 6px 0 8px; }
+.booking__cal-title { font-family: var(--font-primary); font-weight: 300; font-size: 17px; }
+.booking__cal-nav { background: none; border: 0; cursor: pointer; font-size: 15px; color: #242829; padding: 4px 8px; }
+.booking__cal-nav:hover { color: var(--del-coral); }
+.booking__cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+/* the 1px gaps expose the lattice ground — same colour as the box strokes */
+.booking__cal-grid--days { gap: 1px; background: #F2F2F2; border: 1px solid #F2F2F2; }
+.booking__cal-dow {
+  font-family: var(--font-primary); font-weight: 400; font-size: 10px; letter-spacing: .06em;
+  text-transform: uppercase; color: #4a4138; text-align: center; padding: 6px 0;
+}
+.booking__day {
+  background: #fff; border: 0;
+  cursor: pointer; border-radius: 0;
+  aspect-ratio: 1; padding: 8px; text-align: right;
+  display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end;
+  font-family: var(--font-primary); font-weight: 400; font-size: 12px; color: #242829;
+  transition: background .25s var(--ease), color .25s var(--ease);
+}
+.booking__day--empty { background: #fff; aspect-ratio: 1; }
+.booking__day small { display: block; font-size: 11.5px; color: #4a4138; }
+.booking__day:hover:not(:disabled) { background: rgba(217,90,64,.12); }
+.booking__day:disabled { opacity: .25; cursor: default; }
+.booking__day.is-mid { background: rgba(217,90,64,.18); }
+.booking__day.is-arr, .booking__day.is-dep { background: var(--del-coral); color: #fff; }
+.booking__day.is-arr small, .booking__day.is-dep small { color: rgba(255,255,255,.85); }
+
+.booking__minstay {
+  margin: 12px 0 0; padding: 10px 14px; border-radius: 5px;
+  background: var(--del-coral); color: #fff; text-align: center;
+  font-family: var(--font-secondary); font-weight: 600; font-size: 11px;
+  letter-spacing: .1em; text-transform: uppercase;
+}
+.booking__legs {
+  display: flex; justify-content: space-between; margin: 14px 0 4px;
+  font-family: var(--font-primary); font-weight: 300; font-size: 14px; color: #4a4138;
+}
+.booking__legs b { color: #242829; font-weight: 400; }
+
+.booking__guests-label { /* same voice as the calendar month */
+  font-family: var(--font-primary); font-weight: 300; font-size: 17px;
+  text-align: center; color: #242829; margin: 14px 0 8px; }
+.booking__guest-row { display: flex; gap: 4px; }
+.booking__guest { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  background: #fff; border: 1px solid #F2F2F2; border-radius: 6px; padding: 14px 12px; }
+.booking__guest-name { font-family: var(--font-primary); font-weight: 300; font-size: 14px; color: #242829; }
+.booking__guest-name small { display: block; font-size: 9.5px; color: #4a4138; }
+.booking__stepper { display: inline-flex; align-items: center; gap: 8px; }
+.booking__stepper button {
+  width: 22px; height: 22px; border: 1px solid rgba(36,40,41,.3); border-radius: 4px;
+  background: none; cursor: pointer; font-size: 13px; line-height: 1; color: #242829;
+  transition: border-color .25s var(--ease), color .25s var(--ease);
+}
+.booking__stepper button:hover { border-color: var(--del-coral); color: var(--del-coral); }
+.booking__stepper b { font-family: var(--font-primary); font-weight: 400; font-size: 13px; min-width: 14px; text-align: center; }
+
+/* special rates: field-style disclosure below Guests (Figma 5761:13806) */
+.booking__rates { margin-top: 14px; }
+.booking__rates .booking__chev { transition: transform .3s var(--ease); }
+.booking__rates [aria-expanded="true"] .booking__chev { transform: rotate(180deg); }
+.booking__rates-panel {
+  background: #fff; border: 1px solid #F2F2F2; border-top: 0;
+  border-radius: 0 0 6px 6px; padding: 16px 14px;
+}
+.booking__rates-checks {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; margin-bottom: 16px;
+}
+.booking__rates-checks label {
+  display: flex; align-items: center; gap: 9px; cursor: pointer;
+  font-family: var(--font-primary); font-weight: 300; font-size: 14px; color: #242829;
+}
+.booking__rates-checks input {
+  width: 15px; height: 15px; margin: 0; accent-color: var(--del-coral); flex-shrink: 0;
+}
+.booking__rates-full { grid-column: 1 / -1; }
+.booking__rates-codes { display: flex; flex-direction: column; gap: 8px; }
+.booking__rates-codes input {
+  border: 1px solid #F2F2F2; border-radius: 6px; background: #FAF8F6;
+  padding: 13px 14px;
+  font-family: var(--font-primary); font-weight: 300; font-size: 14px; color: #242829;
+}
+.booking__rates-codes input::placeholder { color: #4a4138; opacity: .85; }
+.booking__rates-codes input:focus-visible { outline: none; border-color: var(--del-coral); }
+
+.booking__cta {
+  display: block; margin-top: 18px; padding: 14px; border-radius: 5px; text-align: center;
+  background: var(--del-coral); color: #fff; text-decoration: none;
+  font-family: var(--font-secondary); font-weight: 600; font-size: 13px;
+  letter-spacing: .12em; text-transform: uppercase;
+  transition: background .3s var(--ease);
+}
+.booking__cta:hover { background: #1B365D; }
+
+/* map view */
+.booking__map-head { display: flex; align-items: center; justify-content: space-between; margin: 6px 0 12px; }
+.booking__map-actions { display: flex; gap: 14px; }
+.booking__map-actions button {
+  background: none; border: 0; cursor: pointer;
+  font-family: var(--font-secondary); font-weight: 600; font-size: 10px;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--del-coral); padding: 0;
+}
+.booking__map-actions button:hover { color: #1B365D; }
+.booking__map-img { border-radius: 8px; overflow: hidden; aspect-ratio: 375 / 240; }
+.booking__map-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.booking__map-hint { font-family: var(--font-secondary); font-size: 12px; color: #242829; margin: 14px 0 4px; }
+.booking__map-item {
+  display: flex; gap: 12px; align-items: center; padding: 10px 0;
+  border-bottom: 1px solid rgba(36,40,41,.1);
+}
+.booking__map-item .booking__nbh-name { font-size: 15px; }
+.booking__map-select {
+  margin-left: auto; background: none; border: 0; cursor: pointer;
+  font-family: var(--font-secondary); font-weight: 600; font-size: 10px;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--del-coral); padding: 0;
+}
+.booking__map-select:hover { color: #1B365D; }
+body.booking-open { overflow: hidden; }
+
+/* =============================================================
+   MOBILE  —  responsive pass
+   Carousels condense (lead-in content sits above), the menu
+   goes text-only, takeovers hand back to native scroll.
+   ============================================================= */
+
+/* ---- menu overlay ≤900: no imagery — text flows vertically ---- */
+@media (max-width: 900px) {
+  /* panels are position:relative here — inactive ones must leave the flow,
+     not just fade, or the active panel renders below their ghost space */
+  .menu-panel { display: none; }
+  .menu-panel.is-active { display: block; animation: menu-fade .4s var(--ease) both; }
+  /* returning to the root menu fades in the same way */
+  .menu-overlay:not(.has-panel) .menu-overlay__rail { animation: menu-fade .4s var(--ease) both; }
+  .menu-panel--default { display: none; } /* full-bleed image panel is desktop-only */
+  .menu-panel__grid { display: flex; flex-direction: column; gap: 0; }
+  .menu-card__media { display: none; }
+  .menu-card { padding: 16px 0 13px; }
+  .menu-card + .menu-card { border-top: 1px solid rgba(36,40,41,.12); }
+  .menu-card__title { margin-top: 0; font-size: clamp(17px, 4.9vw, 19px); }
+  .menu-card__byline { margin-top: -2px; } /* title→description −6px */
+  .menu-panel__links {
+    padding: 18px 0 0; gap: 14px;
+    border-top: 1px solid rgba(36,40,41,.12); margin-top: 8px;
+  }
+  .menu-panel__links a { font-size: clamp(14px, 4.1vw, 16px); }
+  .menu-rail__item { height: 64px; }
+  .menu-rail__aux { margin-bottom: 24px; }
+}
+
+/* ---- signature del ≤900: pinned pan hands over to a swipe carousel ---- */
+@media (max-width: 900px) {
+  .hlock__pin { gap: 40px; }
+  .hlock__track { gap: 16px; padding-inline: 24px; }
+  .hcard { --hcard-size: min(45svh, 85vw); width: var(--hcard-size); } /* seasonal card width */
+}
+
+/* ---- phone-size tuning ---- */
+@media (max-width: 640px) {
+  .spacer--title { height: 40px; }
+
+  .showcase { height: 100svh; }
+  .showcase__title { bottom: 14vh; }
+
+  .curtain { margin: 0 12px; }
+  .curtain__content { padding-inline: 24px; }
+
+  .stay-quiz { padding: 1.5rem; }
+  .stay-quiz__opts { gap: 10px; }
+  .stay-quiz__opt { width: clamp(130px, 42vw, 160px); }
+
+  .neighborhoods { padding-inline: 12px; scroll-padding-inline: 12px; }
+  .nbh__media { height: max(160px, calc(42svh - var(--nbh-shrink, 0px))); }
+
+  .quote__player-ui { width: calc(100vw - 48px); bottom: 22px; gap: 14px; }
+  .quote__player-close, .stay-quiz__close { top: 16px; right: 16px; width: 28px; height: 28px; }
+
+  .offers { margin-inline: 0; }
+  .offer__media { height: 260px; }
+
+  .sc-form input { padding-left: 18px; }
+  .stay-connected { padding-top: 72px; }
+  .stay-connected__inner { gap: 32px; }
+  .sc-consent { margin-top: -12px; } /* mobile gap 32 − 12 = 20px */
+
+  .footer__top { flex-direction: column; }
+  .footer__cols { padding-top: 8px; gap: 2rem 2.5rem; }
+  .footer__brand { width: 100%; }
+
+  .booking { padding: 0 16px 24px; }
+  .booking__bar { margin: 0 -16px; padding: 14px 18px 10px; }
+  .booking__title { margin: 0 -16px; }
+  .booking__tabs { margin: 0 -16px 16px; padding: 0 16px; gap: 6px; }
+}
+
+/* injected mobile carousel arrow — phone-only, overlays the imagery */
+.mcar-next { display: none; }
+
+/* =============================================================
+   PHONE  —  ≤480 tightening pass
+   ============================================================= */
+@media (max-width: 480px) {
+  /* the page only ever scrolls vertically: clip the X axis outright so a
+     sideways swipe has nothing to pan or rubber-band (clip, not hidden —
+     hidden would make body a scroll container and break the sticky pins) */
+  html, body { overflow-x: clip; overscroll-behavior-x: none; }
+
+  /* headings −10% (of their mobile clamp minimums) */
+  h2 { font-size: 2.025rem; }
+  h3 { font-size: 1.71rem; }
+  h4 { font-size: 1.26rem; }
+  h5 { font-size: 1.17rem; }
+  .showcase__title { font-size: 1.944rem; }
+
+  /* reservations: fixed full-width bar at the viewport bottom */
+  .menu-bar .btn-reserve,
+  .menu-overlay .btn-reserve {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+    height: calc(52px + env(safe-area-inset-bottom));
+    padding: 4px 24px calc(0px + env(safe-area-inset-bottom));
+    border-radius: 0; transform: none;
+  }
+  .menu-bar .btn-reserve .label,
+  .menu-overlay .btn-reserve .label { font-size: 14px; }
+  body { padding-bottom: calc(52px + env(safe-area-inset-bottom)); }
+  /* menu content scrolls clear of the fixed button */
+  .menu-overlay__body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+
+  /* icon-only quick links (top right); the hamburger keeps its MENU label */
+  .menu-bar__mobile-icons { display: flex; align-items: center; gap: 14px; }
+  /* menu + icons ride the crest's vertical center: crest = top 41% of the
+     72.6px artwork (29.77px) at top 11px → group spans 11–40.77 first-view;
+     condensed centers in the 47px bar (padding 4 + 4.6 offset) */
+  .menu-bar { align-items: flex-start; }
+  .menu-bar__group {
+    gap: 12px; height: 29.77px; margin-top: -4px;
+    transition: margin-top .65s var(--ease);
+  }
+  .menu-bar.is-condensed .menu-bar__group { margin-top: 4.6px; }
+
+  /* grand stay: full-bleed panel */
+  /* quiz/plan panel fills exactly between the fixed header (47px) and the
+     fixed Reservations bar (52px + safe area) */
+  .curtain { margin: 0; border-radius: 0;
+    height: calc(100svh - 99px - env(safe-area-inset-bottom)); }
+  html.is-curtain .stage__pin { top: 47px;
+    height: calc(100svh - 99px - env(safe-area-inset-bottom)); }
+  html.is-curtain .curtain { left: 0; right: 0; border-radius: 0;
+    height: calc(100svh - 99px - env(safe-area-inset-bottom)); }
+
+  /* quiz: 2×2 option blocks, stacked result links */
+  .stay-quiz__opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; align-items: start; }
+  .stay-quiz__opt { width: 100%; }
+  .stay-quiz__actions { flex-direction: column; gap: 14px; }
+
+  /* text blocks: uniform 24px inline padding */
+  .intro__inner, .reveal__intro, .hlock__head, .quote__inner,
+  .showcase__title, .curtain__content { padding-inline: 24px; }
+  .seasonal__head { padding-inline: 8px 24px; } /* + the container's 16px = 24 left */
+  .seasonal__link { margin-left: 8px; } /* sibling of the head — match its inset */
+
+  /* carousels: 12px side offset + a leading arrow over the imagery */
+  .mcar-next {
+    position: absolute; z-index: 5; /* left is set by JS: centered on the card seam */
+    display: flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; transform: translateY(-50%);
+    border-radius: 50%; background: #fff; color: var(--del-coral);
+    border: 1px solid var(--del-coral); cursor: pointer; padding: 0;
+  }
+  .seasonal__nav { display: none; }
+  /* locked carousels: the arrow is the only driver. overflow:hidden makes
+     the track a non-scrollable area for touch — every gesture (vertical,
+     horizontal, diagonal) passes straight to the page, nothing is captured
+     or blocked (pan-y used to dead-zone sideways swipes). The arrow still
+     drives it programmatically: scrollBy works on overflow:hidden boxes. */
+  .neighborhoods, .hlock__track, .offers, .seasonal__track {
+    overflow: hidden;
+    touch-action: auto;
+    scroll-snap-type: none;
+  }
+  .neighborhoods { padding-inline: 16px; scroll-padding-inline: 16px; }
+  .hlock__track { padding-inline: 16px; scroll-padding-inline: 16px; }
+  /* text above a carousel: medium spacer down to the cards,
+     heading→paragraph gaps tightened 8px */
+  .hlock__pin { gap: var(--space-m); }
+  .reveal__intro, html.is-curtain .reveal__intro { padding-bottom: var(--space-m); }
+  .spacer--title { height: var(--space-m); }
+  .seasonal { gap: var(--space-m); }
+  .intro__inner, .reveal__intro, .hlock__head, .seasonal__head { gap: calc(1.625em - 8px); }
+  .seasonal { padding-left: 16px; }
+  .seasonal__track { padding-right: 16px; }
+
+  /* signature del: 60vh media, carousel offsets */
+  .hcard { --hcard-size: min(45svh, 85vw); } /* seasonal card width */
+  .hcard__media { aspect-ratio: auto; height: 50svh; }
+
+  /* crown jewel: stacked links */
+  .quote__links { flex-direction: column; gap: 20px; }
+
+  /* offers: carousel */
+  .offers {
+    display: flex; grid-template-columns: none; gap: 16px; /* seasonal gutter */
+    width: 100%; margin: 0; padding-inline: 16px;
+    /* overflow comes from the locked-carousels rule above (hidden) */
+  }
+  .offer { flex: 0 0 min(45svh, 85vw); } /* seasonal card width */
+  /* content stays above the image; equal-height cards + flexing bodies
+     keep every card's image at the same position for the arrow */
+  .offer__body { padding: 24px; gap: 0; } /* padding: clamp min − 4px; text→link gap: 12px − 12 */
+
+  /* seasonal: text runs full width, title on one line */
+  .seasonal__title { white-space: nowrap; }
+  .seasonal__title br { display: none; }
+  .seasonal__rail { flex-basis: auto; }
+  .seasonal__head { max-width: none; }
+  .seasonal__lede { max-width: none; }
+
+  /* stay connected: stacked form */
+  .sc-form { flex-direction: column; gap: 10px; }
+  .sc-form input { flex: none; width: 100%; height: 56px; border-radius: 12px; padding-inline: 18px; }
+  .sc-form button { width: 100%; height: 56px; border-radius: 12px; }
+
+  /* footer: even, tighter link rhythm; centered brand block */
+  .footer__cols { gap: 9px 28px; justify-content: center; }
+  .footer__col { gap: 9px; min-width: 40%; align-items: center; text-align: center; }
+  .footer__brand { width: 100%; align-items: center; text-align: center; }
+  .footer__brand-inner { align-items: center; }
+  .footer__logo { margin-inline: auto; }
+  .footer__social { justify-content: center; }
+  .footer__bottom { justify-content: center; text-align: center; }
+}
+
+/* =============================================================
+   AI CONCIERGE  —  right drawer, booking-widget language
+   ============================================================= */
+.concierge-backdrop {
+  position: fixed; inset: 0; z-index: 240; background: rgba(18, 42, 55, .4);
+  opacity: 0; transition: opacity .4s var(--ease);
+}
+.concierge-backdrop.is-on { opacity: 1; }
+.concierge {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 250;
+  width: min(500px, 100vw); background: #FAF8F6; color: #242829;
+  box-shadow: -18px 0 50px rgba(18, 42, 55, .18);
+  transform: translateX(100%); transition: transform .55s var(--ease);
+  overflow-y: auto; padding: 56px 28px 36px;
+  /* auto margins on the first/last blocks center the content vertically,
+     collapsing gracefully to a normal scroll when it overflows */
+  display: flex; flex-direction: column;
+}
+.concierge.is-open { transform: none; }
+body.concierge-open { overflow: hidden; }
+
+.concierge__close { position: absolute; top: 20px; right: 28px; width: 20px; height: 20px; background: none; border: 0; cursor: pointer; padding: 0; z-index: 2; }
+.concierge__close span { position: absolute; left: -3px; top: 9px; width: 26px; height: 1px;
+  background: #242829; transition: background .3s var(--ease); }
+.concierge__close span:first-child { transform: rotate(-45deg); }
+.concierge__close span:last-child  { transform: rotate(45deg); }
+.concierge__close:hover span { background: var(--del-coral); }
+
+.concierge__title {
+  font-size: 27px; line-height: 1.15; letter-spacing: -0.02em;
+  margin: auto 0 22px; max-width: none; /* auto top margin: vertical centering */
+}
+.concierge__ai { width: 16px; height: 16px; flex-shrink: 0; color: var(--del-coral); }
+
+/* search — booking field language */
+.concierge__search {
+  display: flex; align-items: center; gap: 10px;
+  background: #fff; border: 1px solid #F2F2F2; border-radius: 6px;
+  padding: 16px 14px;
+}
+.concierge__search input {
+  flex: 1; min-width: 0; border: 0; background: none; padding: 0;
+  font-family: var(--font-primary); font-weight: 300; font-size: 15px; color: #242829;
+}
+.concierge__search input::placeholder { color: #4a4138; opacity: .8; }
+.concierge__search input:focus-visible { outline: none; }
+.concierge__search:focus-within { border-color: var(--del-coral); }
+.concierge__search button {
+  background: none; border: 0; cursor: pointer; padding: 4px;
+  color: var(--del-coral); display: inline-flex; transition: color .3s var(--ease);
+}
+.concierge__search button:hover { color: #1B365D; }
+
+.concierge__label { /* same voice as the booking month/guests labels */
+  font-family: var(--font-primary); font-weight: 300; font-size: 17px;
+  color: #242829; margin: 26px 0 4px;
+}
+.concierge__qs { display: flex; flex-direction: column; }
+.concierge__q {
+  background: none; border: 0; cursor: pointer; text-align: left; padding: 13px 0;
+  font-family: var(--font-primary); font-weight: 300; font-size: 13px; color: var(--del-coral);
+  text-decoration: underline; text-underline-offset: 3px;
+  transition: color .3s var(--ease);
+}
+.concierge__q { padding: 8px 0; }
+.concierge__q:hover, .concierge__q:focus-visible { color: #1B365D; }
+
+.concierge__rule { border: 0; border-top: 1px solid #d5d5d5; margin: 26px 0; }
+
+.concierge__stay { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: auto; }
+.concierge__stay-title { font-size: 22px; letter-spacing: -0.02em; margin: 0 0 10px; }
+.concierge__stay-lede {
+  font-family: var(--font-primary); font-weight: 300; font-size: 15px; line-height: 1.5;
+  color: #4a4138; margin: 0 0 20px; max-width: 40ch;
+}
+.concierge__cta {
+  display: block; width: 100%; padding: 14px; border-radius: 5px; text-align: center;
+  background: var(--del-coral); color: #fff; text-decoration: none;
+  font-family: var(--font-secondary); font-weight: 600; font-size: 13px;
+  letter-spacing: .12em; text-transform: uppercase;
+  transition: background .3s var(--ease);
+}
+.concierge__cta:hover { background: #1B365D; }
+
+@media (max-width: 640px) {
+  .concierge { padding: 56px 16px 28px; }
+  .concierge__close { right: 16px; }
+}
+
+/* =============================================================
+   PRELOADER  —  the crest holds the ivory ground while webfonts
+   and layout settle; the site then re-measures and fades in.
+   ============================================================= */
+.preloader {
+  position: fixed; inset: 0; z-index: 999; background: var(--ivory);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .6s var(--ease);
+}
+.preloader.is-done { opacity: 0; pointer-events: none; }
+.preloader__crest { width: 180px; height: 44.65px; overflow: hidden; } /* crest = top 41% of the artwork */
+.preloader__crest img { width: 100%; height: auto; display: block; animation: preloader-pulse 1.8s ease-in-out infinite; }
+@keyframes preloader-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .4; }
+}
+body.preloading { overflow: hidden; }
+
+/* =============================================================
+   VIDEO PLAY/PAUSE  —  32px compliance control on autoplaying video
+   ============================================================= */
+.vid-toggle {
+  position: absolute; bottom: 24px; right: 24px; z-index: 5;
+  width: 28px; height: 28px; border-radius: 50%; opacity: .7;
+  background: rgba(0, 0, 0, .5); border: 0; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; padding: 0;
+  transition: background .3s var(--ease), border-color .3s var(--ease), opacity .3s var(--ease);
+}
+.vid-toggle:hover, .vid-toggle:focus-visible { background: var(--del-coral); opacity: 1; }
+.vid-toggle svg { width: 10px; height: 11px; display: block; }
+/* neighborhood cards: control rides the card imagery */
+.nbh__media .vid-toggle { bottom: 12px; right: 12px; }
+/* hero: the section is 110vh — lift the control above the fold so it's
+   visible in the first viewport (10vh of section hangs below) */
+.showcase .vid-toggle { bottom: calc(10vh + 24px); }
+.vid-toggle .vt-play { display: none; }
+.vid-toggle.is-paused .vt-play { display: block; }
+.vid-toggle.is-paused .vt-pause { display: none; }
+/* quiz: only relevant while the result video blooms */
+.stay-quiz .vid-toggle { display: none; bottom: 16px; right: 16px; }
+.stay-quiz__bgvideo.is-on ~ .vid-toggle { display: flex; }
+@media (max-width: 480px) {
+  /* clear the fixed Reservations bar under the hero */
+  .showcase .vid-toggle { bottom: calc(64px + env(safe-area-inset-bottom)); right: 16px; }
+}
