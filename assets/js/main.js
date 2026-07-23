@@ -155,7 +155,7 @@
 
   /* ---- Showcase title: drifts down at 1/4 scroll speed and fades ---- */
   var showTitle = document.querySelector(".showcase__title");
-  var prefersReducedST = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var prefersReducedST = false; /* v1 variant: always play — OS reduce-motion intentionally ignored */
   if (showTitle && !prefersReducedST) {
     showTitle.style.willChange = "transform, opacity";
     var stTicking = false;
@@ -175,7 +175,7 @@
   /* ---- Curtain reveal: panel lifts as the stage scrolls through ---- */
   var stage = document.querySelector("[data-stage]");
   var curtain = document.querySelector("[data-curtain]");
-  var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var prefersReduced = false; /* v1 variant: always play — OS reduce-motion intentionally ignored */
   if (stage && curtain && !prefersReduced) {
     var media = curtain.querySelector(".curtain__media img");
     var reveal = stage.querySelector(".reveal");
