@@ -1,0 +1,39 @@
+name: Pages preview (multi-branch)
+
+on:
+  push:
+    branches: ['**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Determine target folder
+        id: target
+        run: |
+          if [ "${GITHUB_REF_NAME}" = "main" ]; then
+            echo "folder=." >> "$GITHUB_OUTPUT"
+          else
+            safe="${GITHUB_REF_NAME//\//-}"
+            echo "folder=branches/${safe}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: .
+          target-folder: ${{ steps.target.outputs.folder }}
+          clean: false
+          single-commit: false
+          commit-message: 'Deploy ${{ github.ref_name }} @ ${{ github.sha }}'
