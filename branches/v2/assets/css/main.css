@@ -1767,3 +1767,15 @@ body.preloading { overflow: hidden; }
   /* clear the fixed Reservations bar under the hero */
   .showcase .vid-toggle { bottom: calc(64px + env(safe-area-inset-bottom)); right: 16px; }
 }
+
+/* =============================================================
+   V2 VARIANT — blanket reduce-motion kill (MDN pattern):
+   when the OS asks for reduced motion, all CSS animations and
+   transitions complete near-instantly instead of playing.
+   ============================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
