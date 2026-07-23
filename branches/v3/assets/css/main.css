@@ -617,6 +617,16 @@ html.js-quote .quote.is-read .quote__inner { opacity: 1; transform: none; }
    OFFERS  —  three-up cards (Figma 17:452)
    White card, 12px radius: text block (40px pad) over 320px image.
    ============================================================= */
+/* head: title stays page-centered; the View All CTA hangs at the grid's
+   right edge, bottom-aligned to the title text */
+.offers__head { position: relative; width: min(1440px, 100% - 48px); margin-inline: auto; }
+.offers__all {
+  position: absolute; right: 0; bottom: 4px;
+  font-family: var(--font-secondary); font-weight: 600; font-size: 13px;
+  letter-spacing: .1em; text-transform: uppercase; white-space: nowrap;
+}
+@media (max-width: 720px) { .offers__head { display: flex; flex-direction: column; align-items: center; gap: 18px; } .offers__all { position: static; } }
+
 .offers {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
   width: min(1440px, 100% - 48px); margin-inline: auto;
