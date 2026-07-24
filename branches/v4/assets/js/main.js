@@ -251,6 +251,9 @@
         media.style.transform = "translateY(" + ((gp * 2 - 1) * 0.105 * vh) + "px)";
       }
       curtain.style.pointerEvents = p >= 1 ? "none" : "";
+      /* the reveal fades in over the first quarter of the lift — before the
+         lift starts it is invisible, so nothing shows in the curtain margins */
+      if (reveal) reveal.style.opacity = Math.min(p / 0.25, 1);
       if (xTrack && panBudget > 0) {
         var q = Math.min(Math.max(((g.top - top) - liftBudget) / panBudget, 0), 1);
         xTrack.style.transform = "translateX(" + (-q * panDist) + "px)";
