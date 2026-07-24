@@ -442,6 +442,17 @@ html.is-curtain .reveal__intro { padding-block: 0 var(--space-m); }
   margin: 0 24px;
 }
 .nbh { display: flex; flex-direction: column; text-decoration: none; color: var(--text); }
+/* v5: two wide stay-category cards instead of the five neighborhoods */
+.neighborhoods--duo {
+  grid-template-columns: repeat(2, 40%); justify-content: center; gap: 24px;
+  width: calc(100% - 48px); margin-inline: auto; /* each card 40% wide, pair centered */
+}
+.nbh--wide .nbh__media { height: max(160px, calc(min(66svh, 620px) - var(--nbh-shrink, 0px))); max-height: none; }
+.nbh--wide .nbh__caption {
+  display: flex; flex-direction: column; gap: 10px; align-items: flex-start; text-align: left;
+  width: 100%; padding-inline: 24px; /* full-width content, indented 24px each side */
+}
+.nbh__desc { margin: 0; font-size: 15px; line-height: 1.5; letter-spacing: -0.01em; color: var(--text); }
 .nbh__media {
   position: relative; border-radius: 12px; overflow: hidden;
   /* --nbh-shrink: measured by the curtain JS so the whole reveal fits
