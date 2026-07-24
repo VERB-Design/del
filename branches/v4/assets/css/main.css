@@ -532,7 +532,7 @@ a.hcard { text-decoration: none; color: inherit; }
    viewport top: the pin sticks a spacer-height down so the module gap
    stays on screen */
 html.is-hlock .hlock__pin {
-  position: sticky; top: var(--space-l); height: calc(100svh - var(--space-l)); overflow: clip;
+  position: sticky; top: calc(var(--space-l) - 10px); height: calc(100svh - var(--space-l) + 10px); overflow: clip;
 }
 html.is-hlock .hlock__track { overflow-x: visible; scroll-snap-type: none; will-change: transform; }
 

@@ -624,14 +624,11 @@
        nav and the panel, and the panel and the viewport bottom (same
        landing as the concierge hand-off); phones sit flush under the header */
     var quizAlignScroll = function () {
-      var st = document.querySelector("[data-stage]");
+      var st = document.querySelector("[data-curtain]");
       if (!st) return;
       var vh = window.innerHeight;
-      var mobileQ = window.matchMedia("(max-width: 480px)").matches;
-      var panelTop = mobileQ ? 47 : (55 / 2) + vh * 0.05; /* desktop condensed nav is 55px */
-      /* desktop: the curtain sits 10svh into the full-viewport pin */
-      var curtainOffset = mobileQ ? 0 : vh * 0.1;
-      window.scrollTo({ top: st.getBoundingClientRect().top + window.scrollY + curtainOffset - panelTop, behavior: "smooth" });
+      var panelTop = window.matchMedia("(max-width: 480px)").matches ? 47 : (55 / 2) + vh * 0.05; /* desktop condensed nav is 55px */
+      window.scrollTo({ top: st.getBoundingClientRect().top + window.scrollY - panelTop, behavior: "smooth" });
     };
     quizOpenBtn.addEventListener("click", function () { quizAlignScroll(); quizOpen(); });
     quizCloseBtn.addEventListener("click", quizClose);
