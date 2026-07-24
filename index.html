@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
   <link rel="stylesheet" href="https://use.typekit.net/ras5jtc.css">
   <link rel="stylesheet" href="assets/css/tokens.css?v=7">
-  <link rel="stylesheet" href="assets/css/main.css?v=238">
+  <link rel="stylesheet" href="assets/css/main.css?v=239">
   <link rel="preload" as="image" href="assets/img/lobby.webp" fetchpriority="high">
 </head>
 <body>
@@ -143,11 +143,7 @@
 
     <div class="spacer spacer--xl" aria-hidden="true"></div>
 
-    <!-- CURTAIN STAGE: panel lifts to reveal neighborhoods pinned beneath -->
-    <div class="stage" data-stage>
-    <div class="stage__pin">
-
-    <!-- CURTAIN PANEL (lifts on scroll) -->
+    <!-- STAY PANEL — normal scroll (v4: no curtain choreography) -->
     <section class="curtain" id="stay" data-curtain aria-label="A Grand Stay Awaits">
       <div class="curtain__media">
         <img src="assets/img/lobby.webp"
@@ -174,14 +170,16 @@
       </aside>
     </section>
 
-    <!-- REVEAL: explore the neighborhood -->
-    <section class="reveal" aria-label="Signature Del">
-      <div class="reveal__intro">
-        <h2 class="reveal__title" data-reveal>Signature Del</h2>
-        <p class="reveal__lede" data-reveal>From active mornings to lively afternoons that carry into memorable evenings, The Del moves to its own rhythm.</p>
-      </div>
+    <div class="spacer spacer--l" aria-hidden="true"></div>
 
-      <div class="hlock__track">
+    <!-- SIGNATURE DEL EXPERIENCES — pinned horizontal pan -->
+    <section class="hlock" data-hlock aria-label="Signature Del">
+      <div class="hlock__pin">
+        <div class="hlock__head">
+          <h2 class="intro__title" data-reveal>Signature Del</h2>
+          <p class="intro__lede" data-reveal>From active mornings to lively afternoons that carry into memorable evenings, The Del moves to its own rhythm.</p>
+        </div>
+        <div class="hlock__track">
         <a class="hcard" href="#" data-reveal>
           <span class="hcard__media"><img loading="lazy" src="assets/img/1.webp" alt="Endless Experiences at The Del"
               onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');"></span>
@@ -211,12 +209,10 @@
               onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');"></span>
           <h3 class="hcard__title">Just for the Day</h3>
         </a>
+        </div>
       </div>
-
     </section>
 
-    </div><!-- /.stage__pin -->
-    </div><!-- /.stage -->
 
     <div class="spacer spacer--s" aria-hidden="true"></div>
 
@@ -582,6 +578,6 @@
     </div>
   </aside>
 
-  <script src="assets/js/main.js?v=81" defer></script>
+  <script src="assets/js/main.js?v=82" defer></script>
 </body>
 </html>
