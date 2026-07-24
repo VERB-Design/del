@@ -36,7 +36,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-primary); font-weight: 300; lin
 h1 { font-size: clamp(2.025rem, 1.682rem + 1.46vw, 3rem); }       /* 32.4 → 48px */
 h2 { font-size: clamp(1.688rem, 1.401rem + 1.22vw, 2.5rem); }     /* 27 → 40px */
 h3 { font-size: clamp(1.35rem, 1.121rem + 0.977vw, 2rem); line-height: 1.2; }     /* 21.6 → 32px */
-h4 { font-size: clamp(1.013rem, 0.841rem + 0.732vw, 1.5rem); line-height: 1.2; }  /* 16.2 → 24px */
+h4 { font-size: clamp(1.139rem, 0.946rem + 0.824vw, 1.6875rem); line-height: 1.2; } /* 18.2 → 27px */
 h5 { font-size: clamp(1.013rem, 0.841rem + 0.732vw, 1.5rem); line-height: 1.2; }  /* 16.2 → 24px */
 h6 { font-size: clamp(0.886rem, 0.736rem + 0.641vw, 1.3125rem); line-height: 1.2; } /* 14.2 → 21px */
 .h-hero { font-size: var(--step-5); letter-spacing: -0.01em; }
