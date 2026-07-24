@@ -1890,3 +1890,8 @@ body.preloading { overflow: hidden; }
 @media (max-width: 480px) {
   .seasonal__rail { margin-right: 16px; } /* phone container inset is 16px */
 }
+
+/* v4 phones: bigger beat between the experiences pan and Always in Season */
+@media (max-width: 900px) {
+  .hlock + .spacer--s { height: var(--space-l); }
+}
