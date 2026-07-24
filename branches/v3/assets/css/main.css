@@ -1862,3 +1862,16 @@ body.preloading { overflow: hidden; }
 @media (max-width: 640px) {
   .menu-toggle .ui-label { font-size: 12px; }
 }
+
+/* mobile: the seasonal rail centers as a unit (desktop keeps the left rail) */
+@media (max-width: 900px) {
+  /* container has left-only padding (track bleeds right) — matching
+     right margin recenters the rail on the true viewport axis */
+  .seasonal__rail { align-items: center; margin-right: 24px; }
+  .seasonal__head { align-items: center; text-align: center; padding-inline: 24px; }
+  .seasonal__link { align-self: center; margin-left: 0; }
+  .seasonal__nav { align-self: center; }
+}
+@media (max-width: 480px) {
+  .seasonal__rail { margin-right: 16px; } /* phone container inset is 16px */
+}
