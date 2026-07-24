@@ -176,7 +176,7 @@
   var stage = document.querySelector("[data-stage]");
   var curtain = document.querySelector("[data-curtain]");
   var prefersReduced = false; /* full-fidelity prototype: OS reduce-motion is intentionally ignored */
-  if (stage && curtain && !prefersReduced) {
+  if (stage && curtain && !prefersReduced && window.matchMedia("(min-width: 901px)").matches) { /* v5: phones get flowing curtain + stacked stays */
     var media = curtain.querySelector(".curtain__media img");
     var reveal = stage.querySelector(".reveal");
     document.documentElement.classList.add("is-curtain");
@@ -247,6 +247,46 @@
     window.addEventListener("load", function () { sizeStage(); applyCurtain(); });
   }
 
+  /* ---- v5 phones: curtain reveal without a fixed-size pin — the panel and
+     the (taller-than-viewport) stays content BOTH stick while the panel
+     lifts, so the content is stationary during the reveal, then everything
+     releases and scrolls naturally ---- */
+  var cfStage = document.querySelector("[data-stage]");
+  var cfCurtain = document.querySelector("[data-curtain]");
+  var cfReveal = cfStage ? cfStage.querySelector(".reveal") : null;
+  if (cfStage && cfCurtain && cfReveal && window.matchMedia("(max-width: 900px)").matches) {
+    document.documentElement.classList.add("is-curtain-flow");
+    var cfPin = cfCurtain.parentElement;
+    var cfBudget = 1, cfTick = false;
+    var cfTop = function () { return window.matchMedia("(max-width: 480px)").matches ? 47 : 55; };
+    var cfMeasure = function () {
+      var topOff = cfTop();
+      cfBudget = cfCurtain.offsetHeight + topOff; /* travel to fully exit */
+      /* the reveal hides underneath the panel (same flow slot) and both
+         stick at the header line; the pin is tall enough that they stay
+         stuck for exactly the lift */
+      cfReveal.style.marginTop = (-cfCurtain.offsetHeight) + "px";
+      cfReveal.style.top = topOff + "px";
+      cfCurtain.style.top = topOff + "px";
+      cfPin.style.height = (cfReveal.offsetHeight + cfBudget) + "px";
+    };
+    var cfApply = function () {
+      var top = cfStage.getBoundingClientRect().top;
+      var p = Math.min(Math.max((cfTop() - top) / cfBudget, 0), 1);
+      cfCurtain.style.transform = "translateY(" + (-p * cfBudget) + "px)";
+      cfCurtain.style.pointerEvents = p >= 1 ? "none" : "";
+      /* content fades in as the lift begins so its tail never shows early */
+      cfReveal.style.opacity = Math.min(p / 0.2, 1);
+      cfTick = false;
+    };
+    window.addEventListener("scroll", function () {
+      if (!cfTick) { window.requestAnimationFrame(cfApply); cfTick = true; }
+    }, { passive: true });
+    window.addEventListener("resize", function () { cfMeasure(); cfApply(); });
+    window.addEventListener("load", function () { cfMeasure(); cfApply(); });
+    cfMeasure(); cfApply();
+  }
+
   /* ---- Horizontal lock: vertical scroll pans the track while pinned ----
      Desktop only: on mobile the track is a native swipe carousel */
   var hlock = document.querySelector("[data-hlock]");
@@ -295,7 +335,6 @@
      actually behaves as a carousel (desktop grids/pans stay untouched). */
   var foreverApis = {};
   [
-    { sel: ".neighborhoods", mq: "(max-width: 900px)" },
     { sel: ".hlock__track", mq: "(max-width: 900px)" },
     { sel: ".offers", mq: "(max-width: 480px)" }
   ].forEach(function (def) {
@@ -1106,7 +1145,6 @@
   /* ---- Mobile carousel arrow: one leading control over the imagery ---- */
   var MCAR_NEXT_SVG = '<svg width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true"><path d="M1 5H21M21 5L16.5 1M21 5L16.5 9" stroke="currentColor" stroke-width="1.2"/></svg>';
   [
-    { track: ".neighborhoods", media: ".nbh__media" },
     { track: ".hlock__track", media: ".hcard__media" },
     { track: ".offers", media: ".offer__media" },
     { track: ".seasonal__track", media: ".scard__media" }
