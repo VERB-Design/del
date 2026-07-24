@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
   <link rel="stylesheet" href="https://use.typekit.net/ras5jtc.css">
   <link rel="stylesheet" href="assets/css/tokens.css?v=7">
-  <link rel="stylesheet" href="assets/css/main.css?v=211">
+  <link rel="stylesheet" href="assets/css/main.css?v=217">
   <link rel="preload" as="image" href="assets/img/lobby.webp" fetchpriority="high">
 </head>
 <body>
@@ -175,71 +175,32 @@
     <section class="reveal" aria-label="Stays for Every Style">
       <div class="reveal__intro">
         <h2 class="reveal__title" data-reveal>Stays for Every Style</h2>
-        <p class="reveal__lede" data-reveal>Each neighborhood offers its own distinct lens into The Del lifestyle. From <a class="reveal__roomlink" href="#">Rooms &amp; Suites</a> to <a class="reveal__roomlink" href="#">Cottages &amp; Villas</a>, you choose the setting, pace, and atmosphere that’s right for you.</p>
       </div>
 
-      <div class="neighborhoods">
-        <a class="nbh" href="#" data-reveal>
-          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
-              <source src="assets/img/the_victorian.mp4" type="video/mp4">
-            </video>
-          </span>
+      <div class="neighborhoods neighborhoods--duo">
+        <div class="nbh nbh--wide" data-reveal>
+          <span class="nbh__media"><img loading="lazy" src="assets/img/rooms-suites.webp" alt="A guest room at The Del"
+              onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');"></span>
           <div class="nbh__caption">
-            <h3 class="nbh__name">The Victorian</h3>
-            <span class="nbh__feel">Historic &amp; Romantic</span>
+            <h3 class="nbh__name">Rooms &amp; Suites</h3>
+            <p class="nbh__desc">Rooms and suites available in three distinct neighborhoods: the iconic <a class="reveal__roomlink" href="#">Victorian</a>, the lively <a class="reveal__roomlink" href="#">Cabanas</a>, and the contemporary <a class="reveal__roomlink" href="#">Views</a>.</p>
           </div>
-        </a>
+        </div>
 
-        <a class="nbh" href="#" data-reveal>
-          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
-              <source src="assets/img/cabanas.mp4" type="video/mp4">
-            </video>
-          </span>
+        <div class="nbh nbh--wide" data-reveal>
+          <span class="nbh__media"><img loading="lazy" src="assets/img/villas-cottages.webp" alt="A villa living room at The Del"
+              onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');"></span>
           <div class="nbh__caption">
-            <h3 class="nbh__name">The Cabanas</h3>
-            <span class="nbh__feel">Vibrant &amp; Playful</span>
+            <h3 class="nbh__name">Villas &amp; Cottages</h3>
+            <p class="nbh__desc">Discover The Del&rsquo;s most exclusive neighborhoods at <a class="reveal__roomlink" href="#">Shore House</a> and <a class="reveal__roomlink" href="#">Beach Village</a>, with curated amenities reserved for our guests.</p>
           </div>
-        </a>
-
-        <a class="nbh" href="#" data-reveal>
-          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
-              <source src="assets/img/views.mp4" type="video/mp4">
-            </video>
-          </span>
-          <div class="nbh__caption">
-            <h3 class="nbh__name">The Views</h3>
-            <span class="nbh__feel">Peaceful &amp; Restorative</span>
-          </div>
-        </a>
-
-        <a class="nbh" href="#" data-reveal>
-          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
-              <source src="assets/img/shore-house.mp4" type="video/mp4">
-            </video>
-          </span>
-          <div class="nbh__caption">
-            <h3 class="nbh__name">Shore House</h3>
-            <span class="nbh__feel">Relaxed &amp; Social</span>
-          </div>
-        </a>
-
-        <a class="nbh" href="#" data-reveal>
-          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
-              <source src="assets/img/Beach-Village.mp4" type="video/mp4">
-            </video>
-          </span>
-          <div class="nbh__caption">
-            <h3 class="nbh__name">Beach Village</h3>
-            <span class="nbh__feel">Exclusive &amp; Intimate</span>
-          </div>
-        </a>
+        </div>
       </div>
+
     </section>
 
     </div><!-- /.stage__pin -->
     </div><!-- /.stage -->
-
-    <div class="spacer spacer--l" aria-hidden="true"></div>
 
     <!-- SIGNATURE DEL EXPERIENCES — full-viewport scroll takeover (Figma 11:878) -->
     <section class="hlock" data-hlock aria-label="Signature Del">
