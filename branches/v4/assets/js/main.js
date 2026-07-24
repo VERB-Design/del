@@ -179,6 +179,8 @@
   if (stage && curtain && !prefersReduced) {
     var media = curtain.querySelector(".curtain__media img");
     var reveal = stage.querySelector(".reveal");
+    var xTrack = reveal ? reveal.querySelector(".hlock__track") : null;
+    var panDist = 0, panBudget = 0;
     document.documentElement.classList.add("is-curtain");
     /* the lift's travel = the reveal's natural height: the curtain stops when
        its bottom edge meets the reveal's top, then everything scrolls as one */
@@ -192,7 +194,7 @@
         var btnH = rbtn ? rbtn.offsetHeight : 52;
         return { top: 47, h: vh - 47 - btnH };
       }
-      return { top: vh * 0.1, h: vh * 0.9 };
+      return { top: 0, h: vh }; /* v4: full-viewport pin, centered reveal */
     };
     var sizeStage = function () {
       var g = pinGeom();
@@ -217,9 +219,22 @@
           }
         }
       }
-      liftBudget = Math.min(reveal.offsetHeight, g.h);
-      /* lift runs stick -> release exactly */
-      stage.style.height = (g.h + liftBudget) + "px";
+      /* the panel always travels its full initial bottom edge (g.top + g.h)
+         so it clears the viewport completely */
+      liftBudget = g.top + g.h;
+      /* phase 2: once the curtain is up, extra scroll budget pans the track
+         horizontally while the stage stays pinned (desktop only — mobile
+         gets the native swipe carousel) */
+      panDist = 0; panBudget = 0;
+      if (xTrack && window.matchMedia("(min-width: 901px)").matches) {
+        var xCards = xTrack.children;
+        var xLast = xCards[xCards.length - 1];
+        var xContentW = xLast.offsetLeft + xLast.offsetWidth + window.innerWidth * 0.04;
+        panDist = Math.max(xContentW - window.innerWidth, 0);
+        panBudget = panDist / 0.7;
+      }
+      /* lift runs stick -> release exactly, then the pan holds the pin */
+      stage.style.height = (g.h + liftBudget + panBudget) + "px";
     };
     var ticking = false;
     var applyCurtain = function () {
@@ -236,6 +251,10 @@
         media.style.transform = "translateY(" + ((gp * 2 - 1) * 0.105 * vh) + "px)";
       }
       curtain.style.pointerEvents = p >= 1 ? "none" : "";
+      if (xTrack && panBudget > 0) {
+        var q = Math.min(Math.max(((g.top - top) - liftBudget) / panBudget, 0), 1);
+        xTrack.style.transform = "translateX(" + (-q * panDist) + "px)";
+      }
       ticking = false;
     };
     var onCurtainScroll = function () {
@@ -605,9 +624,11 @@
       var st = document.querySelector("[data-stage]");
       if (!st) return;
       var vh = window.innerHeight;
-      var panelTop = window.matchMedia("(max-width: 480px)").matches
-        ? 47 : (55 / 2) + vh * 0.05; /* desktop condensed nav is 55px */
-      window.scrollTo({ top: st.getBoundingClientRect().top + window.scrollY - panelTop, behavior: "smooth" });
+      var mobileQ = window.matchMedia("(max-width: 480px)").matches;
+      var panelTop = mobileQ ? 47 : (55 / 2) + vh * 0.05; /* desktop condensed nav is 55px */
+      /* desktop: the curtain sits 10svh into the full-viewport pin */
+      var curtainOffset = mobileQ ? 0 : vh * 0.1;
+      window.scrollTo({ top: st.getBoundingClientRect().top + window.scrollY + curtainOffset - panelTop, behavior: "smooth" });
     };
     quizOpenBtn.addEventListener("click", function () { quizAlignScroll(); quizOpen(); });
     quizCloseBtn.addEventListener("click", quizClose);
