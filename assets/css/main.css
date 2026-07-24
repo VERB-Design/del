@@ -390,6 +390,7 @@ body.nav-open { overflow: hidden; }
 .curtain__head { display: flex; flex-direction: column; gap: calc(1.625em - 24px); }
 .curtain__title { letter-spacing: -0.02em; line-height: 1.08; max-width: 16ch; }
 .curtain__lede { font-size: clamp(1rem, 0.95rem + 0.35vw, 1.125rem); line-height: 1.45; letter-spacing: -0.02em; max-width: 38ch; color: rgba(251,247,239,.92); }
+.curtain__ctas { display: flex; align-items: center; gap: clamp(1.5rem, 3vw, 2.5rem); }
 .curtain__cta {
   font-family: var(--font-secondary); font-weight: 600; font-size: .8125rem;
   letter-spacing: .1em; text-transform: uppercase;
@@ -401,11 +402,16 @@ body.nav-open { overflow: hidden; }
    The stage's extra height (100svh) is the scroll budget that drives the lift. */
 html.is-curtain .stage { position: relative; } /* height set by JS: 100svh + reveal height */
 html.is-curtain .stage__pin {
-  /* pin matches the 90svh panel (stuck 10svh down) — no phantom band above,
-     so the page's spacer owns the gap before the stage */
-  position: sticky; top: 10svh; height: 90svh;
-  display: flex; flex-direction: column; justify-content: flex-end;
+  /* v4: full-viewport pin, content centered — the curtain still starts
+     10svh down (it is 90svh, bottom-anchored in the 100svh pin) and the
+     revealed experiences center in the whole viewport */
+  position: sticky; top: 0; height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
 }
+html.is-curtain .reveal { padding-block: 0; } /* flex centering owns the vertical position */
+/* the curtain sits 10svh into the pin — pull the stage up by the same amount
+   so the spacer above owns the visible gap (mobile pin has no inset) */
+@media (min-width: 481px) { html.is-curtain .stage { margin-top: -10svh; } }
 html.is-curtain .curtain {
   /* 90svh, anchored to the pin bottom: the bottom-aligned reveal beneath
      stays fully covered until the lift uncovers it */
@@ -507,6 +513,12 @@ html.is-curtain .reveal__intro { padding-block: 0 var(--space-m); }
   letter-spacing: -0.02em; color: var(--text);
 }
 a.hcard { text-decoration: none; color: inherit; }
+
+/* v4: the curtain reveals the Signature Del pan — cards live inside the
+   reveal; the fit vars (--nbh-shrink) shrink card width if the pin is short */
+.reveal { --hcard-size: min(54svh, 40vw); }
+.reveal .hcard { width: calc(var(--hcard-size) - var(--nbh-shrink, 0px)); }
+html.is-curtain .reveal .hlock__track { overflow: visible; scroll-snap-type: none; will-change: transform; }
 
 /* fallback: native horizontal scroll on the track (no-JS or reduced-motion) */
 .hlock__track { overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: none; }

@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
   <link rel="stylesheet" href="https://use.typekit.net/ras5jtc.css">
   <link rel="stylesheet" href="assets/css/tokens.css?v=7">
-  <link rel="stylesheet" href="assets/css/main.css?v=211">
+  <link rel="stylesheet" href="assets/css/main.css?v=216">
   <link rel="preload" as="image" href="assets/img/lobby.webp" fetchpriority="high">
 </head>
 <body>
@@ -159,7 +159,10 @@
           <h2 class="curtain__title">Find Your Perfect Stay</h2>
           <p class="curtain__lede">One destination. Five unique ways to take it in. What kind of trip are you in the mood for?</p>
         </div>
-        <a class="curtain__cta link-lined" href="#" data-quiz-open>Take Our Quiz</a>
+        <div class="curtain__ctas">
+          <a class="curtain__cta link-lined" href="#" data-quiz-open>Take Our Quiz</a>
+          <a class="curtain__cta link-lined" href="#">Explore Accommodations</a>
+        </div>
       </div>
 
       <!-- STAY FINDER — 3 questions -> one of the five neighborhoods -->
@@ -172,134 +175,50 @@
     </section>
 
     <!-- REVEAL: explore the neighborhood -->
-    <section class="reveal" aria-label="Stays for Every Style">
+    <section class="reveal" aria-label="Signature Del">
       <div class="reveal__intro">
-        <h2 class="reveal__title" data-reveal>Stays for Every Style</h2>
-        <p class="reveal__lede" data-reveal>Each neighborhood offers its own distinct lens into The Del lifestyle. From <a class="reveal__roomlink" href="#">Rooms &amp; Suites</a> to <a class="reveal__roomlink" href="#">Cottages &amp; Villas</a>, you choose the setting, pace, and atmosphere that’s right for you.</p>
+        <h2 class="reveal__title" data-reveal>Signature Del</h2>
+        <p class="reveal__lede" data-reveal>From active mornings to lively afternoons that carry into memorable evenings, The Del moves to its own rhythm.</p>
       </div>
 
-      <div class="neighborhoods">
-        <a class="nbh" href="#" data-reveal>
-          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
-              <source src="assets/img/the_victorian.mp4" type="video/mp4">
-            </video>
-          </span>
-          <div class="nbh__caption">
-            <h3 class="nbh__name">The Victorian</h3>
-            <span class="nbh__feel">Historic &amp; Romantic</span>
-          </div>
+      <div class="hlock__track">
+        <a class="hcard" href="#" data-reveal>
+          <span class="hcard__media"><img loading="lazy" src="assets/img/1.webp" alt="Endless Experiences at The Del"
+              onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');"></span>
+          <h3 class="hcard__title">Endless Experiences</h3>
         </a>
 
-        <a class="nbh" href="#" data-reveal>
-          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
-              <source src="assets/img/cabanas.mp4" type="video/mp4">
-            </video>
-          </span>
-          <div class="nbh__caption">
-            <h3 class="nbh__name">The Cabanas</h3>
-            <span class="nbh__feel">Vibrant &amp; Playful</span>
-          </div>
+        <a class="hcard" href="#" data-reveal>
+          <span class="hcard__media"><img loading="lazy" src="assets/img/3.webp" alt="Oceanfront Dining at The Del"
+              onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');"></span>
+          <h3 class="hcard__title">Oceanfront Dining</h3>
         </a>
 
-        <a class="nbh" href="#" data-reveal>
-          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
-              <source src="assets/img/views.mp4" type="video/mp4">
-            </video>
-          </span>
-          <div class="nbh__caption">
-            <h3 class="nbh__name">The Views</h3>
-            <span class="nbh__feel">Peaceful &amp; Restorative</span>
-          </div>
+        <a class="hcard" href="#" data-reveal>
+          <span class="hcard__media"><img loading="lazy" src="assets/img/16.webp" alt="Calendar of Events at The Del"
+              onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');"></span>
+          <h3 class="hcard__title">Calendar of Events</h3>
         </a>
 
-        <a class="nbh" href="#" data-reveal>
-          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
-              <source src="assets/img/shore-house.mp4" type="video/mp4">
-            </video>
-          </span>
-          <div class="nbh__caption">
-            <h3 class="nbh__name">Shore House</h3>
-            <span class="nbh__feel">Relaxed &amp; Social</span>
-          </div>
+        <a class="hcard" href="#" data-reveal>
+          <span class="hcard__media"><img loading="lazy" src="assets/img/2.webp" alt="Curated Itineraries at The Del"
+              onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');"></span>
+          <h3 class="hcard__title">Curated Itineraries</h3>
         </a>
 
-        <a class="nbh" href="#" data-reveal>
-          <span class="nbh__media"><video class="nbh__video" muted loop playsinline preload="metadata" aria-hidden="true">
-              <source src="assets/img/Beach-Village.mp4" type="video/mp4">
-            </video>
-          </span>
-          <div class="nbh__caption">
-            <h3 class="nbh__name">Beach Village</h3>
-            <span class="nbh__feel">Exclusive &amp; Intimate</span>
-          </div>
+        <a class="hcard" href="#" data-reveal>
+          <span class="hcard__media"><img loading="lazy" src="assets/img/13.webp" alt="Just for the Day at The Del"
+              onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');"></span>
+          <h3 class="hcard__title">Just for the Day</h3>
         </a>
       </div>
+
     </section>
 
     </div><!-- /.stage__pin -->
     </div><!-- /.stage -->
 
-    <div class="spacer spacer--l" aria-hidden="true"></div>
-
-    <!-- SIGNATURE DEL EXPERIENCES — full-viewport scroll takeover (Figma 11:878) -->
-    <section class="hlock" data-hlock aria-label="Signature Del">
-      <div class="hlock__pin">
-        <div class="hlock__head">
-          <h2 class="intro__title" data-reveal>Signature Del</h2>
-          <p class="intro__lede" data-reveal>From active mornings to lively afternoons that carry into memorable evenings, The Del moves to its own rhythm.</p>
-        </div>
-        <div class="hlock__track">
-
-          <a class="hcard" href="#">
-            <span class="hcard__media">
-              <img loading="lazy" src="assets/img/1.webp"
-                   alt="Signature experiences at The Del"
-                   onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
-            </span>
-            <h3 class="hcard__title">Endless Experiences</h3>
-          </a>
-
-          <a class="hcard" href="#">
-            <span class="hcard__media">
-              <img loading="lazy" src="assets/img/3.webp"
-                   alt="Dining on the ocean at The Del"
-                   onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
-            </span>
-            <h3 class="hcard__title">Oceanfront Dining</h3>
-          </a>
-
-          <a class="hcard" href="#">
-            <span class="hcard__media">
-              <img loading="lazy" src="assets/img/16.webp"
-                   alt="Events at The Del"
-                   onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
-            </span>
-            <h3 class="hcard__title">Calendar of Events</h3>
-          </a>
-
-          <a class="hcard" href="#">
-            <span class="hcard__media">
-              <img loading="lazy" src="assets/img/2.webp"
-                   alt="Curated itineraries at The Del"
-                   onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
-            </span>
-            <h3 class="hcard__title">Curated Itineraries</h3>
-          </a>
-
-          <a class="hcard" href="#">
-            <span class="hcard__media">
-              <img loading="lazy" src="assets/img/13.webp"
-                   alt="A day at The Del"
-                   onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback');">
-            </span>
-            <h3 class="hcard__title">Just for the Day</h3>
-          </a>
-
-        </div>
-      </div>
-    </section>
-
-    <div class="spacer spacer--xl" aria-hidden="true"></div>
+    <div class="spacer spacer--s" aria-hidden="true"></div>
 
     <!-- SEASONAL HIGHLIGHTS — rail + carousel (Figma 3152:7352) -->
     <section class="seasonal" aria-label="Seasonal Highlights">
@@ -663,6 +582,6 @@
     </div>
   </aside>
 
-  <script src="assets/js/main.js?v=76" defer></script>
+  <script src="assets/js/main.js?v=80" defer></script>
 </body>
 </html>
